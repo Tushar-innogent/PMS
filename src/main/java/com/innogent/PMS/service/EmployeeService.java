@@ -1,4 +1,8 @@
 package com.innogent.PMS.service;
 
-public class EmployeeService {
+import com.innogent.PMS.entities.Employee;
+
+public interface EmployeeService {
+//    public Employee register(Employee employee);
+
 }
