@@ -1,8 +1,7 @@
 package com.innogent.PMS.controller;
 
-import com.innogent.PMS.entities.Employee;
-import com.innogent.PMS.repository.EmployeeRepository;
-import com.innogent.PMS.service.EmployeeService;
+import com.innogent.PMS.entities.User;
+import com.innogent.PMS.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,11 +11,9 @@ import java.util.List;
 
 @RestController
 public class MainController {
-    @Autowired
-    private EmployeeService employeeService;
 
     @Autowired
-    private EmployeeRepository employeeRepository;
+    private UserRepository userRepository;
 
     @GetMapping("/home")
     public String home() {
@@ -24,20 +21,24 @@ public class MainController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody Employee employee) {
-        employeeRepository.save(employee);
-        return ResponseEntity.ok("employee added successfully");
+    public ResponseEntity<String> register(@RequestBody User user) {
+        if (userRepository.findByEmail(user.getEmail()) != null) {
+            return ResponseEntity.badRequest().body("Email already in use");
+        }
+        userRepository.save(user);
+        return ResponseEntity.ok("User registered successfully");
+
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<Employee>> get(){
-        List<Employee> employee = employeeRepository.findAll();
-        return ResponseEntity.status(HttpStatus.OK).body(employee);
+    public ResponseEntity<List<User>> get(){
+        List<User> user = userRepository.findAll();
+        return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 
     @GetMapping("/getByEmpId/{empId}")
-    public Employee getEmployeeById(@PathVariable String empId) {
+    public ResponseEntity<User> getEmployeeById(@PathVariable String empId) {
         Integer id = Integer.parseInt(empId);
-        return employeeRepository.findById(id).orElse(null);
+        return ResponseEntity.ok(userRepository.findById(id).orElse(null));
     }
 }

@@ -1,11 +1,11 @@
 package com.innogent.PMS.repository;
 
-import com.innogent.PMS.entities.Employee;
+import com.innogent.PMS.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface EmployeeRepository extends JpaRepository<Employee,Integer> {
-    Employee findByEmail(String email);
+public interface UserRepository extends JpaRepository<User,Integer> {
+    User findByEmail(String email);
 }
 

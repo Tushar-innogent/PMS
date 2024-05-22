@@ -1,18 +1,22 @@
 package com.innogent.PMS.entities;
 
+import com.innogent.PMS.enums.RoleName;
 import jakarta.persistence.*;
-import lombok.Data;
-
-import java.util.Set;
+import lombok.*;
 
 @Entity
-@Data
+@Table
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
+@ToString
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String name;
 
-//    @OneToMany(mappedBy = "role")
-//    private Set<Employee> employees;
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
+    private RoleName name;
 }
