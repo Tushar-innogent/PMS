@@ -1,4 +1,4 @@
-package com.innogent.PMS.serviceImpl;
+package com.innogent.PMS.service.Impl;
 
 import com.innogent.PMS.entities.Employee;
 import com.innogent.PMS.repository.EmployeeRepository;
