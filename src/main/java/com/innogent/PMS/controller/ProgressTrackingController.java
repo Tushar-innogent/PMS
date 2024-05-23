@@ -20,7 +20,7 @@ public class ProgressTrackingController {
         this.progressTrackingService.addNotesAndRecording(progressTracking);
         return ResponseEntity.ok(progressTracking);
     }
-
+    //get meeting data by meeting id
     @GetMapping("/getMeetingNotesAndRecordingById/{id}")
     public ResponseEntity<?> getById(@PathVariable String id)
     {
