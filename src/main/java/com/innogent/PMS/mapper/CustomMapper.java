@@ -16,7 +16,7 @@ public class CustomMapper {
     public Goal goalDtoToEntity(GoalDto goalDto){
         return modelMapper.map(goalDto, Goal.class);
     }
-    public GoalDto goalDtoToEntity(Goal goal){
+    public GoalDto goalEntityToGoal(Goal goal){
         return modelMapper.map(goal, GoalDto.class);
     }
 

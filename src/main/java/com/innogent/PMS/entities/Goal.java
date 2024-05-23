@@ -1,6 +1,5 @@
 package com.innogent.PMS.entities;
 
-import com.innogent.PMS.enums.GoalStatus;
 import com.innogent.PMS.enums.GoalType;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -15,8 +14,11 @@ public class Goal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long goalId;
     @Enumerated(EnumType.STRING)
+    @Column(length = 50)
     private GoalType goalType;
     private String description;
-    @Enumerated(EnumType.STRING)
-    private GoalStatus goalStatus;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "userId")
+    private User user;
 }
