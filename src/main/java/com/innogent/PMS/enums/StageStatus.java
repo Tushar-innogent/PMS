@@ -1,6 +1,6 @@
 package com.innogent.PMS.enums;
 
-public enum GoalStatus {
+public enum StageStatus {
     PENDING,
     IN_PROGRESS,
     COMPLETED;
