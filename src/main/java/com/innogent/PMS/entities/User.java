@@ -32,7 +32,7 @@ public class User {
     private Date hiredDate;
     private Integer managerId;
 
-    @ManyToOne(cascade= CascadeType.ALL, targetEntity = Role.class)
+    @ManyToOne(cascade= CascadeType.MERGE, targetEntity = Role.class)
     @JoinColumn(name = "role_id")
     private Role role;
 }
