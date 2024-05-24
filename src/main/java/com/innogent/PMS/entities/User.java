@@ -30,7 +30,8 @@ public class User {
     private String job;
     private Double salary;
     private Date hiredDate;
-    private String managerEmail;
+//    private String managerEmail;
+    private Integer managerId;
 
     @ManyToOne(cascade= CascadeType.ALL, targetEntity = Role.class)
     @JoinColumn(name = "role_id")
