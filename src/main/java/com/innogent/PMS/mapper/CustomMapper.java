@@ -20,7 +20,7 @@ public class CustomMapper {
         return modelMapper.map(goal, GoalDto.class);
     }
 
-    public User userDtoToEntity (UserDto userDto){
-        return modelMapper.map(userDto, User.class);
-    }
+//    public User userDtoToEntity (UserDto userDto){
+//        return modelMapper.map(userDto, User.class);
+//    }
 }
