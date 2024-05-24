@@ -8,4 +8,9 @@ public interface ProgressTrackingService {
   public void addNotesAndRecording(ProgressTracking progressTracking);
 
    public ResponseEntity<?> getById(long id);
+
+
+   public ResponseEntity<?> addProgressTracking(Integer empId, ProgressTracking tracking);
+
+   public ResponseEntity<?> getProgressTracking(Integer employeeId);
 }
