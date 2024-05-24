@@ -28,8 +28,10 @@ public class UserServiceImpl implements UserService {
 
     // To add new user
     public UserDto register(UserDto userDto){
+        System.out.println(userDto);
         Optional<User> existingUser = userRepository.findByEmail(userDto.getEmail());
         if (existingUser.isPresent()) {
+            System.out.println("email already");
             return null;
         }
         Role existingRole = roleRepository.findByName(userDto.getRole().getName());
@@ -40,10 +42,13 @@ public class UserServiceImpl implements UserService {
         }
         Optional<User> manager = userRepository.findByEmail(userDto.getManagerEmail());
         if (userDto.getRole().getName().toString().equals("USER") && manager.isEmpty()) {
+            System.out.println(userDto);
+            System.out.println("manager email not present");
+            System.out.println(userDto);
             return null;
         }
         User user = customMapper.userDtoToEntity(userDto);
-        user.setManagerId(manager.get().getEmpId());
+        user.setManagerId(manager.get().getUserId());
         return customMapper.userEntityToDto(user);
     }
 

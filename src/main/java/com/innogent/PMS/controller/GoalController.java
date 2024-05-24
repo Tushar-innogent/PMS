@@ -27,7 +27,7 @@ public class GoalController  {
     }
     //get list of goals of user by user id
     @GetMapping("/user/{userId}")
-    public ResponseEntity<?> getAllGoalsOfUser(@PathVariable Long userId){
+    public ResponseEntity<?> getAllGoalsOfUser(@PathVariable Integer userId){
         return ResponseEntity.status(HttpStatus.OK).body(goalService.listAllGoalsOfEmployee(userId));
     }
     //update goal
