@@ -25,5 +25,5 @@ public class Stage {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "goalId", nullable = false)
-    private Goal goal;
+    private Goal goals;
 }

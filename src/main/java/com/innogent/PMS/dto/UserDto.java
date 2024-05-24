@@ -17,5 +17,4 @@ public class UserDto {
     private Date hiredDate;
     private String managerEmail;
     private Role role;
-
 }

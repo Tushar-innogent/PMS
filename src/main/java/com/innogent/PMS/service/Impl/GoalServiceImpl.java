@@ -40,8 +40,8 @@ public class GoalServiceImpl implements GoalService {
         return customMapper.goalEntityToGoalDto(goalRepository.save(goal));
     }
     @Override
-    public List<GoalDto> listAllGoalsOfEmployee(Long userId) {
-        Optional<List<Goal>> goalsList = goalRepository.findAllByUserId(userId);
+    public List<GoalDto> listAllGoalsOfEmployee(Integer userId) {
+        Optional<List<Goal>> goalsList = goalRepository.findAllByUser(userRepository.findById(userId).get());
         return goalsList.map(goal -> customMapper.goalListToGoalDto(goal)).orElse(null);
     }
 
