@@ -28,11 +28,13 @@ public class CustomMapper {
 
     //************ user module mapper methods
     public User userDtoToEntity (UserDto userDto){
-        return modelMapper.map(userDto, User.class);
+        User user = modelMapper.map(userDto, User.class);
+        user.setRole(userDto.getRole());
+        return user;
     }
     public UserDto userEntityToDto (User user){
-        return modelMapper.map(user, UserDto.class);
+        UserDto userDto = modelMapper.map(user, UserDto.class);
+        userDto.setRole(user.getRole());
+        return userDto;
     }
-
-
 }
