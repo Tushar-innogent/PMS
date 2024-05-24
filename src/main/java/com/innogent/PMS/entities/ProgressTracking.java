@@ -25,10 +25,12 @@ public class ProgressTracking {
    private String notes;
    private String recording;
 
-//   @ManyToOne
-//   @JoinColumn(name="empId")
-//   private User user;
-
+  @ManyToOne
+  @JoinColumn(name="empId")
+   private User user;
+ @ManyToOne
+ @JoinColumn(name="managerId")
+    private User lineManager;
 
 
 }
