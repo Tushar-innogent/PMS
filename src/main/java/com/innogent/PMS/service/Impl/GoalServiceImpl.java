@@ -31,13 +31,14 @@ public class GoalServiceImpl implements GoalService {
         Optional<Goal> optional =  goalRepository.findById(goalId);
         return optional.map(goal -> customMapper.goalEntityToGoalDto(goal)).orElse(null);
     }
-
     @Override
-    public String editGoal(Long goalId) {
+    public GoalDto editGoal(Long goalId, GoalDto goalDto) {
         Optional<Goal> optional = goalRepository.findById(goalId);
-        return "";
+        if(optional.isEmpty()) return null;
+        Goal goal = customMapper.goalDtoToEntity(goalDto);
+        goal.setGoalId(goalId);
+        return customMapper.goalEntityToGoalDto(goalRepository.save(goal));
     }
-
     @Override
     public List<GoalDto> listAllGoalsOfEmployee(Long userId) {
         Optional<List<Goal>> goalsList = goalRepository.findAllByUserId(userId);
