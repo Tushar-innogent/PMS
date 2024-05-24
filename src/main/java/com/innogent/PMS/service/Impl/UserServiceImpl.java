@@ -48,8 +48,10 @@ public class UserServiceImpl implements UserService {
             return null;
         }
         User user = customMapper.userDtoToEntity(userDto);
-        user.setManagerId(manager.get().getUserId());
-        return customMapper.userEntityToDto(user);
+        if(userDto.getRole().getName().toString().equals("USER")){
+            user.setManagerId(manager.get().getUserId());
+        }
+        return customMapper.userEntityToDto(userRepository.save(user));
     }
 
     public ResponseEntity<List<User>> getALL(){
