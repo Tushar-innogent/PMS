@@ -8,4 +8,5 @@ import lombok.Data;
 public class GoalDto {
     private GoalType goalType;
     private String description;
+    private Integer userId;
 }

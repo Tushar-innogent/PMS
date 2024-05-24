@@ -16,7 +16,7 @@ public class Stage {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long stageId;
-    @Column(length = 50)
+    @Column(length = 50, nullable = false)
     @Enumerated(EnumType.STRING)
     private StageName stageName;
     @Column(length = 50)
@@ -24,6 +24,6 @@ public class Stage {
     private StageStatus stageStatus;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "goalId")
+    @JoinColumn(name = "goalId", nullable = false)
     private Goal goal;
 }
