@@ -7,12 +7,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
 public interface GoalService {
-    // add a new goal
+    // To create a new goal
     public Goal addGoal(GoalDto goal);
-    // find a goal by goal id
-    public GoalDto findGoalByEmpId(Integer employeeId);
-    // edit goal
-    public String editGoal(Integer employeeId);
+    // Retrieve goal by goal id
+    public GoalDto findGoalByGoalId(Long goalId);
+    // To Update goal  by goal id
+    public String editGoal(Long goalId);
     // list all goals of an employee
-    public List<GoalDto> listAllGoalsOfEmployee(Integer employeeId);
+    public List<GoalDto> listAllGoalsOfEmployee(Long userId);
 }

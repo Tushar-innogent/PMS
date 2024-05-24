@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/goals")
 public class GoalController  {
     @Autowired
     private GoalService goalService;
@@ -18,9 +18,17 @@ public class GoalController  {
     public ResponseEntity<?> addNewGoal(@RequestBody GoalDto goalDto){
         return ResponseEntity.status(HttpStatus.OK).body(goalService.addGoal(goalDto));
     }
-
+    //get goal id
     @GetMapping("/user/{id}")
-    public ResponseEntity<?> getUserGoals(@RequestParam Integer id){
-        return ResponseEntity.status(HttpStatus.OK).body(goalService.findGoalByEmpId(id));
+    public ResponseEntity<?> getUserGoals(@PathVariable Long goalId){
+        GoalDto goalDto = goalService.findGoalByGoalId(goalId);
+        if(goalDto == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Data not found");
+        return ResponseEntity.status(HttpStatus.OK).body(goalDto);
     }
+    //get list of goals of user by user id
+    @GetMapping("/user/{id}")
+    public ResponseEntity<?> getAllGoalsOfUser(@PathVariable Long userId){
+        return ResponseEntity.status(HttpStatus.OK).body(goalService.listAllGoalsOfEmployee(userId));
+    }
+
 }

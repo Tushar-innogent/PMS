@@ -5,8 +5,11 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
-@Table
+@Table(name="goals")
 @Getter
 @Setter
 public class Goal {
@@ -21,4 +24,7 @@ public class Goal {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "userId")
     private User user;
+
+    @OneToMany(mappedBy = "goals", cascade = CascadeType.ALL)
+    private List<Stage> stages = new ArrayList<>();
 }
