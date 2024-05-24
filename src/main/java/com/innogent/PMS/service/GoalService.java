@@ -14,5 +14,5 @@ public interface GoalService {
     // To Update goal  by goal id
     public GoalDto editGoal(Long goalId, GoalDto goalDto);
     // list all goals of an employee
-    public List<GoalDto> listAllGoalsOfEmployee(Long userId);
+    public List<GoalDto> listAllGoalsOfEmployee(Integer userId);
 }
