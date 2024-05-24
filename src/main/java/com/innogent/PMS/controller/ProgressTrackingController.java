@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class ProgressTrackingController {
     @Autowired
-    ProgressTrackingRepository progressTrackingRepository;
-    @Autowired
     ProgressTrackingService progressTrackingService;
       //notes aur video ko add karne k liya
     @PostMapping("/addMeetingNotesAndRecording")
