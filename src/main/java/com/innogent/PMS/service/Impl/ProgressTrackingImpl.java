@@ -25,6 +25,6 @@ public class ProgressTrackingImpl implements ProgressTrackingService {
         {
             return ResponseEntity.ok(progressTrackingData.get());
         }
-        return ResponseEntity.ok("Id is not present");
+        return ResponseEntity.ok("Meeting id is not present");
     }
 }
