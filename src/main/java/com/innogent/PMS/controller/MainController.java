@@ -1,11 +1,7 @@
 package com.innogent.PMS.controller;
 
-import com.innogent.PMS.dto.GoalDto;
 import com.innogent.PMS.dto.UserDto;
-import com.innogent.PMS.entities.Role;
 import com.innogent.PMS.entities.User;
-import com.innogent.PMS.repository.RoleRepository;
-import com.innogent.PMS.repository.UserRepository;
 import com.innogent.PMS.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +14,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/api/user")
 public class MainController {;
     @Autowired
     private UserService userService;
@@ -27,35 +24,34 @@ public class MainController {;
         return "Welcome to Our Performance Manager Application!!";
     }
 
-    // To add user
+    //  Register a new user
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody UserDto userDto) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.register(userDto));
     }
 
+    // fetch all users
     @GetMapping("/getAll")
     public ResponseEntity<List<User>> getALL(){
         return this.userService.getALL();
     }
 
+    //get particular user by id
     @GetMapping("/getByEmpId/{empId}")
     public ResponseEntity<User> getEmployeeById(@PathVariable String empId) {
         return this.userService.getEmployeeById(Integer.parseInt(empId));
     }
 
-//    @PutMapping("/updateUser")
-//    public ResponseEntity<String> updateUser(@RequestBody User user) {
-//        return  this.userService.updateUser(user);
-//    }
+    //update user by id
+    @PutMapping("/updateUser/{userId}")
+    public ResponseEntity<String> updateUser(@RequestBody UserDto userDto,@PathVariable Integer userId) {
+        return  this.userService.updateUser(userDto,userId);
+    }
 
-
-    @PostMapping("/userSignIn")
+    //login
+    @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> signInUser(@RequestBody Map<String, String> request) {
-        String email = request.get("email");
-        String password = request.get("password");
-
-        Optional<User> userOptional = userService.signIn(email, password);
-
+        Optional<User> userOptional = userService.signIn(request.get("email"), request.get("password"));
         Map<String, Object> response = new HashMap<>();
         if (userOptional.isPresent()) {
             response.put("message", "Sign-in successful");
@@ -67,14 +63,10 @@ public class MainController {;
         }
     }
 
-
-    @PostMapping("/updateUserPassword")
+    //forgot password
+    @PostMapping("/password")
     public ResponseEntity<Map<String, Object>> updatePassword(@RequestBody Map<String, String> request) {
-        String email = request.get("email");
-        String newPassword = request.get("newPassword");
-
-        Optional<User> userOptional = userService.updatePassword(email, newPassword);
-
+        Optional<User> userOptional = userService.updatePassword(request.get("email"), request.get("newPassword"));
         Map<String, Object> response = new HashMap<>();
         if (userOptional.isPresent()) {
             response.put("message", "Password updated successfully");
@@ -85,5 +77,4 @@ public class MainController {;
             return ResponseEntity.badRequest().body(response);
         }
     }
-
 }

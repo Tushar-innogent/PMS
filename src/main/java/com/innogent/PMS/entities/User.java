@@ -35,4 +35,12 @@ public class User {
     @ManyToOne(cascade= CascadeType.MERGE, targetEntity = Role.class)
     @JoinColumn(name = "role_id")
     private Role role;
+
+    @Column(columnDefinition = "boolean default false")
+    private boolean isDeleted;
+
+    @PrePersist
+    protected void onCreate() {
+        this.isDeleted = false;
+    }
 }
