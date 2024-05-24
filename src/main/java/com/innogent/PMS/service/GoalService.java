@@ -12,7 +12,7 @@ public interface GoalService {
     // Retrieve goal by goal id
     public GoalDto findGoalByGoalId(Long goalId);
     // To Update goal  by goal id
-    public String editGoal(Long goalId);
+    public GoalDto editGoal(Long goalId, GoalDto goalDto);
     // list all goals of an employee
     public List<GoalDto> listAllGoalsOfEmployee(Long userId);
 }

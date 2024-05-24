@@ -1,5 +1,6 @@
 package com.innogent.PMS.service;
 
+import com.innogent.PMS.dto.UserDto;
 import com.innogent.PMS.entities.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,7 +10,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
-//    public ResponseEntity<String> register(User user);
+    //To register new user
+    public UserDto register(UserDto userDto);
     public ResponseEntity<List<User>> getALL();
     public ResponseEntity<User> getEmployeeById(Integer empId);
 //    public ResponseEntity<String> updateUser(User user);

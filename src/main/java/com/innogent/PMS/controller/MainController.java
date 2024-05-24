@@ -1,5 +1,7 @@
 package com.innogent.PMS.controller;
 
+import com.innogent.PMS.dto.GoalDto;
+import com.innogent.PMS.dto.UserDto;
 import com.innogent.PMS.entities.Role;
 import com.innogent.PMS.entities.User;
 import com.innogent.PMS.repository.RoleRepository;
@@ -25,10 +27,11 @@ public class MainController {;
         return "Welcome to Our Performance Manager Application!!";
     }
 
-//    @PostMapping("/register")
-//    public ResponseEntity<String> register(@RequestBody User user) {
-//        return  this.userService.register(user);
-//    }
+    // To add user
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody UserDto userDto) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.register(userDto));
+    }
 
     @GetMapping("/getAll")
     public ResponseEntity<List<User>> getALL(){
@@ -44,6 +47,7 @@ public class MainController {;
 //    public ResponseEntity<String> updateUser(@RequestBody User user) {
 //        return  this.userService.updateUser(user);
 //    }
+
 
     @PostMapping("/userSignIn")
     public ResponseEntity<Map<String, Object>> signInUser(@RequestBody Map<String, String> request) {
