@@ -15,5 +15,4 @@ public interface UserService {
 //    public ResponseEntity<String> updateUser(User user);
     public Optional<User> signIn(String email, String password);
     public Optional<User> updatePassword(String email, String newPassword);
-
 }
