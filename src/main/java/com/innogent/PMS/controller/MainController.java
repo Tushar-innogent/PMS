@@ -62,24 +62,24 @@ public class MainController {;
             return ResponseEntity.status(401).body(response);
         }
     }
-//    update not woring
 
-//    @PostMapping("/updateUserPassword")
-//    public ResponseEntity<Map<String, Object>> updatePassword(@RequestBody Map<String, String> request) {
-//        String email = request.get("email");
-//        String newPassword = request.get("newPassword");
-//
-//        Optional<User> userOptional = userService.updatePassword(email, newPassword);
-//
-//        Map<String, Object> response = new HashMap<>();
-//        if (userOptional.isPresent()) {
-//            response.put("message", "Password updated successfully");
-//            response.put("user", userOptional.get());
-//            return ResponseEntity.ok(response);
-//        } else {
-//            response.put("message", "Email not found");
-//            return ResponseEntity.badRequest().body(response);
-//        }
-//    }
+
+    @PostMapping("/updateUserPassword")
+    public ResponseEntity<Map<String, Object>> updatePassword(@RequestBody Map<String, String> request) {
+        String email = request.get("email");
+        String newPassword = request.get("newPassword");
+
+        Optional<User> userOptional = userService.updatePassword(email, newPassword);
+
+        Map<String, Object> response = new HashMap<>();
+        if (userOptional.isPresent()) {
+            response.put("message", "Password updated successfully");
+            response.put("user", userOptional.get());
+            return ResponseEntity.ok(response);
+        } else {
+            response.put("message", "Email not found");
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
 
 }

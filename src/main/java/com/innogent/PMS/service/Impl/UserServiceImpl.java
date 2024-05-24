@@ -5,6 +5,7 @@ import com.innogent.PMS.entities.User;
 import com.innogent.PMS.repository.RoleRepository;
 import com.innogent.PMS.repository.UserRepository;
 import com.innogent.PMS.service.UserService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -74,11 +75,11 @@ public class UserServiceImpl implements UserService {
         Optional<User> userOptional = userRepository.findByEmail(email);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
-            user.setPassword(newPassword); // Ideally, you should hash the password before saving
+            System.out.println(newPassword);
+            user.setPassword(newPassword);
             userRepository.save(user);
             return Optional.of(user);
         }
         return Optional.empty();
     }
-
 }
