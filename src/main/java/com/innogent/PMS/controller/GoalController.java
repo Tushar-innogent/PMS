@@ -14,9 +14,9 @@ public class GoalController  {
     @Autowired
     private GoalService goalService;
     //add new goal
-    @PostMapping("/add")
-    public ResponseEntity<?> addNewGoal(@RequestBody GoalDto goalDto){
-        return ResponseEntity.status(HttpStatus.OK).body(goalService.addGoal(goalDto));
+    @PostMapping("/add/{userId}")
+    public ResponseEntity<?> addNewGoal(@RequestBody GoalDto goalDto, @PathVariable Integer userId){
+        return ResponseEntity.status(HttpStatus.OK).body(goalService.addGoal(goalDto, userId));
     }
     //get goal by goal id
     @GetMapping("/{goalId}")

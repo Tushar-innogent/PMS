@@ -1,11 +1,7 @@
 package com.innogent.PMS.controller;
 
-import com.innogent.PMS.dto.GoalDto;
 import com.innogent.PMS.dto.UserDto;
-import com.innogent.PMS.entities.Role;
 import com.innogent.PMS.entities.User;
-import com.innogent.PMS.repository.RoleRepository;
-import com.innogent.PMS.repository.UserRepository;
 import com.innogent.PMS.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

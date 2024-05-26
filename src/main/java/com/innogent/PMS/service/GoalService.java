@@ -8,7 +8,7 @@ import java.util.List;
 @Service
 public interface GoalService {
     // To create a new goal
-    public Goal addGoal(GoalDto goal);
+    public Goal addGoal(GoalDto goal, Integer userId);
     // Retrieve goal by goal id
     public GoalDto findGoalByGoalId(Long goalId);
     // To Update goal  by goal id

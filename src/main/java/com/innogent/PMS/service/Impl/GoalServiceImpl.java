@@ -2,6 +2,7 @@ package com.innogent.PMS.service.Impl;
 
 import com.innogent.PMS.dto.GoalDto;
 import com.innogent.PMS.entities.Goal;
+import com.innogent.PMS.entities.User;
 import com.innogent.PMS.mapper.CustomMapper;
 import com.innogent.PMS.repository.GoalRepository;
 import com.innogent.PMS.repository.UserRepository;
@@ -22,8 +23,19 @@ public class GoalServiceImpl implements GoalService {
     private CustomMapper customMapper;
 
     @Override
-    public Goal addGoal(GoalDto goalDto) {
+    public Goal addGoal(GoalDto goalDto, Integer userId) {
+        Optional<User> user = userRepository.findById(userId);
+        if(user.isEmpty()){
+            return null;
+        }
         Goal goal = customMapper.goalDtoToEntity(goalDto);
+        goal.setUser(user.get());
+        if(goalDto.getGoalType().name().equalsIgnoreCase("ORGANISATIONAL")){
+            if(user.get().getJob().equalsIgnoreCase("manager")){
+                return goalRepository.save(goal);
+            }
+            return null;// employee can't save organisational goals
+        }
         return goalRepository.save(goal);
     }
     @Override
