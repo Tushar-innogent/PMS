@@ -11,7 +11,6 @@ import java.util.List;
 
 @Component
 public class CustomMapper {
-
     private ModelMapper modelMapper = new ModelMapper();
 
     //************ goal module mapper methods
@@ -19,13 +18,16 @@ public class CustomMapper {
         return modelMapper.map(goalDto, Goal.class);
     }
     public GoalDto goalEntityToGoalDto(Goal goal){
-        return modelMapper.map(goal, GoalDto.class);
+        GoalDto goalDto = new GoalDto();
+        goalDto.setUserId(goal.getUser().getUserId());
+        goalDto.setDescription(goal.getDescription());
+        goalDto.setGoalType(goal.getGoalType());
+        return goalDto;
     }
     //to convert list of goals to list of goalDto
     public List<GoalDto> goalListToGoalDto(List<Goal> goalsList) {
         return goalsList.stream().map(this::goalEntityToGoalDto).toList();
     }
-
     //************ user module mapper methods
     public User userDtoToEntity (UserDto userDto){
         User user = modelMapper.map(userDto, User.class);
