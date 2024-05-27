@@ -2,10 +2,15 @@ package com.innogent.PMS.service.Impl;
 
 import com.innogent.PMS.dto.GoalDto;
 import com.innogent.PMS.entities.Goal;
+import com.innogent.PMS.entities.Stage;
+import com.innogent.PMS.entities.User;
+import com.innogent.PMS.enums.StageName;
+import com.innogent.PMS.enums.StageStatus;
 import com.innogent.PMS.mapper.CustomMapper;
 import com.innogent.PMS.repository.GoalRepository;
 import com.innogent.PMS.repository.UserRepository;
 import com.innogent.PMS.service.GoalService;
+import com.innogent.PMS.service.StageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,11 +25,30 @@ public class GoalServiceImpl implements GoalService {
     private UserRepository userRepository;
     @Autowired
     private CustomMapper customMapper;
+    @Autowired
+    private StageService stageService;
 
     @Override
-    public Goal addGoal(GoalDto goalDto) {
+    public GoalDto addPersonalGoal(GoalDto goalDto, Integer userId) {
+        Optional<User> user = userRepository.findById(goalDto.getUserId());
+        if(user.isEmpty()){
+            return null;
+        }
         Goal goal = customMapper.goalDtoToEntity(goalDto);
-        return goalRepository.save(goal);
+        goal.setUser(user.get());
+        stageService.setStage(new Stage(StageName.GOAL_SETTING, StageStatus.PENDING, goal)); // To set the stage of initial goal when declared
+        return customMapper.goalEntityToGoalDto(goalRepository.save(goal));
+    }
+    @Override
+    public GoalDto addOrganisationalGoal(GoalDto goalDto, Integer managerId) {
+        Optional<User> user = userRepository.findById(goalDto.getUserId());
+        if(user.isEmpty() || !user.get().getManagerId().equals(managerId) || !goalDto.getGoalType().name().equalsIgnoreCase("ORGANISATIONAL")){
+            return null;
+        }
+        Goal goal = customMapper.goalDtoToEntity(goalDto);
+        goal.setUser(user.get());
+        stageService.setStage(new Stage(StageName.GOAL_SETTING, StageStatus.FINALISED, goal)); // To set the stage of initial goal when declared
+        return customMapper.goalEntityToGoalDto(goalRepository.save(goal));
     }
     @Override
     public GoalDto findGoalByGoalId(Long goalId) {
