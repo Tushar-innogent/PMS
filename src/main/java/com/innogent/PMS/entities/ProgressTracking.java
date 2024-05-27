@@ -28,9 +28,7 @@ public class ProgressTracking {
   @ManyToOne
   @JoinColumn(name="empId")
    private User user;
- @ManyToOne
- @JoinColumn(name="managerId")
-    private User lineManager;
 
 
+    private Integer lineManagerId;
 }
