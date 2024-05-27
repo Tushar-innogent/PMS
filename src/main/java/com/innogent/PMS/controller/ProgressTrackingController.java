@@ -1,5 +1,6 @@
 package com.innogent.PMS.controller;
 
+import com.innogent.PMS.dto.ProgressTrackingDto;
 import com.innogent.PMS.entities.ProgressTracking;
 import com.innogent.PMS.repository.ProgressTrackingRepository;
 import com.innogent.PMS.service.ProgressTrackingService;
@@ -20,11 +21,17 @@ public class ProgressTrackingController {
         return this.progressTrackingService.getById(Long.parseLong(id));
     }
     //path add with employee id
-   @PostMapping("/add/{empId}")
-    public ResponseEntity<?> addProgressTracking(@PathVariable Integer empId,@RequestBody ProgressTracking tracking)
+//   @PostMapping("/add/{empId}")
+//    public ResponseEntity<?> addProgressTracking(@PathVariable Integer empId,@RequestBody ProgressTracking tracking)
+//    {
+//
+//        return this.progressTrackingService.addProgressTracking(empId,tracking);
+//    }
+    @PostMapping("/add/{empId}")
+    public ResponseEntity<?> addProgressTracking(@PathVariable Integer empId,@RequestBody ProgressTrackingDto trackingDto)
     {
 
-        return this.progressTrackingService.addProgressTracking(empId,tracking);
+        return this.progressTrackingService.addProgressTracking(empId,trackingDto);
     }
     //get data by employee id
     @GetMapping("/get/user/{employeeId}")
