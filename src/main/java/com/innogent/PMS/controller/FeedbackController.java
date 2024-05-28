@@ -20,12 +20,12 @@ public class    FeedbackController {
         return ResponseEntity.ok(savedFeedback);
     }
 
-    @GetMapping("/feedback/{userId}")
-    public ResponseEntity<List<Feedback>> getFeedbackByUserId(@PathVariable Integer userId){
-        List<Feedback> feedbackList = feedbackService.getFeedbackByUserId(userId);
-        if(feedbackList.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(feedbackList);
-    }
+//    @GetMapping("/feedback/{userId}")
+//    public ResponseEntity<List<Feedback>> getFeedbackByUserId(@PathVariable Integer userId){
+//        List<Feedback> feedbackList = feedbackService.getFeedbackByUserId(userId);
+//        if(feedbackList.isEmpty()) {
+//            return ResponseEntity.notFound().build();
+//        }
+//        return ResponseEntity.ok(feedbackList);
+//    }
 }

@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface FeedbackService {
     public Feedback saveFeedback(Feedback feedback);
-    List<Feedback> getFeedbackByUserId(Integer userId);
+//    List<Feedback> getFeedbackByUserId(Integer userId);
 }
