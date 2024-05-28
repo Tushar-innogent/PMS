@@ -21,10 +21,10 @@ public class Goal {
     private GoalType goalType;
     private String description;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "userId")
     private User user;
 
-    @OneToMany(mappedBy = "goals", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "goals", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Stage> stages = new ArrayList<>();
 }

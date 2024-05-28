@@ -15,7 +15,7 @@ import java.util.Date;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer empId;
+    private Integer userId;
     @Column(length = 50)
     private String firstName;
     @Column(length = 50)
@@ -32,7 +32,15 @@ public class User {
     private Date hiredDate;
     private Integer managerId;
 
-    @ManyToOne(cascade= CascadeType.ALL, targetEntity = Role.class)
+    @ManyToOne(cascade= CascadeType.MERGE, targetEntity = Role.class)
     @JoinColumn(name = "role_id")
     private Role role;
+
+    @Column(columnDefinition = "boolean default false")
+    private boolean isDeleted;
+
+    @PrePersist
+    protected void onCreate() {
+        this.isDeleted = false;
+    }
 }

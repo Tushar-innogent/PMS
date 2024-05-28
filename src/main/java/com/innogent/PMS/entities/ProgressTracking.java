@@ -24,4 +24,11 @@ public class ProgressTracking {
    private LocalDateTime date;
    private String notes;
    private String recording;
+
+  @ManyToOne
+  @JoinColumn(name="empId")
+   private User user;
+
+
+    private Integer lineManagerId;
 }
