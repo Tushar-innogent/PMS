@@ -7,5 +7,5 @@ public interface StageService {
     //To set stage for a goal
     public Stage setStage(Stage stage);
     //Finalize the goal
-    public Stage finalizeGoal(Long goalId, Integer managerId);
+    public String finalizeGoal(Long goalId, Integer managerId);
 }
