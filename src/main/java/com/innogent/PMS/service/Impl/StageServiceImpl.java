@@ -32,7 +32,7 @@ public class StageServiceImpl implements StageService {
         Optional<Goal> goal = goalRepository.findById(goalId);
         Optional<User> user = userRepository.findById(userId);
         if(goal.isPresent() && user.isPresent() && user.get().getManagerId().equals(managerId)){
-            Stage stage = stageRepository.findByGoal(goal.get());
+            Stage stage = stageRepository.findByGoals(goal.get());
             if(stage.getStageName().equals(StageName.GOAL_SETTING) && stage.getStageStatus().equals(StageStatus.PENDING)){
                 stage.setStageStatus(StageStatus.FINALISED);
             }

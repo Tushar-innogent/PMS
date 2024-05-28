@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface StageRepository extends JpaRepository<Stage, Long> {
-    public Stage findByGoal(Goal goal);
+    public Stage findByGoals(Goal goal);
 }
