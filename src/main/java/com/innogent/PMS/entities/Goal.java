@@ -21,7 +21,7 @@ public class Goal {
     private GoalType goalType;
     private String description;
 
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     private User user;
 
