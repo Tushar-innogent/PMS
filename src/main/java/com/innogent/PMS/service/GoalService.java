@@ -17,4 +17,6 @@ public interface GoalService {
     public GoalDto editGoal(Long goalId, GoalDto goalDto);
     // list all goals of an employee
     public List<GoalDto> listAllGoalsOfEmployee(Integer userId);
+    // delete goal
+    public String deleteGoal(Long goalId);
 }
