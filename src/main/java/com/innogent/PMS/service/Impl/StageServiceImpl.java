@@ -27,6 +27,7 @@ public class StageServiceImpl implements StageService {
     public Stage setStage(Stage stage) {
          return stageRepository.save(stage);
     }
+
     @Override
     public String finalizeGoal(Long goalId, Integer managerId) {
         Optional<Goal> goal = goalRepository.findById(goalId);

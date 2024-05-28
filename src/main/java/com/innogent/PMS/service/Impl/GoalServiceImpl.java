@@ -48,8 +48,8 @@ public class GoalServiceImpl implements GoalService {
         }
         Goal goal = customMapper.goalDtoToEntity(goalDto);
         goal.setUser(user.get());
-        Goal result = goalRepository.save(goal);
-        stageService.setStage(new Stage(StageName.GOAL_SETTING, StageStatus.FINALISED, result)); // To set the stage of initial goal when declared
+        Goal result=goalRepository.save(goal);
+        stageService.setStage(new Stage(StageName.GOAL_SETTING, StageStatus.FINALISED, goal)); // To set the stage of initial goal when declared
         return customMapper.goalEntityToGoalDto(result);
     }
     @Override
