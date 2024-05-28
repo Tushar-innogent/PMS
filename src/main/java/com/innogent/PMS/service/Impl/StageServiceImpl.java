@@ -22,22 +22,22 @@ public class StageServiceImpl implements StageService {
     private UserRepository userRepository;
     @Autowired
     private GoalRepository goalRepository;
+
     @Override
     public Stage setStage(Stage stage) {
          return stageRepository.save(stage);
     }
-
     @Override
-    public Stage finalizeGoal(Integer userId, Integer managerId, Long goalId) {
+    public String finalizeGoal(Long goalId, Integer managerId) {
         Optional<Goal> goal = goalRepository.findById(goalId);
-        Optional<User> user = userRepository.findById(userId);
-        if(goal.isPresent() && user.isPresent() && user.get().getManagerId().equals(managerId)){
-            Stage stage = stageRepository.findByGoal(goal.get());
-            if(stage.getStageName().equals(StageName.GOAL_SETTING) && stage.getStageStatus().equals(StageStatus.PENDING)){
+        if(goal.isPresent() && goal.get().getUser().getManagerId().equals(managerId)){
+            Stage stage = stageRepository.findByGoals(goal.get());
+            if(stage.getStageName().name().equals(StageName.GOAL_SETTING.name()) && stage.getStageStatus().name().equals(StageStatus.PENDING.name())){
                 stage.setStageStatus(StageStatus.FINALISED);
+                stageRepository.save(stage);
+                return "Goal finalised";
             }
         }
-
-        return null;
+        return "Goal not present!";
     }
 }
