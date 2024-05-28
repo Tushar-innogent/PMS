@@ -43,7 +43,7 @@ public class GoalController  {
         if(goals == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Goals doesn't exist for required user!");
         return ResponseEntity.status(HttpStatus.OK).body(goals);
     }
-    //update goal
+    //update goal by goal id
     @PutMapping("/update/{id}")
     public ResponseEntity<?> updateGoalByGoalId(@PathVariable Long id, @RequestBody GoalDto goalDto){
         GoalDto result = goalService.editGoal(id, goalDto);
@@ -51,8 +51,13 @@ public class GoalController  {
         return  ResponseEntity.status(HttpStatus.OK).body(result);
     }
     //finalise goal
-    @PostMapping("/finalise")
-    public ResponseEntity<?> finaliseGoal(Integer userId, Integer managerId, Long goalId){
-        return ResponseEntity.status(HttpStatus.OK).body(stageService.finalizeGoal(userId,managerId,goalId));
+    @RequestMapping("/finalise/{goalId}/{managerId}")
+    public ResponseEntity<?> finaliseGoal(@PathVariable Long goalId, @PathVariable Integer managerId){
+        return ResponseEntity.status(HttpStatus.OK).body(stageService.finalizeGoal(goalId,managerId));
+    }
+    //delete a goal
+    @DeleteMapping("/delete/{goalId}")
+    public ResponseEntity<?> deleteGoal(@PathVariable Long goalId){
+        return ResponseEntity.status(HttpStatus.OK).body(goalService.deleteGoal(goalId));
     }
 }

@@ -36,8 +36,9 @@ public class GoalServiceImpl implements GoalService {
         }
         Goal goal = customMapper.goalDtoToEntity(goalDto);
         goal.setUser(user.get());
-        stageService.setStage(new Stage(StageName.GOAL_SETTING, StageStatus.PENDING, goal)); // To set the stage of initial goal when declared
-        return customMapper.goalEntityToGoalDto(goalRepository.save(goal));
+        Goal result = goalRepository.save(goal);
+        stageService.setStage(new Stage(StageName.GOAL_SETTING, StageStatus.PENDING, result)); // To set the stage of initial goal when declared
+        return customMapper.goalEntityToGoalDto(result);
     }
     @Override
     public GoalDto addOrganisationalGoal(GoalDto goalDto, Integer managerId) {
@@ -47,8 +48,9 @@ public class GoalServiceImpl implements GoalService {
         }
         Goal goal = customMapper.goalDtoToEntity(goalDto);
         goal.setUser(user.get());
-        stageService.setStage(new Stage(StageName.GOAL_SETTING, StageStatus.FINALISED, goal)); // To set the stage of initial goal when declared
-        return customMapper.goalEntityToGoalDto(goalRepository.save(goal));
+        Goal result = goalRepository.save(goal);
+        stageService.setStage(new Stage(StageName.GOAL_SETTING, StageStatus.FINALISED, result)); // To set the stage of initial goal when declared
+        return customMapper.goalEntityToGoalDto(result);
     }
     @Override
     public GoalDto findGoalByGoalId(Long goalId) {
@@ -67,6 +69,15 @@ public class GoalServiceImpl implements GoalService {
     public List<GoalDto> listAllGoalsOfEmployee(Integer userId) {
         Optional<List<Goal>> goalsList = goalRepository.findAllByUser(userRepository.findById(userId).get());
         return goalsList.map(goal -> customMapper.goalListToGoalDto(goal)).orElse(null);
+    }
+
+    @Override
+    public String deleteGoal(Long goalId) {
+        if(goalRepository.existsById(goalId)){
+            goalRepository.deleteById(goalId);
+            return "Record Deleted!";
+        }
+        return "Record doesn't exists!";
     }
 
 }

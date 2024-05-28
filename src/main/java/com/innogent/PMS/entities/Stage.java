@@ -20,7 +20,7 @@ public class Stage {
     @Column(length = 50, nullable = false)
     @Enumerated(EnumType.STRING)
     private StageName stageName;
-    @Column(length = 50)
+    @Column(length = 100)
     @Enumerated(EnumType.STRING)
     private StageStatus stageStatus;
 
