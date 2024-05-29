@@ -6,6 +6,8 @@ import com.innogent.PMS.entities.Stage;
 import com.innogent.PMS.entities.User;
 import com.innogent.PMS.enums.StageName;
 import com.innogent.PMS.enums.StageStatus;
+import com.innogent.PMS.exception.customException.NoSuchGoalExistsException;
+import com.innogent.PMS.exception.customException.NoSuchUserExistsException;
 import com.innogent.PMS.mapper.CustomMapper;
 import com.innogent.PMS.repository.GoalRepository;
 import com.innogent.PMS.repository.UserRepository;
@@ -32,7 +34,7 @@ public class GoalServiceImpl implements GoalService {
     public GoalDto addPersonalGoal(GoalDto goalDto, Integer userId) {
         Optional<User> user = userRepository.findById(goalDto.getUserId());
         if(user.isEmpty()){
-            return null;
+            throw new NoSuchUserExistsException("No User Present With Id : "+userId);
         }
         Goal goal = customMapper.goalDtoToEntity(goalDto);
         goal.setUser(user.get());
@@ -44,7 +46,7 @@ public class GoalServiceImpl implements GoalService {
     public GoalDto addOrganisationalGoal(GoalDto goalDto, Integer managerId) {
         Optional<User> user = userRepository.findById(goalDto.getUserId());
         if(user.isEmpty() || !user.get().getManagerId().equals(managerId) || !goalDto.getGoalType().name().equalsIgnoreCase("ORGANISATIONAL")){
-            return null;
+            throw new NoSuchUserExistsException("No User Present With Id provided in goal: "+managerId);
         }
         Goal goal = customMapper.goalDtoToEntity(goalDto);
         goal.setUser(user.get());
@@ -60,7 +62,7 @@ public class GoalServiceImpl implements GoalService {
     @Override
     public GoalDto editGoal(Long goalId, GoalDto goalDto) {
         Optional<Goal> optional = goalRepository.findById(goalId);
-        if(optional.isEmpty()) return null;
+        if(optional.isEmpty()) throw new NoSuchGoalExistsException("No Goal Present With Id : "+goalId);
         Goal goal = customMapper.goalDtoToEntity(goalDto);
         goal.setGoalId(goalId);
         return customMapper.goalEntityToGoalDto(goalRepository.save(goal));
@@ -77,7 +79,9 @@ public class GoalServiceImpl implements GoalService {
             goalRepository.deleteById(goalId);
             return "Record Deleted!";
         }
-        return "Record doesn't exists!";
+        else{
+            throw new NoSuchGoalExistsException("No Goal Present With Id : "+goalId);
+        }
     }
 
 }
