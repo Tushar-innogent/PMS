@@ -3,7 +3,6 @@ package com.innogent.PMS.entities;
 import com.innogent.PMS.enums.StageName;
 import com.innogent.PMS.enums.StageStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

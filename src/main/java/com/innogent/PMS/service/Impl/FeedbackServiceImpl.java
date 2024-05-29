@@ -3,6 +3,7 @@ package com.innogent.PMS.service.Impl;
 import com.innogent.PMS.entities.Feedback;
 import com.innogent.PMS.entities.Goal;
 import com.innogent.PMS.entities.User;
+import com.innogent.PMS.enums.EvaluationType;
 import com.innogent.PMS.repository.FeedbackRepository;
 import com.innogent.PMS.repository.GoalRepository;
 import com.innogent.PMS.repository.UserRepository;
@@ -41,6 +42,10 @@ public class FeedbackServiceImpl implements FeedbackService {
 
 //    @Override
 //    public List<Feedback> getFeedbackByUserId(Integer userId) {
-//        return feedbackRepository.findByUserId(userId);
+//        return feedbackRepository.findByUserUserId(userId);
+//    }
+//
+//    public List<Feedback> getFeedbackByTypeAndUser(EvaluationType feedbackType, Integer userId) {
+//        return feedbackRepository.findByFeedbackTypeAndUserUserId(feedbackType, userId);
 //    }
 }
