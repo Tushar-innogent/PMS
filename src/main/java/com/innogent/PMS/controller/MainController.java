@@ -2,6 +2,7 @@ package com.innogent.PMS.controller;
 
 import com.innogent.PMS.dto.UserDto;
 import com.innogent.PMS.entities.User;
+import com.innogent.PMS.exception.customException.NoSuchUserExistsException;
 import com.innogent.PMS.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/user")
+@CrossOrigin
 public class MainController {;
     @Autowired
     private UserService userService;
@@ -38,7 +40,7 @@ public class MainController {;
 
     //get particular user by id
     @GetMapping("/getByEmpId/{empId}")
-    public ResponseEntity<User> getEmployeeById(@PathVariable String empId) {
+    public ResponseEntity<User> getEmployeeById(@PathVariable String empId) throws NoSuchUserExistsException {
         return this.userService.getEmployeeById(Integer.parseInt(empId));
     }
 

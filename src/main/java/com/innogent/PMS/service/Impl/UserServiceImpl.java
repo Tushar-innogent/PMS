@@ -3,6 +3,8 @@ package com.innogent.PMS.service.Impl;
 import com.innogent.PMS.dto.UserDto;
 import com.innogent.PMS.entities.Role;
 import com.innogent.PMS.entities.User;
+import com.innogent.PMS.exception.customException.NoSuchUserExistsException;
+import com.innogent.PMS.exception.customException.UserAlreadyExistsException;
 import com.innogent.PMS.mapper.CustomMapper;
 import com.innogent.PMS.repository.RoleRepository;
 import com.innogent.PMS.repository.UserRepository;
@@ -29,8 +31,9 @@ public class UserServiceImpl implements UserService {
         System.out.println(userDto);
         Optional<User> existingUser = userRepository.findByEmail(userDto.getEmail());
         if (existingUser.isPresent()) {
-            System.out.println("email already");
-            return null;
+            throw new UserAlreadyExistsException("User Already Exist With Provided Email!");
+//            System.out.println("email already");
+//            return null;
         }
         Role existingRole = roleRepository.findByName(userDto.getRole().getName());
         if (existingRole != null) {
@@ -55,8 +58,8 @@ public class UserServiceImpl implements UserService {
         return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 
-    public ResponseEntity<User> getEmployeeById(Integer empId){
-        return ResponseEntity.ok(userRepository.findById(empId).orElse(null));
+    public ResponseEntity<User> getEmployeeById(Integer empId) throws NoSuchUserExistsException {
+        return ResponseEntity.ok(userRepository.findById(empId).orElseThrow(()-> new NoSuchUserExistsException("Employee Not Present With Employee Id : "+empId, HttpStatus.NOT_FOUND)));
     }
 
     public ResponseEntity<String> updateUser(UserDto userDto, Integer userId) {

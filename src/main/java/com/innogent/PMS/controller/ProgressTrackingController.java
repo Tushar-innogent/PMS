@@ -2,6 +2,7 @@ package com.innogent.PMS.controller;
 
 import com.innogent.PMS.dto.ProgressTrackingDto;
 import com.innogent.PMS.entities.ProgressTracking;
+import com.innogent.PMS.exception.customException.NoSuchUserExistsException;
 import com.innogent.PMS.repository.ProgressTrackingRepository;
 import com.innogent.PMS.service.ProgressTrackingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,15 +29,13 @@ public class ProgressTrackingController {
 //        return this.progressTrackingService.addProgressTracking(empId,tracking);
 //    }
     @PostMapping("/add/{empId}")
-    public ResponseEntity<?> addProgressTracking(@PathVariable Integer empId,@RequestBody ProgressTrackingDto trackingDto)
-    {
+    public ResponseEntity<?> addProgressTracking(@PathVariable Integer empId,@RequestBody ProgressTrackingDto trackingDto) throws NoSuchUserExistsException {
 
         return this.progressTrackingService.addProgressTracking(empId,trackingDto);
     }
     //get data by employee id
     @GetMapping("/get/user/{employeeId}")
-   public ResponseEntity<?> getProgressTracking(@PathVariable Integer employeeId)
-   {
+   public ResponseEntity<?> getProgressTracking(@PathVariable Integer employeeId) throws NoSuchUserExistsException {
        return this.progressTrackingService.getProgressTracking(employeeId);
    }
 
