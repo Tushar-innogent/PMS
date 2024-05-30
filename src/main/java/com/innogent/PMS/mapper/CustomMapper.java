@@ -17,13 +17,17 @@ public class CustomMapper {
 
     //************ goal module mapper methods
     public Goal goalDtoToEntity(GoalDto goalDto){
-        return modelMapper.map(goalDto, Goal.class);
+        Goal goal = new Goal();
+        goal.setGoalType(goalDto.getGoalType());
+        goal.setDescription(goalDto.getDescription());
+        return goal;
     }
     public GoalDto goalEntityToGoalDto(Goal goal){
         GoalDto goalDto = new GoalDto();
         goalDto.setUserId(goal.getUser().getUserId());
         goalDto.setDescription(goal.getDescription());
         goalDto.setGoalType(goal.getGoalType());
+        goalDto.setDate(goal.getDate());
         return goalDto;
     }
     //to convert list of goals to list of goalDto

@@ -1,6 +1,8 @@
 package com.innogent.PMS.controller;
 
 import com.innogent.PMS.dto.GoalDto;
+import com.innogent.PMS.exception.customException.NoSuchGoalExistsException;
+import com.innogent.PMS.exception.customException.NoSuchUserExistsException;
 import com.innogent.PMS.service.GoalService;
 import com.innogent.PMS.service.StageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/goals")
+@CrossOrigin
 public class GoalController  {
     @Autowired
     private GoalService goalService;
@@ -20,12 +23,12 @@ public class GoalController  {
 
     //add personal goal
     @PostMapping("/addPersonal/{userId}")
-    public ResponseEntity<?> addPersonalGoal(@RequestBody GoalDto goalDto, @PathVariable Integer userId){
+    public ResponseEntity<?> addPersonalGoal(@RequestBody GoalDto goalDto, @PathVariable Integer userId) throws NoSuchUserExistsException {
         return ResponseEntity.status(HttpStatus.OK).body(goalService.addPersonalGoal(goalDto, userId));
     }
     //add Organisational goal
     @PostMapping("/addOrganisational/{managerId}")
-    public ResponseEntity<?> addOrgGoal(@RequestBody GoalDto goalDto, @PathVariable Integer managerId){
+    public ResponseEntity<?> addOrgGoal(@RequestBody GoalDto goalDto, @PathVariable Integer managerId) throws NoSuchUserExistsException {
         return ResponseEntity.status(HttpStatus.OK).body(goalService.addOrganisationalGoal(goalDto, managerId));
     }
     //get goal by goal id
@@ -44,19 +47,19 @@ public class GoalController  {
     }
     //update goal by goal id
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateGoalByGoalId(@PathVariable Long id, @RequestBody GoalDto goalDto){
+    public ResponseEntity<?> updateGoalByGoalId(@PathVariable Long id, @RequestBody GoalDto goalDto) throws NoSuchGoalExistsException {
         GoalDto result = goalService.editGoal(id, goalDto);
         if(result == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Data Not Present");
         return  ResponseEntity.status(HttpStatus.OK).body(result);
     }
     //finalise goal
-    @RequestMapping("/finalise/{goalId}/{managerId}")
-    public ResponseEntity<?> finaliseGoal(@PathVariable Long goalId, @PathVariable Integer managerId){
-        return ResponseEntity.status(HttpStatus.OK).body(stageService.finalizeGoal(goalId,managerId));
-    }
+//    @RequestMapping("/finalise/{goalId}/{managerId}")
+//    public ResponseEntity<?> finaliseGoal(@PathVariable Long goalId, @PathVariable Integer managerId){
+//        return ResponseEntity.status(HttpStatus.OK).body(stageService.finalizeGoal(goalId,managerId));
+//    }
     //delete a goal
     @DeleteMapping("/delete/{goalId}")
-    public ResponseEntity<?> deleteGoal(@PathVariable Long goalId){
+    public ResponseEntity<?> deleteGoal(@PathVariable Long goalId) throws NoSuchGoalExistsException {
         return ResponseEntity.status(HttpStatus.OK).body(goalService.deleteGoal(goalId));
     }
 }
