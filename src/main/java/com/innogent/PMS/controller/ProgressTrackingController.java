@@ -8,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/progress")
+@CrossOrigin
 public class ProgressTrackingController {
     @Autowired
     ProgressTrackingService progressTrackingService;
@@ -20,13 +23,7 @@ public class ProgressTrackingController {
     {
         return this.progressTrackingService.getById(Long.parseLong(id));
     }
-    //path add with employee id
-//   @PostMapping("/add/{empId}")
-//    public ResponseEntity<?> addProgressTracking(@PathVariable Integer empId,@RequestBody ProgressTracking tracking)
-//    {
-//
-//        return this.progressTrackingService.addProgressTracking(empId,tracking);
-//    }
+
     @PostMapping("/add/{empId}")
     public ResponseEntity<?> addProgressTracking(@PathVariable Integer empId,@RequestBody ProgressTrackingDto trackingDto)
     {
@@ -40,4 +37,15 @@ public class ProgressTrackingController {
        return this.progressTrackingService.getProgressTracking(employeeId);
    }
 
+   @PutMapping("/updateData/{meetingId}")
+   public ResponseEntity<?> updateProgressTracking(@PathVariable Long meetingId,@RequestBody ProgressTrackingDto progressTrackingDto)
+   {
+       return  this.progressTrackingService.editProgressTracking(meetingId,progressTrackingDto);
+   }
+
+   @GetMapping("/getAllTrackingData")
+   public ResponseEntity<?> getAllData()
+   {
+       return this.progressTrackingService.getAllData();
+   }
 }

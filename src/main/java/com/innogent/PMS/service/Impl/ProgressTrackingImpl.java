@@ -71,4 +71,33 @@ public class ProgressTrackingImpl implements ProgressTrackingService {
         return ResponseEntity.ok("employee id is not found");
     }
 
+
+    public ResponseEntity<?> editProgressTracking(Long meetingId, ProgressTrackingDto progressTrackingDto) {
+        Optional<ProgressTracking> trackingOpt=progressTrackingRepository.findById(meetingId);
+        //ProgressTracking tracking=trackingOpt.get();
+        if(trackingOpt.isEmpty())
+        {
+            return ResponseEntity.ok("progresss tracking data is not found");
+        }
+        ProgressTracking tracking=trackingOpt.get();
+        tracking.setMeetingId(meetingId);
+        tracking.setNotes(progressTrackingDto.getNotes());
+        tracking.setRecording(progressTrackingDto.getRecording());
+        ProgressTracking savedTracking=progressTrackingRepository.save(tracking);
+        ProgressTrackingDto savedTrackingDto=customMapper.progressEntityToProgressTrackingDto(savedTracking);
+        return ResponseEntity.ok(savedTrackingDto);
+    }
+
+    @Override
+    public ResponseEntity<?> getAllData() {
+        List<ProgressTracking> getProgressTrackingData=progressTrackingRepository.findAll();
+        if(getProgressTrackingData.isEmpty())
+        {
+            return ResponseEntity.ok("unable to find data");
+        }
+        List<ProgressTrackingDto> progressTrackingDto=customMapper.convertListToDto(getProgressTrackingData);
+         return ResponseEntity.ok(progressTrackingDto);
+    }
+
+
 }
