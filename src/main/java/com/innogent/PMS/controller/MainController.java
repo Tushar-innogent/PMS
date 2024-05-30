@@ -15,6 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/user")
+@CrossOrigin(origins = "http://localhost:3000")
 public class MainController {;
     @Autowired
     private UserService userService;
@@ -49,7 +50,6 @@ public class MainController {;
     }
 
     //login
-    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> signInUser(@RequestBody Map<String, String> request) {
         Optional<User> userOptional = userService.signIn(request.get("email"), request.get("password"));
