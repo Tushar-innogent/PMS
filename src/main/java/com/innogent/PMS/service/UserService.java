@@ -21,4 +21,6 @@ public interface UserService {
     public Optional<User> signIn(String email, String password);
     //forgot password
     public Optional<User> updatePassword(String email, String newPassword);
+
+    public User userByEmail(String email);
 }

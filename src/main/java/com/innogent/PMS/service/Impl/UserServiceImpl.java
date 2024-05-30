@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
         Optional<User> manager = userRepository.findByEmail(userDto.getManagerEmail());
         if (userDto.getRole().getName().toString().equals("USER") && manager.isEmpty()) {
             System.out.println("manager email not present");
-            return null;
+            throw new RuntimeException("manager email not present");
         }
         User user = customMapper.userDtoToEntity(userDto);
         if(userDto.getRole().getName().toString().equals("USER")){
@@ -117,5 +117,11 @@ public class UserServiceImpl implements UserService {
             return Optional.of(user);
         }
         return Optional.empty();
+    }
+
+    @Override
+    public User userByEmail(String email) {
+
+        return userRepository.findByEmail(email).get();
     }
 }

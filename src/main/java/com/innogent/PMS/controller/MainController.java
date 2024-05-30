@@ -7,6 +7,7 @@ import com.innogent.PMS.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -21,6 +22,7 @@ public class MainController {;
     @Autowired
     private UserService userService;
 
+    @PreAuthorize("ADMIN")
     @GetMapping("/home")
     public String home() {
         return "Welcome to Our Performance Manager Application!!";
@@ -79,4 +81,11 @@ public class MainController {;
             return ResponseEntity.badRequest().body(response);
         }
     }
+
+    //user by email
+    @GetMapping("/email/{email}")
+    public ResponseEntity<User> getByUserEmail(@PathVariable String email){
+        return ResponseEntity.ok(userService.userByEmail(email));
+    }
+
 }
