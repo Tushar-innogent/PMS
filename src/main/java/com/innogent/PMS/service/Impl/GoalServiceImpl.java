@@ -14,6 +14,7 @@ import com.innogent.PMS.repository.UserRepository;
 import com.innogent.PMS.service.GoalService;
 import com.innogent.PMS.service.StageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,27 +32,31 @@ public class GoalServiceImpl implements GoalService {
     private StageService stageService;
 
     @Override
-    public GoalDto addPersonalGoal(GoalDto goalDto, Integer userId) {
+    public GoalDto addPersonalGoal(GoalDto goalDto, Integer userId) throws NoSuchUserExistsException {
         Optional<User> user = userRepository.findById(goalDto.getUserId());
         if(user.isEmpty()){
-            throw new NoSuchUserExistsException("No User Present With Id : "+userId);
+            throw new NoSuchUserExistsException("No User Present With Id : "+goalDto.getUserId(), HttpStatus.NOT_FOUND);
         }
         Goal goal = customMapper.goalDtoToEntity(goalDto);
         goal.setUser(user.get());
-        Goal result = goalRepository.save(goal);
-        stageService.setStage(new Stage(StageName.GOAL_SETTING, StageStatus.PENDING, result)); // To set the stage of initial goal when declared
-        return customMapper.goalEntityToGoalDto(result);
+        if(goal.getGoalId() == null) {
+            Goal result = goalRepository.save(goal);
+            return customMapper.goalEntityToGoalDto(result);
+        }
+        throw new RuntimeException("rewriting data may be caused!");
+//        stageService.setStage(new Stage(StageName.GOAL_SETTING, StageStatus.PENDING, result)); // To set the stage of initial goal when declared
+
     }
     @Override
-    public GoalDto addOrganisationalGoal(GoalDto goalDto, Integer managerId) {
+    public GoalDto addOrganisationalGoal(GoalDto goalDto, Integer managerId) throws NoSuchUserExistsException {
         Optional<User> user = userRepository.findById(goalDto.getUserId());
         if(user.isEmpty() || !user.get().getManagerId().equals(managerId) || !goalDto.getGoalType().name().equalsIgnoreCase("ORGANISATIONAL")){
-            throw new NoSuchUserExistsException("No User Present With Id provided in goal: "+managerId);
+            throw new NoSuchUserExistsException("Only Manager Can Set Organisational Goal", HttpStatus.PROXY_AUTHENTICATION_REQUIRED);
         }
         Goal goal = customMapper.goalDtoToEntity(goalDto);
         goal.setUser(user.get());
         Goal result=goalRepository.save(goal);
-        stageService.setStage(new Stage(StageName.GOAL_SETTING, StageStatus.FINALISED, goal)); // To set the stage of initial goal when declared
+//        stageService.setStage(new Stage(StageName.GOAL_SETTING, StageStatus.FINALISED, goal)); // To set the stage of initial goal when declared
         return customMapper.goalEntityToGoalDto(result);
     }
     @Override
@@ -60,9 +65,9 @@ public class GoalServiceImpl implements GoalService {
         return optional.map(goal -> customMapper.goalEntityToGoalDto(goal)).orElse(null);
     }
     @Override
-    public GoalDto editGoal(Long goalId, GoalDto goalDto) {
+    public GoalDto editGoal(Long goalId, GoalDto goalDto) throws NoSuchGoalExistsException {
         Optional<Goal> optional = goalRepository.findById(goalId);
-        if(optional.isEmpty()) throw new NoSuchGoalExistsException("No Goal Present With Id : "+goalId);
+        if(optional.isEmpty()) throw new NoSuchGoalExistsException("No Goal Present With Id : "+goalId, HttpStatus.NOT_FOUND);
         Goal goal = customMapper.goalDtoToEntity(goalDto);
         goal.setGoalId(goalId);
         return customMapper.goalEntityToGoalDto(goalRepository.save(goal));
@@ -74,13 +79,13 @@ public class GoalServiceImpl implements GoalService {
     }
 
     @Override
-    public String deleteGoal(Long goalId) {
+    public String deleteGoal(Long goalId) throws NoSuchGoalExistsException {
         if(goalRepository.existsById(goalId)){
             goalRepository.deleteById(goalId);
             return "Record Deleted!";
         }
         else{
-            throw new NoSuchGoalExistsException("No Goal Present With Id : "+goalId);
+            throw new NoSuchGoalExistsException("No Goal Present With Id : "+goalId, HttpStatus.NOT_FOUND);
         }
     }
 

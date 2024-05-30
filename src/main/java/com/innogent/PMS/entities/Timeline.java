@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "timelines")
@@ -15,11 +17,16 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Timeline {
+public class
+
+Timeline {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer timelineId;
     private TimelineType timelineType;
     private LocalDate startDate;
     private LocalDate endDate;
+
+    @OneToMany(mappedBy = "timeline", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Stage> stages = new ArrayList<>();
 }
