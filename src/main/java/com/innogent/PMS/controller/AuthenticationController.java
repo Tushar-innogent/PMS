@@ -34,6 +34,7 @@ public class AuthenticationController {
         return ResponseEntity.ok(service.signInUser(request));
     }
 
+
     @PostMapping("/register")
     public ResponseEntity<UserDto> registerUser(@RequestBody UserDto request) throws GenericException {
         return ResponseEntity.ok(service.register(request));
