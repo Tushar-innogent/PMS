@@ -74,8 +74,11 @@ public class GoalServiceImpl implements GoalService {
     }
     @Override
     public List<GoalDto> listAllGoalsOfEmployee(Integer userId) {
-        Optional<List<Goal>> goalsList = goalRepository.findAllByUser(userRepository.findById(userId).get());
-        return goalsList.map(goal -> customMapper.goalListToGoalDto(goal)).orElse(null);
+        Optional<User> user = userRepository.findById(userId);
+        System.out.println(user.get());
+        List<Goal> goalsList = goalRepository.findAllByUser(user.get());
+        System.out.println(goalsList);
+        return customMapper.goalListToGoalDto(goalsList);
     }
 
     @Override

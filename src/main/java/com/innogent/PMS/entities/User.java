@@ -18,6 +18,7 @@ import java.util.List;
 @Getter
 @ToString
 public class User implements UserDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
@@ -37,7 +38,7 @@ public class User implements UserDetails {
     private Date hiredDate;
     private Integer managerId;
 
-    @ManyToOne(cascade= CascadeType.MERGE, targetEntity = Role.class, fetch = FetchType.LAZY)
+    @ManyToOne(cascade= CascadeType.MERGE, targetEntity = Role.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
     private Role role;
 
