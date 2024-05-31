@@ -43,15 +43,15 @@ public class ProgressTrackingImpl implements ProgressTrackingService {
     }
 
     @Override
-    public ResponseEntity<?> addProgressTracking(Integer empId, ProgressTrackingDto trackingDto) throws NoSuchUserExistsException {
+    public ResponseEntity<?> addProgressTracking(Integer empId, ProgressTrackingDto trackingDto)  {
         ProgressTracking progressTracking=customMapper.progressTrackingDtoToEntity(trackingDto);
-        User user=userRepository.findById(empId).orElseThrow(() -> new NoSuchUserExistsException("Employee Doesn't With Id : "+empId, HttpStatus.NOT_FOUND));
+        User user=userRepository.findById(empId).orElseThrow(null);
 
        Integer managerId= user.getManagerId();
        Integer manager=null;
        if(managerId!=null)
        {
-           User managerUser=userRepository.findById(managerId).orElseThrow(() -> new NoSuchUserExistsException("Employee Doesn't With Id : "+empId, HttpStatus.NOT_FOUND));
+           User managerUser=userRepository.findById(managerId).orElseThrow(null);
            manager = managerUser.getUserId();
        }
        progressTracking.setUser(user);
@@ -61,8 +61,8 @@ public class ProgressTrackingImpl implements ProgressTrackingService {
     }
 
     @Override
-    public ResponseEntity<?> getProgressTracking(Integer employeeId) throws NoSuchUserExistsException {
-        Optional<User> userOptional= Optional.ofNullable(userRepository.findById(employeeId).orElseThrow(() -> new NoSuchUserExistsException("Employee Doesn't With Id : " + employeeId, HttpStatus.NOT_FOUND)));
+    public ResponseEntity<?> getProgressTracking(Integer employeeId)  {
+        Optional<User> userOptional= userRepository.findById(employeeId);
         if (userOptional.isPresent())
         {
             List<ProgressTracking> progressTrackingList=progressTrackingRepository.findAllByUser(userOptional.get());
@@ -72,5 +72,62 @@ public class ProgressTrackingImpl implements ProgressTrackingService {
         }
         return ResponseEntity.ok("employee id is not found");
     }
+
+    @Override
+    public ResponseEntity<?> editProgressTracking(long meetingId, ProgressTrackingDto progressTrackingDto) {
+        Optional<ProgressTracking> trackingOpt=progressTrackingRepository.findById(meetingId);
+        //ProgressTracking tracking=trackingOpt.get();
+        if(trackingOpt.isEmpty())
+        {
+            return ResponseEntity.ok("progresss tracking data is not found");
+        }
+        ProgressTracking tracking=trackingOpt.get();
+        tracking.setMeetingId(meetingId);
+        tracking.setNotes(progressTrackingDto.getNotes());
+        tracking.setRecording(progressTrackingDto.getRecording());
+        ProgressTracking savedTracking=progressTrackingRepository.save(tracking);
+        ProgressTrackingDto savedTrackingDto=customMapper.progressEntityToProgressTrackingDto(savedTracking);
+        return ResponseEntity.ok(savedTrackingDto);
+    }
+
+
+//    public ResponseEntity<?> editProgressTracking(Long meetingId, ProgressTrackingDto progressTrackingDto) {
+//        Optional<ProgressTracking> trackingOpt=progressTrackingRepository.findById(meetingId);
+//        //ProgressTracking tracking=trackingOpt.get();
+//        if(trackingOpt.isEmpty())
+//        {
+//            return ResponseEntity.ok("progresss tracking data is not found");
+//        }
+//        ProgressTracking tracking=trackingOpt.get();
+//        tracking.setMeetingId(meetingId);
+//        tracking.setNotes(progressTrackingDto.getNotes());
+//        tracking.setRecording(progressTrackingDto.getRecording());
+//        ProgressTracking savedTracking=progressTrackingRepository.save(tracking);
+//        ProgressTrackingDto savedTrackingDto=customMapper.progressEntityToProgressTrackingDto(savedTracking);
+//        return ResponseEntity.ok(savedTrackingDto);
+//    }
+
+
+    public ResponseEntity<?> getAllData() {
+        List<ProgressTracking> getProgressTrackingData=progressTrackingRepository.findAll();
+        if(getProgressTrackingData.isEmpty())
+        {
+            return ResponseEntity.ok("unable to find data");
+        }
+        List<ProgressTrackingDto> progressTrackingDto=customMapper.convertListToDto(getProgressTrackingData);
+         return ResponseEntity.ok(progressTrackingDto);
+    }
+
+
+    public ResponseEntity<?> deleteByMeetingId(long id) {
+        Optional<ProgressTracking> progressTrackingOpt=progressTrackingRepository.findById(id);
+        if(progressTrackingOpt.isPresent())
+        {
+            progressTrackingRepository.deleteById(id);
+            return ResponseEntity.ok("Data successfully deleted");
+        }
+        return ResponseEntity.ok("No related data found");
+    }
+
 
 }
