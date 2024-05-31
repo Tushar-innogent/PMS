@@ -99,5 +99,16 @@ public class ProgressTrackingImpl implements ProgressTrackingService {
          return ResponseEntity.ok(progressTrackingDto);
     }
 
+    @Override
+    public ResponseEntity<?> deleteByMeetingId(long id) {
+        Optional<ProgressTracking> progressTrackingOpt=progressTrackingRepository.findById(id);
+        if(progressTrackingOpt.isPresent())
+        {
+            progressTrackingRepository.deleteById(id);
+            return ResponseEntity.ok("Data successfully deleted");
+        }
+        return ResponseEntity.ok("No related data found");
+    }
+
 
 }

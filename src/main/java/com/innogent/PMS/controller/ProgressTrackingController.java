@@ -48,4 +48,10 @@ public class ProgressTrackingController {
    {
        return this.progressTrackingService.getAllData();
    }
+   @DeleteMapping("/deleteData/{id}")
+   public ResponseEntity<?> deleteByMeetingId(@PathVariable String id)
+   {
+       return this.progressTrackingService.deleteByMeetingId(Long.parseLong(id));
+   }
+
 }

@@ -20,4 +20,6 @@ public interface ProgressTrackingService {
    public ResponseEntity<?> editProgressTracking(Long meetingId, ProgressTrackingDto progressTrackingDto);
 
    public ResponseEntity<?> getAllData();
+
+    public ResponseEntity<?> deleteByMeetingId(long id);
 }
