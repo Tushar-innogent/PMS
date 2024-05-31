@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface ProgressTrackingRepository extends JpaRepository<ProgressTracking,Long> {
     public List<ProgressTracking> findAllByUser(User user);
+
 }
