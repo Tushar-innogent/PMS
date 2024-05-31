@@ -12,6 +12,7 @@ import com.innogent.PMS.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -26,6 +27,8 @@ public class UserServiceImpl implements UserService {
     private RoleRepository roleRepository;
     @Autowired
     private CustomMapper customMapper;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public UserDto register(UserDto userDto){
         System.out.println(userDto);
@@ -35,6 +38,7 @@ public class UserServiceImpl implements UserService {
 //            System.out.println("email already");
 //            return null;
         }
+
         Role existingRole = roleRepository.findByName(userDto.getRole().getName());
         if (existingRole != null) {
             userDto.setRole(existingRole);
@@ -50,6 +54,7 @@ public class UserServiceImpl implements UserService {
         if(userDto.getRole().getName().toString().equals("USER")){
             user.setManagerId(manager.get().getUserId());
         }
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         return customMapper.userEntityToDto(userRepository.save(user));
     }
 

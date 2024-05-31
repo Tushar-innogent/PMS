@@ -40,8 +40,6 @@ public class AuthenticationService {
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setRole(roleRepository.findByName(userDto.getRole().getName()));
         return customMapper.userEntityToDto(repository.save(user));
-//        var jwtToken = jwtService.generateToken(user);
-//        return AuthenticationResponse.builder().token(jwtToken).build();
     }
     public AuthenticationResponse authenticate(AuthenticationRequest request) throws NoSuchUserExistsException {
         authenticationManager.authenticate(
