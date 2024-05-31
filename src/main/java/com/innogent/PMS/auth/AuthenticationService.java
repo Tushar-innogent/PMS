@@ -42,6 +42,7 @@ public class AuthenticationService {
         return customMapper.userEntityToDto(repository.save(user));
 //        var jwtToken = jwtService.generateToken(user);
 //        return AuthenticationResponse.builder().token(jwtToken).build();
+
     }
     public AuthenticationResponse authenticate(AuthenticationRequest request) throws NoSuchUserExistsException {
         authenticationManager.authenticate(
