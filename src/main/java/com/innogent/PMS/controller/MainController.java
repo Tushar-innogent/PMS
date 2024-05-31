@@ -84,7 +84,7 @@ public class MainController {;
 
     //user by email
     @GetMapping("/email/{email}")
-    public ResponseEntity<User> getByUserEmail(@PathVariable String email){
+    public ResponseEntity<?> getByUserEmail(@PathVariable String email){
         return ResponseEntity.ok(userService.userByEmail(email));
     }
 
