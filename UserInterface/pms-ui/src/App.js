@@ -1,10 +1,9 @@
-import logo from './logo.svg';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <h1>Performance Manager System</h1>
+      <h1>Hii</h1>
     </div>
   );
 }

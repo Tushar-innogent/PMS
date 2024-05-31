@@ -19,11 +19,17 @@ public class Stage {
     @Column(length = 50, nullable = false)
     @Enumerated(EnumType.STRING)
     private StageName stageName;
-    @Column(length = 50)
+    @Column(length = 100)
     @Enumerated(EnumType.STRING)
     private StageStatus stageStatus;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "goalId", nullable = false)
-    private Goal goals;
+    @JoinColumn(name = "timelineId", nullable = false)
+    private Timeline timeline;
+
+    public Stage(StageName stageName, StageStatus stageStatus, Timeline timeline) {
+        this.stageName = stageName;
+        this.stageStatus = stageStatus;
+        this.timeline = timeline;
+    }
 }

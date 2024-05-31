@@ -13,21 +13,27 @@ import java.util.List;
 
 @Component
 public class CustomMapper {
-
     private ModelMapper modelMapper = new ModelMapper();
 
     //************ goal module mapper methods
     public Goal goalDtoToEntity(GoalDto goalDto){
-        return modelMapper.map(goalDto, Goal.class);
+        Goal goal = new Goal();
+        goal.setGoalType(goalDto.getGoalType());
+        goal.setDescription(goalDto.getDescription());
+        return goal;
     }
     public GoalDto goalEntityToGoalDto(Goal goal){
-        return modelMapper.map(goal, GoalDto.class);
+        GoalDto goalDto = new GoalDto();
+        goalDto.setUserId(goal.getUser().getUserId());
+        goalDto.setDescription(goal.getDescription());
+        goalDto.setGoalType(goal.getGoalType());
+        goalDto.setDate(goal.getDate());
+        return goalDto;
     }
     //to convert list of goals to list of goalDto
     public List<GoalDto> goalListToGoalDto(List<Goal> goalsList) {
         return goalsList.stream().map(this::goalEntityToGoalDto).toList();
     }
-
     //************ user module mapper methods
     public User userDtoToEntity (UserDto userDto){
         User user = modelMapper.map(userDto, User.class);
