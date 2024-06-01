@@ -88,4 +88,10 @@ public class MainController {;
         return ResponseEntity.ok(userService.userByEmail(email));
     }
 
+    //softDelete
+    @DeleteMapping("softDelete/{userId}")
+    public ResponseEntity<String> deleteUser(@PathVariable Integer userId) {
+        return userService.deleteUser(userId);
+    }
+
 }

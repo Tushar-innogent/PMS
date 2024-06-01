@@ -23,4 +23,6 @@ public interface UserService {
     public Optional<User> updatePassword(String email, String newPassword);
 
     public User userByEmail(String email);
+    //soft delete
+    public ResponseEntity<String> deleteUser(Integer userId);
 }
