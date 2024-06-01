@@ -34,7 +34,6 @@ public class User implements UserDetails {
     private String contact;
     @Column(length = 50)
     private String job;
-    private Double salary;
     private Date hiredDate;
     private Integer managerId;
 

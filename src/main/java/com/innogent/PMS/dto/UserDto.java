@@ -13,7 +13,6 @@ public class UserDto {
     private String password;
     private String contact;
     private String job;
-    private Double salary;
     private Date hiredDate;
     private String managerEmail;
     private Role role;

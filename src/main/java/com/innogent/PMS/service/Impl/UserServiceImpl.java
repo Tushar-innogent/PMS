@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -58,10 +59,18 @@ public class UserServiceImpl implements UserService {
         return customMapper.userEntityToDto(userRepository.save(user));
     }
 
-    public ResponseEntity<List<User>> getALL(){
-        List<User> user = userRepository.findAll();
-        return ResponseEntity.status(HttpStatus.OK).body(user);
-    }
+//    public ResponseEntity<List<User>> getALL(){
+//        List<User> user = userRepository.findAll();
+//        return ResponseEntity.status(HttpStatus.OK).body(user);
+//    }
+public ResponseEntity<List<User>> getALL() {
+    List<User> users = userRepository.findAll();
+    // Filter out users with isDeleted true
+    List<User> activeUsers = users.stream()
+            .filter(user -> !user.isDeleted())
+            .collect(Collectors.toList());
+    return ResponseEntity.status(HttpStatus.OK).body(activeUsers);
+}
 
     public ResponseEntity<User> getEmployeeById(Integer empId) throws NoSuchUserExistsException {
         return ResponseEntity.ok(userRepository.findById(empId).orElseThrow(()-> new NoSuchUserExistsException("Employee Not Present With Employee Id : "+empId, HttpStatus.NOT_FOUND)));
@@ -93,7 +102,6 @@ public class UserServiceImpl implements UserService {
         user.setPassword(userDto.getPassword());
         user.setContact(userDto.getContact());
         user.setJob(userDto.getJob());
-        user.setSalary(userDto.getSalary());
         user.setHiredDate(userDto.getHiredDate());
         user.setRole(userDto.getRole());
         if (userDto.getRole().getName().toString().equals("USER") && manager.isPresent()) {
@@ -127,5 +135,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public User userByEmail(String email) {
         return userRepository.findByEmail(email).get();
+    }
+
+    @Override
+    public ResponseEntity<String> deleteUser(Integer userId) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            user.setDeleted(true);
+            userRepository.save(user);
+            return ResponseEntity.ok("User deleted successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        }
     }
 }
