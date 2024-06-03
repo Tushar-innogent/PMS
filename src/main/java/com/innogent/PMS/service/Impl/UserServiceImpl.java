@@ -134,8 +134,14 @@ public ResponseEntity<List<User>> getALL() {
 
     @Override
     public User userByEmail(String email) {
-        return userRepository.findByEmail(email).get();
+        Optional<User> user = userRepository.findByEmail(email);
+        if (user.isPresent()) {
+            return user.get();
+        } else {
+            throw new RuntimeException("User not found with email: " + email);
+        }
     }
+
 
     @Override
     public ResponseEntity<String> deleteUser(Integer userId) {
