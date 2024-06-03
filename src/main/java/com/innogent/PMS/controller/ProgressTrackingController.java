@@ -27,7 +27,7 @@ public class ProgressTrackingController {
 
     @PostMapping("/add/{empId}")
     public ResponseEntity<?> addProgressTracking(@PathVariable Integer empId,@RequestBody ProgressTrackingDto trackingDto)  {
-        System.out.println("added progrees");
+        //System.out.println("added progrees");
         return this.progressTrackingService.addProgressTracking(empId,trackingDto);
     }
     //get data by employee id
