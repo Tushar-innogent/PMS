@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "timelines")
@@ -28,5 +28,5 @@ Timeline {
     private LocalDate endDate;
 
     @OneToMany(mappedBy = "timeline", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Stage> stages = new ArrayList<>();
+    private Set<Stage> stages = new HashSet<>();
 }

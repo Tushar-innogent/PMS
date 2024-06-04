@@ -41,17 +41,17 @@ public class AuthenticationService {
         user.setRole(roleRepository.findByName(userDto.getRole().getName()));
         return customMapper.userEntityToDto(repository.save(user));
     }
-    public AuthenticationResponse authenticate(AuthenticationRequest request) throws NoSuchUserExistsException {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
-                        request.getPassword()
-                )
-        );
-        var user = repository.findByEmail(request.getEmail()).orElseThrow(()->new NoSuchUserExistsException("User Not Exists With Email : "+request.getEmail(), HttpStatus.NOT_FOUND));
-        var jwtToken = jwtService.generateToken(user);
-        return AuthenticationResponse.builder().token(jwtToken).build();
-    }
+//    public AuthenticationResponse authenticate(AuthenticationRequest request) throws NoSuchUserExistsException {
+//        authenticationManager.authenticate(
+//                new UsernamePasswordAuthenticationToken(
+//                        request.getEmail(),
+//                        request.getPassword()
+//                )
+//        );
+//        var user = repository.findByEmail(request.getEmail()).orElseThrow(()->new NoSuchUserExistsException("User Not Exists With Email : "+request.getEmail(), HttpStatus.NOT_FOUND));
+//        var jwtToken = jwtService.generateToken(user);
+//        return AuthenticationResponse.builder().token(jwtToken).build();
+//    }
 
     public AuthenticationResponse signInUser(AuthenticationRequest request) throws GenericException {
         try {
@@ -65,6 +65,11 @@ public class AuthenticationService {
 //        User Match, Authentication Successful
         final String jwtToken = jwtService.generateToken(userDetails);
 //        Token Generated
-        return AuthenticationResponse.builder().token(jwtToken).userId(""+repository.findByEmail(request.getEmail()).get().getUserId()).build();
+        return AuthenticationResponse.builder().token(jwtToken)
+                .userId(""+repository.findByEmail(request.getEmail())
+                .orElseThrow(
+                ()
+                        -> new NoSuchUserExistsException(
+                        "NO USER PRESENT WITH EMAIL = "+request.getEmail(), HttpStatus.NOT_FOUND)).getUserId()).build();
     }
 }

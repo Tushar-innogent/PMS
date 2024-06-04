@@ -52,11 +52,6 @@ public class GoalController  {
         if(result == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Data Not Present");
         return  ResponseEntity.status(HttpStatus.OK).body(result);
     }
-    //finalise goal
-//    @RequestMapping("/finalise/{goalId}/{managerId}")
-//    public ResponseEntity<?> finaliseGoal(@PathVariable Long goalId, @PathVariable Integer managerId){
-//        return ResponseEntity.status(HttpStatus.OK).body(stageService.finalizeGoal(goalId,managerId));
-//    }
     //delete a goal
     @DeleteMapping("/delete/{goalId}")
     public ResponseEntity<?> deleteGoal(@PathVariable Long goalId) throws NoSuchGoalExistsException {

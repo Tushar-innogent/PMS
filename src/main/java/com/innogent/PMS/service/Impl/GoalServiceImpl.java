@@ -2,10 +2,7 @@ package com.innogent.PMS.service.Impl;
 
 import com.innogent.PMS.dto.GoalDto;
 import com.innogent.PMS.entities.Goal;
-import com.innogent.PMS.entities.Stage;
 import com.innogent.PMS.entities.User;
-import com.innogent.PMS.enums.StageName;
-import com.innogent.PMS.enums.StageStatus;
 import com.innogent.PMS.exception.customException.NoSuchGoalExistsException;
 import com.innogent.PMS.exception.customException.NoSuchUserExistsException;
 import com.innogent.PMS.mapper.CustomMapper;
@@ -70,6 +67,8 @@ public class GoalServiceImpl implements GoalService {
         if(optional.isEmpty()) throw new NoSuchGoalExistsException("No Goal Present With Id : "+goalId, HttpStatus.NOT_FOUND);
         Goal goal = customMapper.goalDtoToEntity(goalDto);
         goal.setGoalId(goalId);
+        goal.setUser(optional.get().getUser());
+        goal.setSetDate(optional.get().getSetDate());
         return customMapper.goalEntityToGoalDto(goalRepository.save(goal));
     }
     @Override
