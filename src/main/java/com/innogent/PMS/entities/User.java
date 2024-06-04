@@ -36,6 +36,7 @@ public class User implements UserDetails {
     private String job;
     private Date hiredDate;
     private Integer managerId;
+    private String aboutMe;
 
     @ManyToOne(cascade= CascadeType.MERGE, targetEntity = Role.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
