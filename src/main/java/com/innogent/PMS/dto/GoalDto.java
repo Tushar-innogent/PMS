@@ -7,8 +7,12 @@ import java.time.LocalDate;
 
 @Data
 public class GoalDto {
+    private Long goalId;
+    private String goalName;
     private GoalType goalType;
     private String description;
+    private String measurable;
     private Integer userId;
-    private LocalDate date;
+    private LocalDate setDate;
+    private LocalDate endDate;
 }

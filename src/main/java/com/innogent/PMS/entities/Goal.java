@@ -18,12 +18,16 @@ public class Goal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long goalId;
+    @Column(length = 100)
+    private String goalName;
     @Enumerated(EnumType.STRING)
     @Column(length = 50)
     private GoalType goalType;
     private String description;
     @CreationTimestamp
-    private LocalDate date;
+    private LocalDate setDate;
+    private String measurable;
+    private LocalDate endDate;
 
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "userId")
