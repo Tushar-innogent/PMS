@@ -24,10 +24,10 @@ public class AuthenticationController {
 
     private final AuthenticationService service;
 
-    @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) throws NoSuchUserExistsException {
-        return ResponseEntity.ok(service.authenticate(request));
-    }
+//    @PostMapping("/authenticate")
+//    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) throws NoSuchUserExistsException {
+//        return ResponseEntity.ok(service.authenticate(request));
+//    }
 
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> signInUser(@RequestBody AuthenticationRequest request) throws GenericException {

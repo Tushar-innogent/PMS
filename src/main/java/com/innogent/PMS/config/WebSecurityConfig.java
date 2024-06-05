@@ -27,7 +27,7 @@ public class WebSecurityConfig {
         httpSecurity
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(request -> request.requestMatchers("/api/auth/login","/api/auth/authenticate","/api/user/register").permitAll())
+                .authorizeHttpRequests(request -> request.requestMatchers("/api/auth/login","/api/auth/authenticate","/api/auth/register").permitAll())
 //                .authorizeHttpRequests(request -> request.anyRequest().authenticated())
                 .authorizeHttpRequests(request -> request.anyRequest().permitAll())
                 .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

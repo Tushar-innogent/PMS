@@ -9,6 +9,7 @@ import com.innogent.PMS.entities.User;
 import org.springframework.stereotype.Component;
 import org.modelmapper.ModelMapper;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Component
@@ -20,14 +21,22 @@ public class CustomMapper {
         Goal goal = new Goal();
         goal.setGoalType(goalDto.getGoalType());
         goal.setDescription(goalDto.getDescription());
+        goal.setGoalName(goalDto.getGoalName());
+        goal.setMeasurable(goalDto.getMeasurable());
+//        LocalDate endDate =LocalDate.parse();
+        goal.setEndDate(goalDto.getEndDate());
         return goal;
     }
     public GoalDto goalEntityToGoalDto(Goal goal){
         GoalDto goalDto = new GoalDto();
-        goalDto.setUserId(goal.getUser().getUserId());
+        goalDto.setUserId((goal.getUser() != null)?goal.getUser().getUserId():null);
         goalDto.setDescription(goal.getDescription());
         goalDto.setGoalType(goal.getGoalType());
-        goalDto.setDate(goal.getDate());
+        goalDto.setSetDate(goal.getSetDate());
+        goalDto.setMeasurable(goal.getMeasurable());
+        goalDto.setGoalName(goal.getGoalName());
+        goalDto.setEndDate(goal.getEndDate());
+        goalDto.setGoalId(goal.getGoalId());
         return goalDto;
     }
     //to convert list of goals to list of goalDto

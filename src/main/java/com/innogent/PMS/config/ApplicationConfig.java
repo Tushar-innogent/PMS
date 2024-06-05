@@ -17,7 +17,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @RequiredArgsConstructor
 public class ApplicationConfig {
-
     private final UserRepository repository;
 
     @Bean
@@ -27,7 +26,7 @@ public class ApplicationConfig {
                 return repository.findByEmail(username)
                         .orElseThrow(()-> new NoSuchUserExistsException("User Not found", HttpStatus.NOT_FOUND));
             } catch (NoSuchUserExistsException e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException(e.getMessage());
             }
         };
     }
