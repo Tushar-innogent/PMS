@@ -1,5 +1,6 @@
 package com.innogent.PMS.controller;
 
+import com.innogent.PMS.dto.ChangePasswordRequest;
 import com.innogent.PMS.dto.UserDto;
 import com.innogent.PMS.entities.User;
 import com.innogent.PMS.exception.customException.NoSuchUserExistsException;
@@ -92,6 +93,31 @@ public class MainController {;
     @DeleteMapping("softDelete/{userId}")
     public ResponseEntity<String> deleteUser(@PathVariable Integer userId) {
         return userService.deleteUser(userId);
+    }
+
+    //by email set aboutME
+    @PostMapping("/about/{email}")
+    public User updateAboutMe(@PathVariable String email, @RequestBody AboutMeRequest aboutMeRequest) {
+        return userService.updateUserAboutMe(email, aboutMeRequest.getAboutMe());
+    }
+
+    static class AboutMeRequest {
+        private String aboutMe;
+
+        public String getAboutMe() {
+            return aboutMe;
+        }
+
+        public void setAboutMe(String aboutMe) {
+            this.aboutMe = aboutMe;
+        }
+    }
+
+    //by email change old password
+    @PostMapping("/changePassword/{email}")
+    public ResponseEntity<String> changePassword(@PathVariable String email, @RequestBody ChangePasswordRequest request) {
+        userService.changePassword(email, request);
+        return ResponseEntity.status(HttpStatus.OK).body("Password changed successfully");
     }
 
 }
