@@ -25,6 +25,7 @@ public class MainController {;
     @PreAuthorize("ADMIN")
     @GetMapping("/home")
     public String home() {
+
         return "Welcome to Our Performance Manager Application!!";
     }
 
