@@ -1,7 +1,6 @@
 package com.innogent.PMS.entities;
 
 import com.innogent.PMS.enums.StageName;
-import com.innogent.PMS.enums.StageStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,17 +18,14 @@ public class Stage {
     @Column(length = 50, nullable = false)
     @Enumerated(EnumType.STRING)
     private StageName stageName;
-    @Column(length = 100)
-    @Enumerated(EnumType.STRING)
-    private StageStatus stageStatus;
+    private String description;
+    private Boolean isActive;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "timelineId", nullable = false)
+    @OneToOne(mappedBy = "stages", cascade = CascadeType.ALL)
     private Timeline timeline;
 
-    public Stage(StageName stageName, StageStatus stageStatus, Timeline timeline) {
+    public Stage(StageName stageName, Timeline timeline) {
         this.stageName = stageName;
-        this.stageStatus = stageStatus;
         this.timeline = timeline;
     }
 }

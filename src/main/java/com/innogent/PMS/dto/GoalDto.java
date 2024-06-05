@@ -1,9 +1,10 @@
 package com.innogent.PMS.dto;
 
+import com.innogent.PMS.enums.GoalStatus;
 import com.innogent.PMS.enums.GoalType;
 import lombok.Data;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 public class GoalDto {
@@ -13,6 +14,8 @@ public class GoalDto {
     private String description;
     private String measurable;
     private Integer userId;
-    private LocalDate setDate;
-    private LocalDate endDate;
+    private LocalDateTime setDate;
+    private LocalDateTime
+            endDate;
+    private GoalStatus goalStatus;
 }

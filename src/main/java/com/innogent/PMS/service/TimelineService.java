@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface TimelineService {
     //add timeline
-    public Timeline addTimeline(Timeline tm);
+//    public Timeline addTimeline(Timeline tm);
     //edit timeline
     public Timeline editTimeline(Integer timelineId, Timeline tm);
     //delete timeline
