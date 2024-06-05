@@ -5,13 +5,17 @@ import com.innogent.PMS.exception.customException.NoSuchGoalExistsException;
 import com.innogent.PMS.exception.customException.NoSuchUserExistsException;
 import com.innogent.PMS.service.GoalService;
 import com.innogent.PMS.service.StageService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/goals")
 @CrossOrigin
@@ -20,10 +24,16 @@ public class GoalController  {
     private GoalService goalService;
     @Autowired
     private StageService stageService;
+//    private static final Logger logger = LogManager.getLogger();
+
+    public static org.slf4j.Logger getLog() {
+        return log;
+    }
 
     //add personal goal
     @PostMapping("/addPersonal/{userId}")
     public ResponseEntity<?> addPersonalGoal(@RequestBody GoalDto goalDto, @PathVariable Integer userId) throws NoSuchUserExistsException {
+
         return ResponseEntity.status(HttpStatus.OK).body(goalService.addPersonalGoal(goalDto, userId));
     }
     //add Organisational goal

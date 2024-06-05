@@ -4,6 +4,7 @@ import com.innogent.PMS.enums.EvaluationType;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -35,7 +36,7 @@ public class Feedback {
     private EvaluationType feedbackType;
 
     private Integer rating;
-    private Date feedbackDate;
+    private LocalDateTime feedbackDate;
 
     @Column(columnDefinition = "TEXT")
     private String comments;
