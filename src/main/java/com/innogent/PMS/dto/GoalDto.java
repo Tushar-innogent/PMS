@@ -15,7 +15,6 @@ public class GoalDto {
     private String measurable;
     private Integer userId;
     private LocalDateTime setDate;
-    private LocalDateTime
-            endDate;
+    private LocalDateTime endDate;
     private GoalStatus goalStatus;
 }
