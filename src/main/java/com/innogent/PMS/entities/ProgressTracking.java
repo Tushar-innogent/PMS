@@ -18,16 +18,16 @@ import java.util.Date;
 @NoArgsConstructor
 public class ProgressTracking {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-   private Long meetingId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long meetingId;
     @CreationTimestamp
-   private LocalDateTime date;
-   private String notes;
-   private String recording;
+    private LocalDateTime date;
+    private String notes;
+    private String recording;
 
-  @ManyToOne
-  @JoinColumn(name="empId")
-   private User user;
+    @ManyToOne
+    @JoinColumn(name = "empId")
+    private User user;
 
 
     private Integer lineManagerId;

@@ -12,13 +12,7 @@ import java.util.Optional;
 public class TimelineService implements com.innogent.PMS.service.TimelineService {
     @Autowired
     private TimelineRepository timelineRepository;
-    @Override
-    public Timeline addTimeline(Timeline tm) {
-        if(timelineRepository.existsByTimelineType(tm.getTimelineType())){
-            return null;
-        }
-        return timelineRepository.save(tm);
-    }
+
 
     @Override
     public Timeline editTimeline(Integer timelineId, Timeline tm) {
