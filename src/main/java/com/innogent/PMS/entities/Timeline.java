@@ -1,5 +1,6 @@
 package com.innogent.PMS.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,5 +24,6 @@ Timeline {
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "stage_id")
+    @JsonManagedReference
     private Stage stages;
 }

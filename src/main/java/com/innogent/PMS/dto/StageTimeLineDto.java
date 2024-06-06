@@ -6,8 +6,10 @@ import java.time.LocalDateTime;
 
 @Data
 public class StageTimeLineDto {
+    private Long stageId;
     private String stageName;
     private String description;
+    private LocalDateTime startDate;
     private LocalDateTime endDate;
-    private boolean isActive;
+    private Boolean isActive;
 }

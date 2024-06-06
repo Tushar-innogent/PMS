@@ -28,9 +28,6 @@ public class GoalController  {
     private StageService stageService;
 //    private static final Logger logger = LogManager.getLogger();
 
-    public static org.slf4j.Logger getLog() {
-        return log;
-    }
 
     //add personal goal
     @PostMapping("/addPersonal/{userId}")
