@@ -21,9 +21,11 @@ public class ProgressTracking {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
    private Long meetingId;
+    private String description;
    private LocalDate date;
    private String notes;
    private String recording;
+   //private String description;
 
   @ManyToOne
   @JoinColumn(name="empId")

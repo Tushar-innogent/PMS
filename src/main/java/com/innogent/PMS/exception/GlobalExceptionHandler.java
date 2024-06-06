@@ -1,6 +1,7 @@
 package com.innogent.PMS.exception;
 
 import com.innogent.PMS.response.ErrorResponse;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,4 +44,21 @@ public class GlobalExceptionHandler {
 //    public @ResponseBody ErrorResponse handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException ex){
 //        return new ErrorResponse(HttpStatus.METHOD_NOT_ALLOWED.value(), ex.getMessage());
 //    }
+    // tanish code
+@ExceptionHandler(EntityNotFoundException.class)
+public ResponseEntity<String> handleEntityNotFoundException(EntityNotFoundException ex) {
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
 }
+
+//    @ExceptionHandler(MapperException.class)
+//    public ResponseEntity<String> handleMapperException(MapperException ex) {
+//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
+//    }
+
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<String> handleException(Exception ex) {
+//        // You can log the exception here if needed
+//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred");
+//    }
+}
+

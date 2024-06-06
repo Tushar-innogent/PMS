@@ -8,6 +8,7 @@ import com.innogent.PMS.mapper.CustomMapper;
 import com.innogent.PMS.repository.ProgressTrackingRepository;
 import com.innogent.PMS.repository.UserRepository;
 import com.innogent.PMS.service.ProgressTrackingService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,16 +31,17 @@ public class ProgressTrackingImpl implements ProgressTrackingService {
         progressTrackingRepository.save(progressTracking);
     }
     @Override
-    public ResponseEntity<?> getById(long id) {
+    public ResponseEntity<?> getById(long id) throws EntityNotFoundException {
 
-        Optional<ProgressTracking> progressTrackingData=progressTrackingRepository.findById(id);
-        if(progressTrackingData.isPresent())
-        {
+        Optional<ProgressTracking> progressTrackingData= Optional.ofNullable(progressTrackingRepository.findById(id).orElseThrow(()->new EntityNotFoundException("Meeting id is not present")));
+        //if(progressTrackingData.isPresent())
+        //{
            ProgressTrackingDto dto= customMapper.progressEntityToProgressTrackingDto(progressTrackingData.get());
-            if(dto!=null)
+            //if(dto!=null)
                 return ResponseEntity.ok(dto);
-        }
-        return ResponseEntity.ok("Meeting id is not present");
+        //}
+        //return ResponseEntity.ok(("Meeting id is not present"));
+        //throw new EntityNotFoundException("Meeting id is not present");
     }
 
     @Override
