@@ -87,7 +87,7 @@ public class GoalServiceImpl implements GoalService {
             return "Record Deleted!";
         }
         else{
-            throw new NoSuchGoalExistsException("No Goal Present With Id : "+goalId, HttpStatus.NOT_FOUND);
+            throw new NoSuchGoalExistsException("No Goal Present or Id is invalid : "+goalId, HttpStatus.NOT_FOUND);
         }
     }
 

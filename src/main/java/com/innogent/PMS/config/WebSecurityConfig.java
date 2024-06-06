@@ -29,7 +29,6 @@ public class WebSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request.requestMatchers("/api/auth/login","/api/auth/authenticate","/api/user/register").permitAll())
                 .authorizeHttpRequests(request -> request.anyRequest().authenticated())
-//                .formLogin(Customizer.withDefaults())
 //                .authorizeHttpRequests(request -> request.anyRequest().permitAll())
                 .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
