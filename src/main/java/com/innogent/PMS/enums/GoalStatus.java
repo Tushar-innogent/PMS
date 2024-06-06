@@ -1,8 +1,8 @@
 package com.innogent.PMS.enums;
 
-public enum StageStatus {
-    PENDING,
-    FINALISED,
+public enum GoalStatus {
+    CREATED,
+    APPROVED,
     IN_PROGRESS,
     COMPLETED;
 }

@@ -23,7 +23,7 @@ public class CustomMapper {
         goal.setDescription(goalDto.getDescription());
         goal.setGoalName(goalDto.getGoalName());
         goal.setMeasurable(goalDto.getMeasurable());
-//        LocalDate endDate =LocalDate.parse();
+        goal.setGoalStatus(goalDto.getGoalStatus());
         goal.setEndDate(goalDto.getEndDate());
         return goal;
     }
@@ -37,6 +37,7 @@ public class CustomMapper {
         goalDto.setGoalName(goal.getGoalName());
         goalDto.setEndDate(goal.getEndDate());
         goalDto.setGoalId(goal.getGoalId());
+        goalDto.setGoalStatus((goal.getGoalStatus()));
         return goalDto;
     }
     //to convert list of goals to list of goalDto

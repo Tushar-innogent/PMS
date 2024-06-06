@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -152,6 +153,21 @@ public ResponseEntity<List<User>> getALL() {
             user.setDeleted(true);
             userRepository.save(user);
             return ResponseEntity.ok("User deleted successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> getAllEmployeesOfManager(Integer userId) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            List<User> users = getALL().getBody();
+            assert users != null;
+            System.out.println(users);
+            Set<User> result = users.stream().filter(o -> o.getManagerId()!=null).filter(u -> u.getManagerId().equals(userId)).collect(Collectors.toSet());
+            return ResponseEntity.status(HttpStatus.OK).body(result);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }

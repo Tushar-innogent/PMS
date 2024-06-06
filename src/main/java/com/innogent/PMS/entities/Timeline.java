@@ -1,15 +1,12 @@
 package com.innogent.PMS.entities;
 
-import com.innogent.PMS.enums.TimelineType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "timelines")
@@ -23,10 +20,10 @@ Timeline {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer timelineId;
-    private TimelineType timelineType;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 
-    @OneToMany(mappedBy = "timeline", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Stage> stages = new HashSet<>();
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "stage_id")
+    private Stage stages;
 }

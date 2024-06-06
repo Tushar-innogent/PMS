@@ -4,6 +4,7 @@ import com.innogent.PMS.dto.UserDto;
 import com.innogent.PMS.entities.User;
 import com.innogent.PMS.exception.customException.NoSuchUserExistsException;
 import com.innogent.PMS.service.UserService;
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +38,7 @@ public class MainController {;
 
     // fetch all users
     @GetMapping("/getAll")
-    public ResponseEntity<List<User>> getALL(){
+    public ResponseEntity<List<User>> getAll(){
         return this.userService.getALL();
     }
 
@@ -95,4 +96,9 @@ public class MainController {;
         return userService.deleteUser(userId);
     }
 
+    //to get employees under manager
+    @GetMapping("/managerEmployee/{userId}")
+    public ResponseEntity<?> getByEmployeesUnderMe(@PathVariable Integer userId){
+        return ResponseEntity.ok(userService.getAllEmployeesOfManager(userId));
+    }
 }

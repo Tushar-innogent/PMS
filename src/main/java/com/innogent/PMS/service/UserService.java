@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public interface UserService {
     //To register new user
@@ -25,4 +26,6 @@ public interface UserService {
     public User userByEmail(String email);
     //soft delete
     public ResponseEntity<String> deleteUser(Integer userId);
+
+    public ResponseEntity<?> getAllEmployeesOfManager(Integer userId);
 }
