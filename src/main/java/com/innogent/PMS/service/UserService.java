@@ -1,5 +1,6 @@
 package com.innogent.PMS.service;
 
+import com.innogent.PMS.dto.ChangePasswordRequest;
 import com.innogent.PMS.dto.UserDto;
 import com.innogent.PMS.entities.User;
 import com.innogent.PMS.exception.customException.NoSuchUserExistsException;
@@ -26,6 +27,12 @@ public interface UserService {
     public User userByEmail(String email);
     //soft delete
     public ResponseEntity<String> deleteUser(Integer userId);
+
+    //by email set aboutMe
+    public User updateUserAboutMe(String email, String aboutMe);
+
+    //by email and oldPassword change the password
+    void changePassword(String email, ChangePasswordRequest request);
 
     public ResponseEntity<?> getAllEmployeesOfManager(Integer userId);
 }

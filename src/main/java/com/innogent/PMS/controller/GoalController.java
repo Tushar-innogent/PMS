@@ -26,6 +26,8 @@ public class GoalController  {
     private GoalService goalService;
     @Autowired
     private StageService stageService;
+//    private static final Logger logger = LogManager.getLogger();
+
 
     //add personal goal
     @PostMapping("/addPersonal/{userId}")
