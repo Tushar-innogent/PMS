@@ -1,10 +1,8 @@
 package com.innogent.PMS.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -14,6 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class
 
 Timeline {
@@ -25,5 +24,6 @@ Timeline {
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "stage_id")
+    @JsonManagedReference
     private Stage stages;
 }

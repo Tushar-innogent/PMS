@@ -1,8 +1,10 @@
 package com.innogent.PMS.service.Impl;
 
+import com.innogent.PMS.dto.ChangePasswordRequest;
 import com.innogent.PMS.dto.UserDto;
 import com.innogent.PMS.entities.Role;
 import com.innogent.PMS.entities.User;
+import com.innogent.PMS.exception.customException.InvalidPasswordException;
 import com.innogent.PMS.exception.customException.NoSuchUserExistsException;
 import com.innogent.PMS.exception.customException.UserAlreadyExistsException;
 import com.innogent.PMS.mapper.CustomMapper;
@@ -100,7 +102,7 @@ public ResponseEntity<List<User>> getALL() {
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
         user.setEmail(userDto.getEmail());
-        user.setPassword(userDto.getPassword());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setContact(userDto.getContact());
         user.setJob(userDto.getJob());
         user.setHiredDate(userDto.getHiredDate());
@@ -155,6 +157,40 @@ public ResponseEntity<List<User>> getALL() {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
+    }
+
+    public User updateUserAboutMe(String email, String aboutMe) {
+        Optional<User> userOptional = userRepository.findByEmail(email);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            user.setAboutMe(aboutMe);
+            return userRepository.save(user);
+        } else {
+            throw new RuntimeException("User with email " + email + " not found");
+        }
+    }
+    @Autowired
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    @Override
+    public void changePassword(String email, ChangePasswordRequest request) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (!passwordEncoder.matches(request.getOldPassword(), user.getPassword())) {
+            throw new InvalidPasswordException("Old password is incorrect");
+        }
+
+        if (!request.getNewPassword().equals(request.getConfirmPassword())) {
+            throw new RuntimeException("New password and confirm password do not match");
+        }
+
+        String encryptedPassword = passwordEncoder.encode(request.getNewPassword());
+        user.setPassword(encryptedPassword);
+        userRepository.save(user);
     }
 
     @Override
