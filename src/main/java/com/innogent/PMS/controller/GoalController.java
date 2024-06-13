@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 @Log4j2
 @RestController
 @RequestMapping("/api/goals")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000")
 public class GoalController  {
     @Autowired
     private GoalService goalService;
@@ -49,21 +49,28 @@ public class GoalController  {
     }
     //get list of goals of user by user id
     @GetMapping("/user/{userId}")
-    public ResponseEntity<?> getAllGoalsOfUser(@PathVariable Integer userId){
+    public ResponseEntity<?> getAllGoalsOfUser(@PathVariable Integer userId) throws NoSuchUserExistsException {
         List<GoalDto> goals = goalService.listAllGoalsOfEmployee(userId);
         if(goals == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Goals doesn't exist for required user!");
         return ResponseEntity.status(HttpStatus.OK).body(goals);
     }
     //update goal by goal id
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateGoalByGoalId(@PathVariable Long id, @RequestBody GoalDto goalDto) throws NoSuchGoalExistsException {
-        GoalDto result = goalService.editGoal(id, goalDto);
+    public ResponseEntity<?> updateGoalByGoalId(@PathVariable String id, @RequestBody GoalDto goalDto) throws NoSuchGoalExistsException {
+        log.info("updating records of id :"+id);
+        GoalDto result = goalService.editGoal(Long.parseLong(id), goalDto);
         if(result == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Data Not Present");
         return  ResponseEntity.status(HttpStatus.OK).body(result);
     }
-    //delete a goal
-    @DeleteMapping("/delete/{goalId}")
-    public ResponseEntity<?> deleteGoal(@PathVariable Long goalId) throws NoSuchGoalExistsException {
-        return ResponseEntity.status(HttpStatus.OK).body(goalService.deleteGoal(goalId));
+//    //delete a goal
+//    @DeleteMapping("/delete/{goalId}")
+//    public ResponseEntity<?> deleteGoal(@PathVariable Long goalId) throws NoSuchGoalExistsException {
+//        return ResponseEntity.status(HttpStatus.OK).body(goalService.deleteGoal(goalId));
+//    }
+
+    //softDelete
+    @DeleteMapping("delete/{goalId}")
+    public ResponseEntity<?> deleteUser(@PathVariable Long goalId) throws NoSuchGoalExistsException {
+        return goalService.deleteGoal(goalId);
     }
 }

@@ -2,6 +2,7 @@ package com.innogent.PMS.controller;
 
 import com.innogent.PMS.entities.Feedback;
 import com.innogent.PMS.enums.EvaluationType;
+import com.innogent.PMS.exception.customException.NoSuchUserExistsException;
 import com.innogent.PMS.service.FeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +37,16 @@ public class    FeedbackController {
 //            @RequestParam Integer userId) {
 //        return feedbackService.getFeedbackByTypeAndUser(feedbackType, userId);
 //    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<Feedback>> getFeedbackByUserId(@PathVariable Integer userId) throws NoSuchUserExistsException {
+        List<Feedback> feedbackList = feedbackService.retrieveUserFeedback(userId);
+        if (feedbackList.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(feedbackList);
+    }
+
 }
 
 

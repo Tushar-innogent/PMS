@@ -8,25 +8,31 @@ import com.innogent.PMS.exception.customException.NoSuchUserExistsException;
 import com.innogent.PMS.mapper.CustomMapper;
 import com.innogent.PMS.repository.GoalRepository;
 import com.innogent.PMS.repository.UserRepository;
+import com.innogent.PMS.service.EmailService;
 import com.innogent.PMS.service.GoalService;
 import com.innogent.PMS.service.StageService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class GoalServiceImpl implements GoalService {
-    @Autowired
-    private GoalRepository goalRepository;
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private CustomMapper customMapper;
-    @Autowired
-    private StageService stageService;
+    private static final Logger log = LoggerFactory.getLogger(GoalServiceImpl.class);
+    private final GoalRepository goalRepository;
+    private final UserRepository userRepository;
+    private final CustomMapper customMapper;
+    private final StageService stageService;
+    private final EmailService emailService;
 
     @Override
     public GoalDto addPersonalGoal(GoalDto goalDto, Integer userId) throws NoSuchUserExistsException {
@@ -46,6 +52,7 @@ public class GoalServiceImpl implements GoalService {
     }
     @Override
     public GoalDto addOrganisationalGoal(GoalDto goalDto, Integer managerId) throws NoSuchUserExistsException {
+        log.info("Performing Organisational goal addition!");
         Optional<User> user = userRepository.findById(goalDto.getUserId());
         if(user.isEmpty() || !user.get().getManagerId().equals(managerId) || !goalDto.getGoalType().name().equalsIgnoreCase("ORGANISATIONAL")){
             throw new NoSuchUserExistsException("Only Manager Can Set Organisational Goal", HttpStatus.PROXY_AUTHENTICATION_REQUIRED);
@@ -69,24 +76,32 @@ public class GoalServiceImpl implements GoalService {
         goal.setGoalId(goalId);
         goal.setUser(optional.get().getUser());
         goal.setSetDate(optional.get().getSetDate());
+        log.info("Sending email to hr on employee goal update!");
+        emailService.sendEmail("tusharpatidar8580@gmail.com", "Employee Data Updated", "Manager has updated employee data!");
         return customMapper.goalEntityToGoalDto(goalRepository.save(goal));
     }
     @Override
-    public List<GoalDto> listAllGoalsOfEmployee(Integer userId) {
+    public List<GoalDto> listAllGoalsOfEmployee(Integer userId) throws NoSuchUserExistsException{
         Optional<User> user = userRepository.findById(userId);
-        System.out.println(user.get());
+        if(user.isEmpty()){throw new NoSuchUserExistsException("User Not exist with provided id : "+userId, HttpStatus.NOT_FOUND);}
+        // Filter out goal with isDeleted true
         List<Goal> goalsList = goalRepository.findAllByUser(user.get());
-        System.out.println(goalsList);
-        return customMapper.goalListToGoalDto(goalsList);
+        List<Goal> activeGoals = goalsList.stream()
+                .filter(goal -> !goal.isDeleted())
+                .toList();
+        return customMapper.goalListToGoalDto(activeGoals);
     }
 
     @Override
-    public String deleteGoal(Long goalId) throws NoSuchGoalExistsException {
-        if(goalRepository.existsById(goalId)){
-            goalRepository.deleteById(goalId);
-            return "Record Deleted!";
-        }
-        else{
+    public ResponseEntity<?> deleteGoal(Long goalId) throws NoSuchGoalExistsException {
+
+        Optional<Goal> optionalGoal = goalRepository.findById(goalId);
+        if (optionalGoal.isPresent()) {
+            Goal goal = optionalGoal.get();
+            goal.setDeleted(true);
+            goalRepository.save(goal);
+            return ResponseEntity.ok("Goal deleted successfully");
+        } else {
             throw new NoSuchGoalExistsException("No Goal Present or Id is invalid : "+goalId, HttpStatus.NOT_FOUND);
         }
     }
