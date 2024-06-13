@@ -25,14 +25,24 @@ public class Goal {
     @Enumerated(EnumType.STRING)
     @Column(length = 50)
     private GoalType goalType;
+    @Column(columnDefinition = "TEXT")
+
     private String description;
     @CreationTimestamp
     private LocalDateTime setDate;
+    @Column(columnDefinition = "TEXT")
     private String measurable;
     private LocalDateTime endDate;
     @Enumerated(EnumType.STRING)
     @Column(length = 50)
     private GoalStatus goalStatus;
+    @Column(columnDefinition = "boolean default false")
+    private boolean isDeleted;
+
+    @PrePersist
+    protected void onCreate() {
+        this.isDeleted = false;
+    }
 
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "userId")

@@ -4,11 +4,13 @@ import com.innogent.PMS.entities.Feedback;
 import com.innogent.PMS.entities.Goal;
 import com.innogent.PMS.entities.User;
 import com.innogent.PMS.enums.EvaluationType;
+import com.innogent.PMS.exception.customException.NoSuchUserExistsException;
 import com.innogent.PMS.repository.FeedbackRepository;
 import com.innogent.PMS.repository.GoalRepository;
 import com.innogent.PMS.repository.UserRepository;
 import com.innogent.PMS.service.FeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,15 +31,22 @@ public class FeedbackServiceImpl implements FeedbackService {
     public Feedback saveFeedback(Feedback feedback){
         Optional<User> user =userRepository.findById(feedback.getUser().getUserId());
         Optional<User> provider=userRepository.findById(feedback.getProvider().getUserId());
-        Optional<Goal> goal=goalRepository.findById(feedback.getGoal().getGoalId());
 
-        if(user.isPresent() && provider.isPresent() && goal.isPresent()){
+        if(user.isPresent() && provider.isPresent()){
+            
             return feedbackRepository.save(feedback);
         }
         else{
             System.out.println("Invalid user,provider or goal Id");
             return null;
         }
+    }
+
+    @Override
+    public List<Feedback> retrieveUserFeedback(Integer userId) throws NoSuchUserExistsException {
+        Optional<User> user =userRepository.findById(userId);
+        if(user.isEmpty()) throw new NoSuchUserExistsException("User doesn't exist with given user id : "+userId, HttpStatus.NOT_FOUND);
+        return feedbackRepository.findByUser(user.get());
     }
 
 //    @Override

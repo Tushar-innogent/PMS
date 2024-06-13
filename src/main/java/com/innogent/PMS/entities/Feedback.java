@@ -27,10 +27,6 @@ public class Feedback {
     @JoinColumn(name = "provider_id")
     private User provider;
 
-    @ManyToOne
-    @JoinColumn(name = "goal_id")
-    private Goal goal;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "feedback_type")
     private EvaluationType feedbackType;
