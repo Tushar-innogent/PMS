@@ -4,6 +4,7 @@ import com.innogent.PMS.dto.GoalDto;
 import com.innogent.PMS.entities.Goal;
 import com.innogent.PMS.exception.customException.NoSuchGoalExistsException;
 import com.innogent.PMS.exception.customException.NoSuchUserExistsException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public interface GoalService {
     // To Update goal  by goal id
     public GoalDto editGoal(Long goalId, GoalDto goalDto) throws NoSuchGoalExistsException;
     // list all goals of an employee
-    public List<GoalDto> listAllGoalsOfEmployee(Integer userId);
+    public List<GoalDto> listAllGoalsOfEmployee(Integer userId) throws NoSuchUserExistsException;
     // delete goal
-    public String deleteGoal(Long goalId) throws NoSuchGoalExistsException;
+    public ResponseEntity<?> deleteGoal(Long goalId) throws NoSuchGoalExistsException;
 }

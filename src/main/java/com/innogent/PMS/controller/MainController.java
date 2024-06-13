@@ -6,6 +6,7 @@ import com.innogent.PMS.entities.User;
 import com.innogent.PMS.exception.customException.NoSuchUserExistsException;
 import com.innogent.PMS.service.UserService;
 import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+@Log4j2
 @RestController
 @RequestMapping("/api/user")
 @CrossOrigin(origins = "http://localhost:3000")
@@ -52,6 +54,7 @@ public class MainController {;
     //update user by id
     @PutMapping("/updateUser/{userId}")
     public ResponseEntity<String> updateUser(@RequestBody UserDto userDto,@PathVariable Integer userId) {
+        log.info("updating user details!");
         return  this.userService.updateUser(userDto,userId);
     }
 
