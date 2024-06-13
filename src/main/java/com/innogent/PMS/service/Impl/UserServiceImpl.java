@@ -77,6 +77,7 @@ public ResponseEntity<List<User>> getALL() {
 
     public ResponseEntity<User> getEmployeeById(Integer empId) throws NoSuchUserExistsException {
         return ResponseEntity.ok(userRepository.findById(empId).orElseThrow(()-> new NoSuchUserExistsException("Employee Not Present With Employee Id : "+empId, HttpStatus.NOT_FOUND)));
+
     }
 
     public ResponseEntity<String> updateUser(UserDto userDto, Integer userId) {
@@ -198,9 +199,13 @@ public ResponseEntity<List<User>> getALL() {
         Optional<User> optionalUser = userRepository.findById(userId);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
-            List<User> users = getALL().getBody();
+            List<User> users = userRepository.findAll();
+            // Filter out users with isDeleted true
+            List<User> activeUsers = users.stream()
+                    .filter(u -> !u.isDeleted())
+                    .collect(Collectors.toList());
             assert users != null;
-            System.out.println(users);
+//            System.out.println(users);
             Set<User> result = users.stream().filter(o -> o.getManagerId()!=null).filter(u -> u.getManagerId().equals(userId)).collect(Collectors.toSet());
             return ResponseEntity.status(HttpStatus.OK).body(result);
         } else {

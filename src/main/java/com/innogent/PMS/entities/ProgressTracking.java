@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -18,16 +19,15 @@ import java.util.Date;
 @NoArgsConstructor
 public class ProgressTracking {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long meetingId;
-    @CreationTimestamp
-    private LocalDateTime date;
-    private String notes;
-    private String recording;
-
-    @ManyToOne
-    @JoinColumn(name = "empId")
-    private User user;
+    @GeneratedValue(strategy= GenerationType.AUTO)
+   private Long meetingId;
+   private LocalDate date;
+   private String notes;
+   private String recording;
+   private String title;
+  @ManyToOne
+  @JoinColumn(name="empId")
+   private User user;
 
 
     private Integer lineManagerId;
