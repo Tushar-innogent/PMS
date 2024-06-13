@@ -65,11 +65,13 @@ public class CustomMapper {
     {
         ProgressTrackingDto dto = new ProgressTrackingDto();
         dto.setMeetingId(progressTracking.getMeetingId());
-        dto.setUserId(progressTracking.getUser().getUserId());
-        dto.setDate(progressTracking.getDate());
+        if(progressTracking.getUser() != null) dto.setUserId(progressTracking.getUser().getUserId());
+        //dto.setDate(progressTracking.getDate());
+        dto.setDate(LocalDate.from(progressTracking.getDate()));
+        dto.setTitle(progressTracking.getTitle());
         dto.setNotes(progressTracking.getNotes());
         dto.setRecording(progressTracking.getRecording());
-        dto.setManagerId(progressTracking.getUser().getManagerId());
+        if(progressTracking.getUser() != null) dto.setManagerId(progressTracking.getUser().getManagerId());
         return dto;
     }
     //convert list to dto

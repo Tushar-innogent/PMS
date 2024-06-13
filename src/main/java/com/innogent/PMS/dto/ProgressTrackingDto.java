@@ -11,7 +11,7 @@ public class ProgressTrackingDto {
     private Integer userId;
     private Integer managerId;
     private LocalDate date;
-    private String description;
+    private String title;
     private String notes;
     private String recording;
 }

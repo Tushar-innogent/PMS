@@ -6,9 +6,13 @@ import com.innogent.PMS.exception.customException.NoSuchUserExistsException;
 import com.innogent.PMS.repository.ProgressTrackingRepository;
 import com.innogent.PMS.service.ProgressTrackingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -30,6 +34,7 @@ public class ProgressTrackingController {
         //System.out.println("added progrees");
         return this.progressTrackingService.addProgressTracking(empId,trackingDto);
     }
+
     //get data by employee id
     @GetMapping("/get/user/{employeeId}")
    public ResponseEntity<?> getProgressTracking(@PathVariable Integer employeeId)  {
@@ -52,5 +57,8 @@ public class ProgressTrackingController {
    {
        return this.progressTrackingService.deleteByMeetingId(Long.parseLong(id));
    }
-
+   @PostMapping(value="/addNotes/{empId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+   public ResponseEntity<?> addNotesAndRecording(@PathVariable Integer empId,@RequestParam("date") LocalDate date, @RequestParam("title") String title, @RequestParam("notes") MultipartFile notes,@RequestParam("recording") MultipartFile recording) throws IOException {
+       return this.progressTrackingService.addNotesAndRecording(empId,date,title,notes,recording);
+   }
 }

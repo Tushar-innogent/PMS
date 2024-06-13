@@ -99,8 +99,8 @@ public class MainController {;
 
     //to get employees under manager
     @GetMapping("/managerEmployee/{userId}")
-    public ResponseEntity<?> getByEmployeesUnderMe(@PathVariable Integer userId){
-        return ResponseEntity.ok(userService.getAllEmployeesOfManager(userId));
+    public ResponseEntity<?> getByEmployeesUnderMe(@PathVariable String userId){
+        return ResponseEntity.ok(userService.getAllEmployeesOfManager(Integer.parseInt(userId)));
     }
     //by email set aboutME
     @PostMapping("/about/{email}")
