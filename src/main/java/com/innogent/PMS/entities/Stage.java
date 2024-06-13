@@ -25,4 +25,11 @@ public class Stage {
     @OneToOne(mappedBy = "stages", cascade = CascadeType.ALL)
     @JsonBackReference
     private Timeline timeline;
+
+    @PrePersist
+    protected void onCreate() {
+        if (isActive == null) {
+            isActive = true;
+        }
+    }
 }
