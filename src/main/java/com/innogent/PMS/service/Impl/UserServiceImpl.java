@@ -206,7 +206,7 @@ public ResponseEntity<List<User>> getALL() {
                     .collect(Collectors.toList());
             assert users != null;
 //            System.out.println(users);
-            Set<User> result = users.stream().filter(o -> o.getManagerId()!=null).filter(u -> u.getManagerId().equals(userId)).collect(Collectors.toSet());
+            Set<User> result = activeUsers.stream().filter(o -> o.getManagerId()!=null).filter(u -> u.getManagerId().equals(userId)).collect(Collectors.toSet());
             return ResponseEntity.status(HttpStatus.OK).body(result);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
