@@ -7,6 +7,7 @@ import java.util.Date;
 
 @Data
 public class UserDto {
+    private Integer userId;
     private String firstName;
     private String lastName;
     private String email;
@@ -14,6 +15,7 @@ public class UserDto {
     private String contact;
     private String job;
     private Date hiredDate;
+    private Integer managerId;
     private String managerEmail;
     private Role role;
 }

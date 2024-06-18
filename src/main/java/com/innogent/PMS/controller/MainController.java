@@ -45,6 +45,11 @@ public class MainController {;
         return this.userService.getALL();
     }
 
+    //fetch all users with managerEmail
+    @GetMapping("/getAllUsers")
+    public ResponseEntity<List<UserDto>> getAllUsers() {
+        return userService.getAllUsersWithManagerEmail();
+    }
     //get particular user by id
     @GetMapping("/getByEmpId/{empId}")
     public ResponseEntity<User> getEmployeeById(@PathVariable String empId) throws NoSuchUserExistsException {
@@ -128,6 +133,12 @@ public class MainController {;
     public ResponseEntity<String> changePassword(@PathVariable String email, @RequestBody ChangePasswordRequest request) {
         userService.changePassword(email, request);
         return ResponseEntity.status(HttpStatus.OK).body("Password changed successfully");
+    }
+
+    //get all the emails of user
+    @GetMapping("/active-emails")
+    public List<String> getAllActiveUserEmails() {
+        return userService.getAllActiveUserEmails();
     }
 
 }
