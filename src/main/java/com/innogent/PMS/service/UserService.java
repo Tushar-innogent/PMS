@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 public interface UserService {
     //To register new user
@@ -35,4 +34,9 @@ public interface UserService {
     void changePassword(String email, ChangePasswordRequest request);
 
     public ResponseEntity<?> getAllEmployeesOfManager(Integer userId);
+
+    public List<String> getAllActiveUserEmails();
+
+    //get all user with managerEmail
+    public ResponseEntity<List<UserDto>> getAllUsersWithManagerEmail();
 }
