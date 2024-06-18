@@ -212,4 +212,50 @@ public ResponseEntity<List<User>> getALL() {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
     }
+    public List<String> getAllActiveUserEmails() {
+        return userRepository.findEmailByIsDeletedFalse();
+    }
+
+    //get all users by its managerEmail
+    public ResponseEntity<List<UserDto>> getAllUsersWithManagerEmail() {
+        List<User> users = userRepository.findAll();
+
+        // Filter out users with isDeleted true
+        List<User> activeUsers = users.stream()
+                .filter(user -> !user.isDeleted())
+                .collect(Collectors.toList());
+
+        List<UserDto> userDtos = activeUsers.stream().map(user -> {
+            UserDto userDto = mapToUserDto(user);
+            if (user.getManagerId() != null) {
+                userDto.setManagerEmail(fetchManagerEmail(user.getManagerId()));
+            }
+            return userDto;
+        }).collect(Collectors.toList());
+
+        return ResponseEntity.status(HttpStatus.OK).body(userDtos);
+    }
+
+    private String fetchManagerEmail(Integer managerId) {
+        Optional<User> managerOptional = userRepository.findById(managerId);
+        if (managerOptional.isPresent()) {
+            return managerOptional.get().getEmail();
+        }
+        return null; // Or handle as per your business logic
+    }
+
+    private UserDto mapToUserDto(User user) {
+        UserDto userDto = new UserDto();
+        userDto.setUserId(user.getUserId());
+        userDto.setFirstName(user.getFirstName());
+        userDto.setLastName(user.getLastName());
+        userDto.setEmail(user.getEmail());
+        userDto.setPassword(user.getPassword());
+        userDto.setContact(user.getContact());
+        userDto.setJob(user.getJob());
+        userDto.setHiredDate(user.getHiredDate());
+        userDto.setManagerId(user.getManagerId());
+        userDto.setRole(user.getRole());
+        return userDto;
+    }
 }
