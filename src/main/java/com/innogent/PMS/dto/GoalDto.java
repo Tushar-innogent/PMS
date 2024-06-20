@@ -2,6 +2,7 @@ package com.innogent.PMS.dto;
 
 import com.innogent.PMS.enums.GoalStatus;
 import com.innogent.PMS.enums.GoalType;
+import jakarta.persistence.Column;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -17,4 +18,8 @@ public class GoalDto {
     private LocalDateTime setDate;
     private LocalDateTime endDate;
     private GoalStatus goalStatus;
+    private Integer selfRating;
+    private String selfComments;
+    private Integer managerRating;
+    private String managerComments;
 }

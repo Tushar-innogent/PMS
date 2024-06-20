@@ -29,4 +29,14 @@ public class FeedbackRequestController {
     public ResponseEntity<?> getFeedbackRequests(@PathVariable Integer userId) throws NoSuchUserExistsException {
         return ResponseEntity.ok(feedbackRequestService.getData(userId));
     }
+
+    @GetMapping("/get/provider/{providerId}")
+    public ResponseEntity<?> getFeedbackRequestsForProvider(@PathVariable Integer providerId) throws NoSuchUserExistsException {
+        return ResponseEntity.ok(feedbackRequestService.getProviderData(providerId));
+    }
+
+    @GetMapping("/updateStatus/{requestId}")
+    public ResponseEntity<?> updateFeedbackRequestsStatus(@PathVariable Long requestId){
+        return ResponseEntity.ok(feedbackRequestService.updateRequestStatusData(requestId));
+    }
 }

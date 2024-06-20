@@ -15,8 +15,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Feedback Service implementation class
+ */
 @Log4j2
 @Service
 public class FeedbackRequestServiceImpl implements FeedbackRequestService {
@@ -44,5 +48,18 @@ public class FeedbackRequestServiceImpl implements FeedbackRequestService {
         User user =userRepository.findById(seekerId).orElseThrow(()->new NoSuchUserExistsException("User Id is invalid!", HttpStatus.NOT_FOUND));
         List<FeedbackRequest> list = feedbackRequestRepository.findAllByFeedbackSeeker(user);
         return customMapper.feedbackRequestListEntityToDto(list);
+    }
+
+    @Override
+    public List<FeedbackRequestDto> getProviderData(Integer providerId) throws NoSuchUserExistsException {
+        User user = userRepository.findById(providerId).orElseThrow(()->new NoSuchUserExistsException("User Id is invalid!", HttpStatus.NOT_FOUND));
+        List<FeedbackRequest> list = feedbackRequestRepository.findAllByFeedbackProvider(user);
+        return customMapper.feedbackRequestListEntityToDto(list);
+    }
+
+    @Override
+    public String updateRequestStatusData(Long requestId) {
+        feedbackRequestRepository.updateRequestStatusToProvided( LocalDateTime.now(), requestId);
+        return "Updated";
     }
 }

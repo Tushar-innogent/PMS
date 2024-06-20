@@ -39,6 +39,16 @@ public class Goal {
     @Column(columnDefinition = "boolean default false")
     private boolean isDeleted;
 
+    @Column
+    private Integer selfRating;
+    @Column
+    private String selfComments;
+
+    @Column
+    private Integer managerRating;
+    @Column
+    private String managerComments;
+
     @PrePersist
     protected void onCreate() {
         this.isDeleted = false;

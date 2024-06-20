@@ -38,6 +38,10 @@ public class CustomMapper {
         goalDto.setEndDate(goal.getEndDate());
         goalDto.setGoalId(goal.getGoalId());
         goalDto.setGoalStatus((goal.getGoalStatus()));
+        goalDto.setSelfRating((goal.getSelfRating() != null)?goal.getSelfRating():null);
+        goalDto.setManagerRating((goal.getManagerRating() != null)?goal.getManagerRating():null);
+        goalDto.setSelfComments((goal.getSelfComments()!=null)?goal.getSelfComments():null);
+        goalDto.setManagerComments((goal.getManagerComments()!=null)?goal.getManagerComments():null);
         return goalDto;
     }
     //to convert list of goals to list of goalDto
