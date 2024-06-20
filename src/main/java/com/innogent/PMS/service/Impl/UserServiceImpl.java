@@ -60,7 +60,9 @@ public class UserServiceImpl implements UserService {
         }
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         return customMapper.userEntityToDto(userRepository.save(user));
+
     }
+
 
 //    public ResponseEntity<List<User>> getALL(){
 //        List<User> user = userRepository.findAll();
