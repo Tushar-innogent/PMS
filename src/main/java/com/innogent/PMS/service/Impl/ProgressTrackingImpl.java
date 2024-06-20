@@ -154,30 +154,32 @@ public class ProgressTrackingImpl implements ProgressTrackingService {
 
     @Override
     public ResponseEntity<?> addNotesAndRecording(Integer empId,LocalDate date, String title, MultipartFile notes, MultipartFile recording) throws IOException {
-
         String notesFile=notes.getOriginalFilename();
         String recordingFile= recording.getOriginalFilename();
 
         ObjectMetadata metaDataNotes=new ObjectMetadata();
         metaDataNotes.setContentLength(notes.getSize());
+        metaDataNotes.setContentDisposition("inline");
         PutObjectResult putObjectResultNotes=client.putObject(new PutObjectRequest(bucketName,notesFile,notes.getInputStream(),metaDataNotes));
-
         ObjectMetadata metaDataRecording=new ObjectMetadata();
-        metaDataRecording.setContentLength(recording.getSize());
         PutObjectResult putObjectResultRecording=client.putObject(new PutObjectRequest(bucketName,recordingFile,recording.getInputStream(),metaDataRecording));
+        metaDataRecording.setContentLength(recording.getSize());
+//        String data =generatePresignedUrl(notesFile).toString();
+//        System.out.println(data);
+
 //        $"https://{bucketName}.s3.amazonaws.com/{keyName}";
         ProgressTracking progressTracking=new ProgressTracking();
-         progressTracking.setDate(date);
-         progressTracking.setTitle(title);
-         User user = userRepository.findById(empId).get();
-         progressTracking.setUser(user);
-         progressTracking.setLineManagerId(user.getManagerId());
-         progressTracking.setNotes(filePathBaseUrl+notesFile);
-         progressTracking.setRecording(filePathBaseUrl+recordingFile);
-         ProgressTracking result = progressTrackingRepository.save(progressTracking);
-         ProgressTrackingDto dto = customMapper.progressEntityToProgressTrackingDto(result);
-         dto.setRecording(result.getRecording());
-         dto.setNotes(result.getNotes());
+        progressTracking.setDate(date);
+        progressTracking.setTitle(title);
+        User user = userRepository.findById(empId).get();
+        progressTracking.setUser(user);
+        progressTracking.setLineManagerId(user.getManagerId());
+        progressTracking.setNotes(filePathBaseUrl+notesFile);
+        progressTracking.setRecording(filePathBaseUrl+recordingFile);
+        ProgressTracking result = progressTrackingRepository.save(progressTracking);
+        ProgressTrackingDto dto = customMapper.progressEntityToProgressTrackingDto(result);
+        dto.setRecording(result.getRecording());
+        dto.setNotes(result.getNotes());
         return ResponseEntity.ok(dto);
     }
 

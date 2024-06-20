@@ -1,10 +1,10 @@
 package com.innogent.PMS.service.Impl;
 
+import com.innogent.PMS.dto.FeedbackDto;
 import com.innogent.PMS.entities.Feedback;
-import com.innogent.PMS.entities.Goal;
 import com.innogent.PMS.entities.User;
-import com.innogent.PMS.enums.EvaluationType;
 import com.innogent.PMS.exception.customException.NoSuchUserExistsException;
+import com.innogent.PMS.mapper.CustomMapper;
 import com.innogent.PMS.repository.FeedbackRepository;
 import com.innogent.PMS.repository.GoalRepository;
 import com.innogent.PMS.repository.UserRepository;
@@ -20,41 +20,30 @@ import java.util.Optional;
 public class FeedbackServiceImpl implements FeedbackService {
     @Autowired
     private FeedbackRepository feedbackRepository;
-
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private GoalRepository goalRepository;
+    @Autowired
+    private CustomMapper customMapper;
 
     @Override
-    public Feedback saveFeedback(Feedback feedback){
-        Optional<User> user =userRepository.findById(feedback.getUser().getUserId());
-        Optional<User> provider=userRepository.findById(feedback.getProvider().getUserId());
+        public FeedbackDto saveFeedback(FeedbackDto feedbackDto) throws NoSuchUserExistsException {
+        User user =userRepository.findById(feedbackDto.getUserId()).orElseThrow(()->new NoSuchUserExistsException("User Id is invalid!", HttpStatus.NOT_FOUND));
+        User provider=userRepository.findById(feedbackDto.getProviderId()).orElseThrow(()->new NoSuchUserExistsException("Provider Id is invalid!", HttpStatus.NOT_FOUND));
+        Feedback feedback = customMapper.feedbackDtoToEntity(feedbackDto);
+        feedback.setUser(user);
+        feedback.setProvider(provider);
+        return customMapper.feedbackEntityToDto(feedbackRepository.save(feedback));
+    }
 
-        if(user.isPresent() && provider.isPresent()){
-            
-            return feedbackRepository.save(feedback);
-        }
-        else{
-            System.out.println("Invalid user,provider or goal Id");
+    @Override
+    public List<FeedbackDto> getFeedbackByUserId(Integer userId) throws NoSuchUserExistsException {
+        User user = userRepository.findById(userId).orElseThrow(()->new NoSuchUserExistsException("User doesn't exist with given user id : "+userId, HttpStatus.NOT_FOUND));
+        List<Feedback> list = feedbackRepository.findByUser(user);
+        if(list.isEmpty()){
             return null;
         }
+        return customMapper.feedbackListEntityToDto(list);
     }
-
-    @Override
-    public List<Feedback> retrieveUserFeedback(Integer userId) throws NoSuchUserExistsException {
-        Optional<User> user =userRepository.findById(userId);
-        if(user.isEmpty()) throw new NoSuchUserExistsException("User doesn't exist with given user id : "+userId, HttpStatus.NOT_FOUND);
-        return feedbackRepository.findByUser(user.get());
-    }
-
-//    @Override
-//    public List<Feedback> getFeedbackByUserId(Integer userId) {
-//        return feedbackRepository.findByUserUserId(userId);
-//    }
-//
-//    public List<Feedback> getFeedbackByTypeAndUser(EvaluationType feedbackType, Integer userId) {
-//        return feedbackRepository.findByFeedbackTypeAndUserUserId(feedbackType, userId);
-//    }
 }
