@@ -80,4 +80,12 @@ public class GoalController  {
     public ResponseEntity<?> deleteUser(@PathVariable Long goalId) throws NoSuchGoalExistsException {
         return goalService.deleteGoal(goalId);
     }
+
+    //to add self feedback on individual goal
+    @PutMapping("/selfFeedback/{goalId}")
+    public ResponseEntity<?> addSelfFeedback(@PathVariable Long goalId, @RequestBody GoalDto goalDto) throws NoSuchGoalExistsException {
+        log.info("setting goal feedback");
+        GoalDto result = goalService.addSelfFeedback(goalId, goalDto);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
 }

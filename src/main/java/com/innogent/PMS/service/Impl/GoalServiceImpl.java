@@ -104,4 +104,14 @@ public class GoalServiceImpl implements GoalService {
         }
     }
 
+    @Override
+    public GoalDto addSelfFeedback(Long goalId, GoalDto goalDto) throws NoSuchGoalExistsException {
+        Goal goal = goalRepository.findById(goalId).orElseThrow(()->new NoSuchGoalExistsException("User Not exist with provided id : "+goalId, HttpStatus.NOT_FOUND));
+        goal.setSelfRating(goalDto.getSelfRating());
+        goal.setSelfComments(goalDto.getSelfComments());
+        Goal result = goalRepository.save(goal);
+        GoalDto mapped = customMapper.goalEntityToGoalDto(result);
+        return mapped;
+    }
+
 }

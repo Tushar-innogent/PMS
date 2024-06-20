@@ -22,4 +22,6 @@ public interface GoalService {
     public List<GoalDto> listAllGoalsOfEmployee(Integer userId) throws NoSuchUserExistsException;
     // delete goal
     public ResponseEntity<?> deleteGoal(Long goalId) throws NoSuchGoalExistsException;
+    // to add self feedback on individual goal
+    public GoalDto addSelfFeedback(Long goalId, GoalDto goalDto) throws NoSuchGoalExistsException;
 }
