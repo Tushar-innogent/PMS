@@ -1,6 +1,5 @@
 package com.innogent.PMS.service.Impl;
 
-import com.innogent.PMS.dto.FeedbackDto;
 import com.innogent.PMS.dto.FeedbackRequestDto;
 import com.innogent.PMS.entities.FeedbackRequest;
 import com.innogent.PMS.entities.User;
@@ -34,7 +33,7 @@ public class FeedbackRequestServiceImpl implements FeedbackRequestService {
         feedbackRequestDto.setRequestStatus(RequestStatus.REQUESTED);
         FeedbackRequest entity = customMapper.feedbackRequestDtoToEntity(feedbackRequestDto);
         FeedbackRequest result = feedbackRequestRepository.save(entity);
-        if(result!=null) emailService.sendFeedbackRequestMail(
+        emailService.sendFeedbackRequestMail(
                 result.getFeedbackProvider().getEmail(),"Feedback Request",
                 "Mail was sent by "+result.getFeedbackSeeker().getEmail()+
                         "\n\nMessage : "+result.getMessage()

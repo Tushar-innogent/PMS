@@ -1,8 +1,6 @@
 package com.innogent.PMS.dto;
 
-import com.innogent.PMS.entities.User;
 import com.innogent.PMS.enums.EvaluationType;
-import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
