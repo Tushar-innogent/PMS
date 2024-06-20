@@ -26,6 +26,7 @@ public class StageTimeLineController {
     @PutMapping("/update")
     public ResponseEntity<Stage> updateStage(@RequestBody StageTimeLineDto stageTimeLineDto) {
         Stage updatedStage = stageTimeLineService.updateStage(stageTimeLineDto);
+
         return new ResponseEntity<>(updatedStage, HttpStatus.OK);
     }
 

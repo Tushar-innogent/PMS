@@ -38,7 +38,7 @@ public class StageTimeLineServiceImpl implements StageTimeLineService {
         stage = stageRepository.save(stage); // Save the stage first
 
         // Set timeline with start and end dates
-        LocalDateTime startDate = LocalDateTime.now(); // Get current date and time
+        LocalDateTime startDate = stageTimeLineDto.getStartDate();// Get current date and time
         LocalDateTime endDate = stageTimeLineDto.getEndDate();
 
         Timeline timeline = new Timeline();
@@ -71,7 +71,7 @@ public class StageTimeLineServiceImpl implements StageTimeLineService {
                 timeline = new Timeline();
                 timeline.setStages(stage);
             }
-            timeline.setStartDate(LocalDateTime.now());
+            timeline.setStartDate(stageTimeLineDto.getStartDate());
             timeline.setEndDate(stageTimeLineDto.getEndDate());
             timelineRepository.save(timeline);
 
