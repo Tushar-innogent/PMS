@@ -31,7 +31,7 @@ public class FeedbackRequestServiceImpl implements FeedbackRequestService {
     private UserRepository userRepository;
     @Override
     public FeedbackRequestDto addRequest(FeedbackRequestDto feedbackRequestDto) {
-            feedbackRequestDto.setRequestStatus(RequestStatus.REQUESTED);
+        feedbackRequestDto.setRequestStatus(RequestStatus.REQUESTED);
         FeedbackRequest entity = customMapper.feedbackRequestDtoToEntity(feedbackRequestDto);
         FeedbackRequest result = feedbackRequestRepository.save(entity);
         if(result!=null) emailService.sendFeedbackRequestMail(
