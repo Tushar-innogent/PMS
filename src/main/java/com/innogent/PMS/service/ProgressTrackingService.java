@@ -26,5 +26,7 @@ public interface ProgressTrackingService {
 
    public ResponseEntity<?> deleteByMeetingId(long id);
 
-   public ResponseEntity<?> addNotesAndRecording(Integer empId,LocalDate date, String title, MultipartFile notes, MultipartFile recording) throws IOException;
+   public ResponseEntity<?> addNotesAndRecording(Integer empId, String title,String month,String year, MultipartFile notes, MultipartFile recording) throws IOException;
+
+
 }

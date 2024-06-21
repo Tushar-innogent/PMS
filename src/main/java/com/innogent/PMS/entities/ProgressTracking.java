@@ -21,7 +21,10 @@ public class ProgressTracking {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
    private Long meetingId;
+    @CreationTimestamp
    private LocalDate date;
+   private String month;
+   private String year;
    private String notes;
    private String recording;
    private String title;
