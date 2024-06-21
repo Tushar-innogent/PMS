@@ -1,6 +1,7 @@
 package com.innogent.PMS.service.Impl;
 
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectResult;
@@ -23,8 +24,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDate;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -153,24 +156,23 @@ public class ProgressTrackingImpl implements ProgressTrackingService {
     }
 
     @Override
-    public ResponseEntity<?> addNotesAndRecording(Integer empId,LocalDate date, String title, MultipartFile notes, MultipartFile recording) throws IOException {
+    public ResponseEntity<?> addNotesAndRecording(Integer empId, String title, String month, String year, MultipartFile notes, MultipartFile recording) throws IOException {
         String notesFile=notes.getOriginalFilename();
         String recordingFile= recording.getOriginalFilename();
 
         ObjectMetadata metaDataNotes=new ObjectMetadata();
         metaDataNotes.setContentLength(notes.getSize());
-        metaDataNotes.setContentDisposition("inline");
         PutObjectResult putObjectResultNotes=client.putObject(new PutObjectRequest(bucketName,notesFile,notes.getInputStream(),metaDataNotes));
-        ObjectMetadata metaDataRecording=new ObjectMetadata();
-        PutObjectResult putObjectResultRecording=client.putObject(new PutObjectRequest(bucketName,recordingFile,recording.getInputStream(),metaDataRecording));
-        metaDataRecording.setContentLength(recording.getSize());
-//        String data =generatePresignedUrl(notesFile).toString();
-//        System.out.println(data);
 
+        ObjectMetadata metaDataRecording=new ObjectMetadata();
+        metaDataRecording.setContentLength(recording.getSize());
+        PutObjectResult putObjectResultRecording=client.putObject(new PutObjectRequest(bucketName,recordingFile,recording.getInputStream(),metaDataRecording));
 //        $"https://{bucketName}.s3.amazonaws.com/{keyName}";
         ProgressTracking progressTracking=new ProgressTracking();
-        progressTracking.setDate(date);
+       // progressTracking.setDate(date);
         progressTracking.setTitle(title);
+        progressTracking.setMonth(month);
+        progressTracking.setYear(year);
         User user = userRepository.findById(empId).get();
         progressTracking.setUser(user);
         progressTracking.setLineManagerId(user.getManagerId());
@@ -183,5 +185,19 @@ public class ProgressTrackingImpl implements ProgressTrackingService {
         return ResponseEntity.ok(dto);
     }
 
+
+    public URL generatePresignedUrl(String key) {
+        Date expiration = new Date();
+        long expTimeMillis = expiration.getTime();
+        expTimeMillis += 1000 * 60 * 10; // 10 minutes
+        expiration.setTime(expTimeMillis);
+
+        GeneratePresignedUrlRequest generatePresignedUrlRequest = new GeneratePresignedUrlRequest(bucketName, key)
+                .withMethod(com.amazonaws.HttpMethod.GET)
+                .withExpiration(expiration);
+        generatePresignedUrlRequest.addRequestParameter("Content-Disposition", "inline");
+
+        return client.generatePresignedUrl(generatePresignedUrlRequest);
+    }
 
 }
