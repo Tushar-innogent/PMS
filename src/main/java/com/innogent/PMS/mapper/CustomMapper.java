@@ -71,6 +71,8 @@ public class CustomMapper {
         dto.setTitle(progressTracking.getTitle());
         dto.setNotes(progressTracking.getNotes());
         dto.setRecording(progressTracking.getRecording());
+        dto.setMonth(progressTracking.getMonth());
+        dto.setYear((progressTracking.getYear()));
         if(progressTracking.getUser() != null) dto.setManagerId(progressTracking.getUser().getManagerId());
         return dto;
     }
