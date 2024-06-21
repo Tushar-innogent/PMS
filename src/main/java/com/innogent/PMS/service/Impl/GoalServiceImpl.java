@@ -114,4 +114,14 @@ public class GoalServiceImpl implements GoalService {
         return mapped;
     }
 
+    @Override
+    public GoalDto addManagerFeedback(long goalId, GoalDto goalDto) throws NoSuchGoalExistsException {
+        Goal goal = goalRepository.findById(goalId).orElseThrow(()->new NoSuchGoalExistsException("User Not exist with provided id : "+goalId, HttpStatus.NOT_FOUND));
+        goal.setManagerRating(goalDto.getManagerRating());
+        goal.setManagerComments(goalDto.getManagerComments());
+        Goal result = goalRepository.save(goal);
+        GoalDto mapped = customMapper.goalEntityToGoalDto(result);
+        return mapped;
+    }
+
 }
