@@ -83,9 +83,17 @@ public class GoalController  {
 
     //to add self feedback on individual goal
     @PutMapping("/selfFeedback/{goalId}")
-    public ResponseEntity<?> addSelfFeedback(@PathVariable Long goalId, @RequestBody GoalDto goalDto) throws NoSuchGoalExistsException {
+    public ResponseEntity<?> addSelfFeedback(@PathVariable String goalId, @RequestBody GoalDto goalDto) throws NoSuchGoalExistsException {
         log.info("setting goal feedback");
-        GoalDto result = goalService.addSelfFeedback(goalId, goalDto);
+        GoalDto result = goalService.addSelfFeedback(Long.parseLong(goalId), goalDto);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    //to add self feedback on individual goal
+    @PutMapping("/managerFeedback/{goalId}")
+    public ResponseEntity<?> addManagerFeedback(@PathVariable String goalId, @RequestBody GoalDto goalDto) throws NoSuchGoalExistsException {
+        log.info("setting goal feedback");
+        GoalDto result = goalService.addManagerFeedback(Long.parseLong(goalId), goalDto);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 }
