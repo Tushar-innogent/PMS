@@ -17,6 +17,9 @@ import java.util.List;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
+/**
+ * Controller to handle goal module api's
+ */
 @Log4j2
 @RestController
 @RequestMapping("/api/goals")
@@ -26,9 +29,13 @@ public class GoalController  {
     private GoalService goalService;
     @Autowired
     private StageService stageService;
-//    private static final Logger logger = LogManager.getLogger();
 
-
+    /**
+     * @param goalDto : goal data to save in db
+     * @param userId : id of user whose data is saved
+     * @return goal data if saved
+     * @throws NoSuchUserExistsException
+     */
     //add personal goal
     @PostMapping("/addPersonal/{userId}")
     public ResponseEntity<?> addPersonalGoal(@RequestBody GoalDto goalDto, @PathVariable Integer userId) throws NoSuchUserExistsException {
@@ -72,5 +79,13 @@ public class GoalController  {
     @DeleteMapping("delete/{goalId}")
     public ResponseEntity<?> deleteUser(@PathVariable Long goalId) throws NoSuchGoalExistsException {
         return goalService.deleteGoal(goalId);
+    }
+
+    //to add self feedback on individual goal
+    @PutMapping("/selfFeedback/{goalId}")
+    public ResponseEntity<?> addSelfFeedback(@PathVariable Long goalId, @RequestBody GoalDto goalDto) throws NoSuchGoalExistsException {
+        log.info("setting goal feedback");
+        GoalDto result = goalService.addSelfFeedback(goalId, goalDto);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 }

@@ -3,6 +3,7 @@ package com.innogent.PMS.service.Impl;
 import com.innogent.PMS.dto.GoalDto;
 import com.innogent.PMS.entities.Goal;
 import com.innogent.PMS.entities.User;
+import com.innogent.PMS.enums.GoalStatus;
 import com.innogent.PMS.exception.customException.NoSuchGoalExistsException;
 import com.innogent.PMS.exception.customException.NoSuchUserExistsException;
 import com.innogent.PMS.mapper.CustomMapper;
@@ -36,31 +37,28 @@ public class GoalServiceImpl implements GoalService {
 
     @Override
     public GoalDto addPersonalGoal(GoalDto goalDto, Integer userId) throws NoSuchUserExistsException {
-        Optional<User> user = userRepository.findById(goalDto.getUserId());
-        if(user.isEmpty()){
-            throw new NoSuchUserExistsException("No User Present With Id : "+goalDto.getUserId(), HttpStatus.NOT_FOUND);
-        }
+        log.info("Performing personal goal addition!");
+        User user = userRepository.findById(goalDto.getUserId()).orElseThrow(()->new NoSuchUserExistsException("No User Present With Id : "+goalDto.getUserId(), HttpStatus.NOT_FOUND));
         Goal goal = customMapper.goalDtoToEntity(goalDto);
-        goal.setUser(user.get());
+        goal.setUser(user);
+        goal.setGoalStatus(GoalStatus.CREATED);
         if(goal.getGoalId() == null) {
             Goal result = goalRepository.save(goal);
             return customMapper.goalEntityToGoalDto(result);
         }
         throw new RuntimeException("rewriting data may be caused!");
-//        stageService.setStage(new Stage(StageName.GOAL_SETTING, StageStatus.PENDING, result)); // To set the stage of initial goal when declared
-
     }
     @Override
     public GoalDto addOrganisationalGoal(GoalDto goalDto, Integer managerId) throws NoSuchUserExistsException {
         log.info("Performing Organisational goal addition!");
-        Optional<User> user = userRepository.findById(goalDto.getUserId());
-        if(user.isEmpty() || !user.get().getManagerId().equals(managerId) || !goalDto.getGoalType().name().equalsIgnoreCase("ORGANISATIONAL")){
+        User user = userRepository.findById(goalDto.getUserId()).orElseThrow(()->new NoSuchUserExistsException("No User Present With Id : "+goalDto.getUserId(), HttpStatus.NOT_FOUND));
+        if(!user.getManagerId().equals(managerId) || !goalDto.getGoalType().name().equalsIgnoreCase("ORGANISATIONAL")){
             throw new NoSuchUserExistsException("Only Manager Can Set Organisational Goal", HttpStatus.PROXY_AUTHENTICATION_REQUIRED);
         }
         Goal goal = customMapper.goalDtoToEntity(goalDto);
-        goal.setUser(user.get());
+        goal.setUser(user);
+        goal.setGoalStatus(GoalStatus.CREATED);
         Goal result = goalRepository.save(goal);
-//        stageService.setStage(new Stage(StageName.GOAL_SETTING, StageStatus.FINALISED, goal)); // To set the stage of initial goal when declared
         return customMapper.goalEntityToGoalDto(result);
     }
     @Override
@@ -104,6 +102,16 @@ public class GoalServiceImpl implements GoalService {
         } else {
             throw new NoSuchGoalExistsException("No Goal Present or Id is invalid : "+goalId, HttpStatus.NOT_FOUND);
         }
+    }
+
+    @Override
+    public GoalDto addSelfFeedback(Long goalId, GoalDto goalDto) throws NoSuchGoalExistsException {
+        Goal goal = goalRepository.findById(goalId).orElseThrow(()->new NoSuchGoalExistsException("User Not exist with provided id : "+goalId, HttpStatus.NOT_FOUND));
+        goal.setSelfRating(goalDto.getSelfRating());
+        goal.setSelfComments(goalDto.getSelfComments());
+        Goal result = goalRepository.save(goal);
+        GoalDto mapped = customMapper.goalEntityToGoalDto(result);
+        return mapped;
     }
 
 }

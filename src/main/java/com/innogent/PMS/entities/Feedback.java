@@ -13,27 +13,23 @@ import java.util.Date;
 @NoArgsConstructor
 @Setter
 @Getter
-@ToString
 public class Feedback {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer feedbackId;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    @ManyToOne
-    @JoinColumn(name = "provider_id")
-    private User provider;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "feedback_type")
     private EvaluationType feedbackType;
-
     private Integer rating;
     private LocalDateTime feedbackDate;
-
     @Column(columnDefinition = "TEXT")
     private String comments;
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "user_id")
+    private User user;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "provider_id")
+    private User provider;
+
 }
