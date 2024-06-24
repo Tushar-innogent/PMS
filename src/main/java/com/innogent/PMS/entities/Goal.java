@@ -43,11 +43,14 @@ public class Goal {
     private Integer selfRating;
     @Column
     private String selfComments;
-
+    @Column
+    private LocalDateTime selfFeedbackDate;
     @Column
     private Integer managerRating;
     @Column
     private String managerComments;
+    @Column
+    private LocalDateTime managerFeedbackDate;
 
     @PrePersist
     protected void onCreate() {

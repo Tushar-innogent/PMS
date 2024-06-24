@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,6 +35,7 @@ public class FeedbackServiceImpl implements FeedbackService {
         Feedback feedback = customMapper.feedbackDtoToEntity(feedbackDto);
         feedback.setUser(user);
         feedback.setProvider(provider);
+        feedback.setFeedbackDate(LocalDateTime.now());
         return customMapper.feedbackEntityToDto(feedbackRepository.save(feedback));
     }
 

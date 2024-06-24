@@ -20,6 +20,8 @@ public class GoalDto {
     private GoalStatus goalStatus;
     private Integer selfRating;
     private String selfComments;
+    private LocalDateTime selfFeedbackDate;
     private Integer managerRating;
     private String managerComments;
+    private LocalDateTime managerFeedbackDate;
 }
