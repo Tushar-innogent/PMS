@@ -148,7 +148,6 @@ public ResponseEntity<List<User>> getALL() {
         }
     }
 
-
     @Override
     public ResponseEntity<String> deleteUser(Integer userId) {
         Optional<User> optionalUser = userRepository.findById(userId);
@@ -197,7 +196,7 @@ public ResponseEntity<List<User>> getALL() {
     }
 
     @Override
-    public ResponseEntity<?> getAllEmployeesOfManager(Integer userId) {
+    public ResponseEntity<?>  getAllEmployeesOfManager(Integer userId) {
         Optional<User> optionalUser = userRepository.findById(userId);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
@@ -207,7 +206,7 @@ public ResponseEntity<List<User>> getALL() {
                     .filter(u -> !u.isDeleted())
                     .collect(Collectors.toList());
             assert users != null;
-//            System.out.println(users);
+//          System.out.println(users);
             Set<User> result = activeUsers.stream().filter(o -> o.getManagerId()!=null).filter(u -> u.getManagerId().equals(userId)).collect(Collectors.toSet());
             return ResponseEntity.status(HttpStatus.OK).body(result);
         } else {

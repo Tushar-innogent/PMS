@@ -14,4 +14,6 @@ public interface UserRepository extends JpaRepository<User,Integer> {
 
     @Query("SELECT u.email AS email FROM User u WHERE u.isDeleted = false")
     List<String> findEmailByIsDeletedFalse();
+
+    public List<User> findAllByJob(String job);
 }

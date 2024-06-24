@@ -45,6 +45,7 @@ public class GoalController  {
     //add Organisational goal
     @PostMapping("/addOrganisational/{managerId}")
     public ResponseEntity<?> addOrgGoal(@RequestBody GoalDto goalDto, @PathVariable Integer managerId) throws NoSuchUserExistsException {
+        log.info("Adding Organisational goals!");
         return ResponseEntity.status(HttpStatus.OK).body(goalService.addOrganisationalGoal(goalDto, managerId));
     }
     //get goal by goal id
