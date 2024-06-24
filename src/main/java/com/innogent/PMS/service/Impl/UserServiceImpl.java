@@ -10,6 +10,7 @@ import com.innogent.PMS.exception.customException.UserAlreadyExistsException;
 import com.innogent.PMS.mapper.CustomMapper;
 import com.innogent.PMS.repository.RoleRepository;
 import com.innogent.PMS.repository.UserRepository;
+import com.innogent.PMS.service.EmailService;
 import com.innogent.PMS.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,6 +34,8 @@ public class UserServiceImpl implements UserService {
     private CustomMapper customMapper;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private EmailService emailService;
 
     public UserDto register(UserDto userDto){
         System.out.println(userDto);
@@ -59,8 +62,14 @@ public class UserServiceImpl implements UserService {
             user.setManagerId(manager.get().getUserId());
         }
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        sendEmail(userDto.getEmail(),userDto.getPassword(),userDto.getManagerEmail());
+        System.out.println("mail send");
         return customMapper.userEntityToDto(userRepository.save(user));
-
+    }
+    public void sendEmail(String email,String password,String managerEmail){
+        String subject = "Your PMS Account Password";
+        String text = "Dear user,\nYou are Successfully added in PMS Application of Innogent team.\nEmail : "+email+"\nManager Email :"+managerEmail+"\nPassword : "+password+"\nPlease change your Password after logging in PMS application.";
+        emailService.sendEmail(email,subject,text);
     }
 
 
