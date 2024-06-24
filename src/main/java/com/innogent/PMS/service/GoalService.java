@@ -1,7 +1,8 @@
 package com.innogent.PMS.service;
 
 import com.innogent.PMS.dto.GoalDto;
-import com.innogent.PMS.entities.Goal;
+import com.innogent.PMS.enums.GoalStatus;
+import com.innogent.PMS.enums.StageName;
 import com.innogent.PMS.exception.customException.NoSuchGoalExistsException;
 import com.innogent.PMS.exception.customException.NoSuchUserExistsException;
 import org.springframework.http.ResponseEntity;
@@ -26,4 +27,8 @@ public interface GoalService {
     public GoalDto addSelfFeedback(Long goalId, GoalDto goalDto) throws NoSuchGoalExistsException;
     // to add manager feedback on individual goal
     public GoalDto addManagerFeedback(long l, GoalDto goalDto) throws NoSuchGoalExistsException;
+
+    public void updateGoalStatus(StageName timelineStage, GoalStatus status);
+
+    public void updateGoalStatusToInProgress(StageName stageName, GoalStatus goalStatus);
 }
