@@ -4,10 +4,12 @@ import com.innogent.PMS.entities.ProgressTracking;
 import com.innogent.PMS.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public interface ProgressTrackingRepository extends JpaRepository<ProgressTracking,Long> {
     public List<ProgressTracking> findAllByUser(User user);
-
+    Optional<ProgressTracking> findByUserAndDateBetween(User user, LocalDate startDate, LocalDate endDate);
 
 }

@@ -55,6 +55,8 @@ public class ProgressTrackingController {
        return this.progressTrackingService.getAllData();
    }
    @DeleteMapping("/deleteData/{id}")
+
+
    public ResponseEntity<?> deleteByMeetingId(@PathVariable String id)
    {
        return this.progressTrackingService.deleteByMeetingId(Long.parseLong(id));
@@ -65,5 +67,11 @@ public class ProgressTrackingController {
                                                  @RequestParam("year") String year ,@RequestParam("notes") MultipartFile notes,
                                                  @RequestParam("recording") MultipartFile recording) throws IOException {
        return this.progressTrackingService.addNotesAndRecording(empId,title,month,year,notes,recording);
+   }
+   @GetMapping("/check/notes/uploaded/{managerId}")
+    public ResponseEntity<?> checkNotesUploaded(@PathVariable Long managerId)
+   {
+      boolean notesUploaded=progressTrackingService.areNotesUploadedForLastMonth(managerId);
+       return ResponseEntity.ok(notesUploaded);
    }
 }
