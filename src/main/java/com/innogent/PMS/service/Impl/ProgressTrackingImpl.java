@@ -1,5 +1,6 @@
 package com.innogent.PMS.service.Impl;
 
+import com.amazonaws.HttpMethod;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
@@ -21,11 +22,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.temporal.TemporalAdjuster;
+import java.time.temporal.TemporalAdjusters;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -52,45 +56,44 @@ public class ProgressTrackingImpl implements ProgressTrackingService {
     public void addNotesAndRecording(ProgressTracking progressTracking) {
         progressTrackingRepository.save(progressTracking);
     }
+
     @Override
     public ResponseEntity<?> getById(long id) throws EntityNotFoundException {
 
-        Optional<ProgressTracking> progressTrackingData= Optional.ofNullable(progressTrackingRepository.findById(id).orElseThrow(()->new EntityNotFoundException("Meeting id is not present")));
+        Optional<ProgressTracking> progressTrackingData = Optional.ofNullable(progressTrackingRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Meeting id is not present")));
         //if(progressTrackingData.isPresent())
         //{
-           ProgressTrackingDto dto= customMapper.progressEntityToProgressTrackingDto(progressTrackingData.get());
-            //if(dto!=null)
-                return ResponseEntity.ok(dto);
+        ProgressTrackingDto dto = customMapper.progressEntityToProgressTrackingDto(progressTrackingData.get());
+        //if(dto!=null)
+        return ResponseEntity.ok(dto);
         //}
         //return ResponseEntity.ok(("Meeting id is not present"));
         //throw new EntityNotFoundException("Meeting id is not present");
     }
 
     @Override
-    public ResponseEntity<?> addProgressTracking(Integer empId, ProgressTrackingDto trackingDto)  {
-        ProgressTracking progressTracking=customMapper.progressTrackingDtoToEntity(trackingDto);
-        User user=userRepository.findById(empId).orElseThrow(null);
+    public ResponseEntity<?> addProgressTracking(Integer empId, ProgressTrackingDto trackingDto) {
+        ProgressTracking progressTracking = customMapper.progressTrackingDtoToEntity(trackingDto);
+        User user = userRepository.findById(empId).orElseThrow(null);
 
-       Integer managerId= user.getManagerId();
-       Integer manager=null;
-       if(managerId!=null)
-       {
-           User managerUser=userRepository.findById(managerId).orElseThrow(null);
-           manager = managerUser.getUserId();
-       }
-       progressTracking.setUser(user);
-       progressTracking.setLineManagerId(manager);
-       progressTrackingRepository.save(progressTracking);
-       return ResponseEntity.ok(progressTracking);
+        Integer managerId = user.getManagerId();
+        Integer manager = null;
+        if (managerId != null) {
+            User managerUser = userRepository.findById(managerId).orElseThrow(null);
+            manager = managerUser.getUserId();
+        }
+        progressTracking.setUser(user);
+        progressTracking.setLineManagerId(manager);
+        progressTrackingRepository.save(progressTracking);
+        return ResponseEntity.ok(progressTracking);
     }
 
     @Override
-    public ResponseEntity<?> getProgressTracking(Integer employeeId)  {
-        Optional<User> userOptional= userRepository.findById(employeeId);
-        if (userOptional.isPresent())
-        {
-            List<ProgressTracking> progressTrackingList=progressTrackingRepository.findAllByUser(userOptional.get());
-            List<ProgressTrackingDto> dtoList=customMapper.convertListToDto(progressTrackingList);
+    public ResponseEntity<?> getProgressTracking(Integer employeeId) {
+        Optional<User> userOptional = userRepository.findById(employeeId);
+        if (userOptional.isPresent()) {
+            List<ProgressTracking> progressTrackingList = progressTrackingRepository.findAllByUser(userOptional.get());
+            List<ProgressTrackingDto> dtoList = customMapper.convertListToDto(progressTrackingList);
             //Optional<ProgressTracking> progressTrackingData=progressTrackingRepository.
             return ResponseEntity.ok(dtoList);
         }
@@ -99,20 +102,19 @@ public class ProgressTrackingImpl implements ProgressTrackingService {
 
     @Override
     public ResponseEntity<?> editProgressTracking(long meetingId, ProgressTrackingDto progressTrackingDto) {
-        Optional<ProgressTracking> trackingOpt=progressTrackingRepository.findById(meetingId);
+        Optional<ProgressTracking> trackingOpt = progressTrackingRepository.findById(meetingId);
         //ProgressTracking tracking=trackingOpt.get();
-        if(trackingOpt.isEmpty())
-        {
+        if (trackingOpt.isEmpty()) {
             return ResponseEntity.ok("progresss tracking data is not found");
         }
-        ProgressTracking tracking=trackingOpt.get();
+        ProgressTracking tracking = trackingOpt.get();
 
         tracking.setDate(progressTrackingDto.getDate());
         tracking.setTitle(progressTrackingDto.getTitle());
         tracking.setNotes(progressTrackingDto.getNotes());
         tracking.setRecording(progressTrackingDto.getRecording());
-        ProgressTracking savedTracking=progressTrackingRepository.save(tracking);
-        ProgressTrackingDto savedTrackingDto=customMapper.progressEntityToProgressTrackingDto(savedTracking);
+        ProgressTracking savedTracking = progressTrackingRepository.save(tracking);
+        ProgressTrackingDto savedTrackingDto = customMapper.progressEntityToProgressTrackingDto(savedTracking);
         return ResponseEntity.ok(savedTrackingDto);
     }
 
@@ -135,20 +137,18 @@ public class ProgressTrackingImpl implements ProgressTrackingService {
 
 
     public ResponseEntity<?> getAllData() {
-        List<ProgressTracking> getProgressTrackingData=progressTrackingRepository.findAll();
-        if(getProgressTrackingData.isEmpty())
-        {
+        List<ProgressTracking> getProgressTrackingData = progressTrackingRepository.findAll();
+        if (getProgressTrackingData.isEmpty()) {
             return ResponseEntity.ok("unable to find data");
         }
-        List<ProgressTrackingDto> progressTrackingDto=customMapper.convertListToDto(getProgressTrackingData);
-         return ResponseEntity.ok(progressTrackingDto);
+        List<ProgressTrackingDto> progressTrackingDto = customMapper.convertListToDto(getProgressTrackingData);
+        return ResponseEntity.ok(progressTrackingDto);
     }
 
 
     public ResponseEntity<?> deleteByMeetingId(long id) {
-        Optional<ProgressTracking> progressTrackingOpt=progressTrackingRepository.findById(id);
-        if(progressTrackingOpt.isPresent())
-        {
+        Optional<ProgressTracking> progressTrackingOpt = progressTrackingRepository.findById(id);
+        if (progressTrackingOpt.isPresent()) {
             progressTrackingRepository.deleteById(id);
             return ResponseEntity.ok("Data successfully deleted");
         }
@@ -156,48 +156,114 @@ public class ProgressTrackingImpl implements ProgressTrackingService {
     }
 
     @Override
-    public ResponseEntity<?> addNotesAndRecording(Integer empId, String title, String month, String year, MultipartFile notes, MultipartFile recording) throws IOException {
-        String notesFile=notes.getOriginalFilename();
-        String recordingFile= recording.getOriginalFilename();
+//    public ResponseEntity<?> addNotesAndRecording(Integer empId, String title, String month, String year, @RequestParam MultipartFile notes, @RequestParam MultipartFile recording) throws IOException {
+//        String notesFile=notes.getOriginalFilename();
+//        String recordingFile= recording.getOriginalFilename();
+//
+//        ObjectMetadata metaDataNotes=new ObjectMetadata();
+//        metaDataNotes.setContentLength(notes.getSize());
+//        PutObjectResult putObjectResultNotes=client.putObject(new PutObjectRequest(bucketName,notesFile,notes.getInputStream(),metaDataNotes));
+//
+//        ObjectMetadata metaDataRecording=new ObjectMetadata();
+//        metaDataRecording.setContentLength(recording.getSize());
+//        PutObjectResult putObjectResultRecording=client.putObject(new PutObjectRequest(bucketName,recordingFile,recording.getInputStream(),metaDataRecording));
+////        $"https://{bucketName}.s3.amazonaws.com/{keyName}";
+//        ProgressTracking progressTracking=new ProgressTracking();
+//       // progressTracking.setDate(date);
+//        progressTracking.setTitle(title);
+//        progressTracking.setMonth(month);
+//        progressTracking.setYear(year);
+//        User user = userRepository.findById(empId).get();
+//        progressTracking.setUser(user);
+//        progressTracking.setLineManagerId(user.getManagerId());
+//        progressTracking.setNotes(filePathBaseUrl+notesFile);
+//        progressTracking.setRecording(filePathBaseUrl+recordingFile);
+//        ProgressTracking result = progressTrackingRepository.save(progressTracking);
+//        ProgressTrackingDto dto = customMapper.progressEntityToProgressTrackingDto(result);
+//        dto.setRecording(result.getRecording());
+//        dto.setNotes(result.getNotes());
+//        return ResponseEntity.ok(dto);
+//    }
+    public ResponseEntity<?> addNotesAndRecording(Integer empId, String title, String month, String year, @RequestParam MultipartFile notes, @RequestParam MultipartFile recording) throws IOException {
+        String notesFile = notes.getOriginalFilename();
+        String recordingFile = recording.getOriginalFilename();
 
-        ObjectMetadata metaDataNotes=new ObjectMetadata();
+        ObjectMetadata metaDataNotes = new ObjectMetadata();
         metaDataNotes.setContentLength(notes.getSize());
-        PutObjectResult putObjectResultNotes=client.putObject(new PutObjectRequest(bucketName,notesFile,notes.getInputStream(),metaDataNotes));
+        metaDataNotes.setContentType(notes.getContentType());
+        PutObjectResult putObjectResultNotes = client.putObject(new PutObjectRequest(bucketName, notesFile, notes.getInputStream(), metaDataNotes));
 
-        ObjectMetadata metaDataRecording=new ObjectMetadata();
+        ObjectMetadata metaDataRecording = new ObjectMetadata();
         metaDataRecording.setContentLength(recording.getSize());
-        PutObjectResult putObjectResultRecording=client.putObject(new PutObjectRequest(bucketName,recordingFile,recording.getInputStream(),metaDataRecording));
-//        $"https://{bucketName}.s3.amazonaws.com/{keyName}";
-        ProgressTracking progressTracking=new ProgressTracking();
-       // progressTracking.setDate(date);
+        metaDataRecording.setContentType(recording.getContentType());
+        PutObjectResult putObjectResultRecording = client.putObject(new PutObjectRequest(bucketName, recordingFile, recording.getInputStream(), metaDataRecording));
+
+        // Calculate 7 days in milliseconds
+        long sevenDaysInMillis = 7 * 24 * 60 * 60 * 1000;
+
+        // Generate pre-signed URL for notes
+        GeneratePresignedUrlRequest generatePresignedUrlRequestNotes = new GeneratePresignedUrlRequest(bucketName, notesFile)
+                .withMethod(HttpMethod.GET)
+                .withExpiration(new Date(System.currentTimeMillis() + sevenDaysInMillis)); // 7 days expiration
+        URL notesUrl = client.generatePresignedUrl(generatePresignedUrlRequestNotes);
+
+        // Generate pre-signed URL for recording
+        GeneratePresignedUrlRequest generatePresignedUrlRequestRecording = new GeneratePresignedUrlRequest(bucketName, recordingFile)
+                .withMethod(HttpMethod.GET)
+                .withExpiration(new Date(System.currentTimeMillis() + sevenDaysInMillis)); // 7 days expiration
+        URL recordingUrl = client.generatePresignedUrl(generatePresignedUrlRequestRecording);
+
+        ProgressTracking progressTracking = new ProgressTracking();
         progressTracking.setTitle(title);
         progressTracking.setMonth(month);
         progressTracking.setYear(year);
         User user = userRepository.findById(empId).get();
         progressTracking.setUser(user);
         progressTracking.setLineManagerId(user.getManagerId());
-        progressTracking.setNotes(filePathBaseUrl+notesFile);
-        progressTracking.setRecording(filePathBaseUrl+recordingFile);
+        progressTracking.setNotes(notesUrl.toString());
+        progressTracking.setRecording(recordingUrl.toString());
         ProgressTracking result = progressTrackingRepository.save(progressTracking);
+
         ProgressTrackingDto dto = customMapper.progressEntityToProgressTrackingDto(result);
         dto.setRecording(result.getRecording());
         dto.setNotes(result.getNotes());
+
         return ResponseEntity.ok(dto);
     }
 
-
-    public URL generatePresignedUrl(String key) {
-        Date expiration = new Date();
-        long expTimeMillis = expiration.getTime();
-        expTimeMillis += 1000 * 60 * 10; // 10 minutes
-        expiration.setTime(expTimeMillis);
-
-        GeneratePresignedUrlRequest generatePresignedUrlRequest = new GeneratePresignedUrlRequest(bucketName, key)
-                .withMethod(com.amazonaws.HttpMethod.GET)
-                .withExpiration(expiration);
-        generatePresignedUrlRequest.addRequestParameter("Content-Disposition", "inline");
-
-        return client.generatePresignedUrl(generatePresignedUrlRequest);
+    @Override
+    public Optional<ProgressTracking> findByUserAndDateBetween(User user, LocalDate startDate, LocalDate endDate) {
+        return Optional.empty();
     }
 
+    @Override
+    public boolean areNotesUploadedForLastMonth(Long managerId) {
+        LocalDate now=LocalDate.now();
+        LocalDate startOfLastMonth=now.minusMonths(1).with(TemporalAdjusters.firstDayOfMonth());
+        LocalDate endOfLastMonth=now.minusMonths(1).with(TemporalAdjusters.lastDayOfMonth());
+        Optional<User> manager=userRepository.findById(Math.toIntExact(managerId));
+        if(manager.isPresent())
+        {
+            Optional<ProgressTracking> notes=progressTrackingRepository.findByUserAndDateBetween(manager.get(),startOfLastMonth,endOfLastMonth);
+            return notes.isPresent();
+        }
+        return false;
+    }
 }
+
+
+//    public URL generatePresignedUrl(String key) {
+//        Date expiration = new Date();
+//        long expTimeMillis = expiration.getTime();
+//        expTimeMillis += 1000 * 60 * 10; // 10 minutes
+//        expiration.setTime(expTimeMillis);
+//
+//        GeneratePresignedUrlRequest generatePresignedUrlRequest = new GeneratePresignedUrlRequest(bucketName, key)
+//                .withMethod(com.amazonaws.HttpMethod.GET)
+//                .withExpiration(expiration);
+//        generatePresignedUrlRequest.addRequestParameter("Content-Disposition", "inline");
+//
+//        return client.generatePresignedUrl(generatePresignedUrlRequest);
+//    }
+//
+//}

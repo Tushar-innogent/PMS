@@ -25,7 +25,9 @@ public class ProgressTracking {
    private LocalDate date;
    private String month;
    private String year;
+   @Column(length = 100000)
    private String notes;
+   @Column(length = 100000)
    private String recording;
    private String title;
   @ManyToOne
