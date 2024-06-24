@@ -13,17 +13,15 @@ import com.innogent.PMS.service.EmailService;
 import com.innogent.PMS.service.GoalService;
 import com.innogent.PMS.service.StageService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -75,8 +73,13 @@ public class GoalServiceImpl implements GoalService {
         goal.setUser(optional.get().getUser());
         goal.setSetDate(optional.get().getSetDate());
         log.info("Sending email to hr on employee goal update!");
-        emailService.sendEmail("tusharpatidar8580@gmail.com", "Employee Data Updated", "Manager has updated employee data!");
-        return customMapper.goalEntityToGoalDto(goalRepository.save(goal));
+        GoalDto result = customMapper.goalEntityToGoalDto(goalRepository.save(goal));
+        List<User> hrList = userRepository.findAllByJob("HR");
+        for(User hr : hrList) {
+            emailService.sendEmail(hr.getEmail(), "Employee Goals Updated\n",
+                    "Manager has updated "+goal.getUser().getEmail()+" \ngoal data!"+"Goal : "+result);
+        }
+        return result;
     }
     @Override
     public List<GoalDto> listAllGoalsOfEmployee(Integer userId) throws NoSuchUserExistsException{
@@ -92,7 +95,6 @@ public class GoalServiceImpl implements GoalService {
 
     @Override
     public ResponseEntity<?> deleteGoal(Long goalId) throws NoSuchGoalExistsException {
-
         Optional<Goal> optionalGoal = goalRepository.findById(goalId);
         if (optionalGoal.isPresent()) {
             Goal goal = optionalGoal.get();
@@ -109,6 +111,18 @@ public class GoalServiceImpl implements GoalService {
         Goal goal = goalRepository.findById(goalId).orElseThrow(()->new NoSuchGoalExistsException("User Not exist with provided id : "+goalId, HttpStatus.NOT_FOUND));
         goal.setSelfRating(goalDto.getSelfRating());
         goal.setSelfComments(goalDto.getSelfComments());
+        goal.setSelfFeedbackDate(LocalDateTime.now());
+        Goal result = goalRepository.save(goal);
+        GoalDto mapped = customMapper.goalEntityToGoalDto(result);
+        return mapped;
+    }
+
+    @Override
+    public GoalDto addManagerFeedback(long goalId, GoalDto goalDto) throws NoSuchGoalExistsException {
+        Goal goal = goalRepository.findById(goalId).orElseThrow(()->new NoSuchGoalExistsException("User Not exist with provided id : "+goalId, HttpStatus.NOT_FOUND));
+        goal.setManagerRating(goalDto.getManagerRating());
+        goal.setManagerComments(goalDto.getManagerComments());
+        goal.setManagerFeedbackDate(LocalDateTime.now());
         Goal result = goalRepository.save(goal);
         GoalDto mapped = customMapper.goalEntityToGoalDto(result);
         return mapped;

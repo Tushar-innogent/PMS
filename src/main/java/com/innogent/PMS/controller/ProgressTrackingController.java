@@ -13,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -53,12 +55,23 @@ public class ProgressTrackingController {
        return this.progressTrackingService.getAllData();
    }
    @DeleteMapping("/deleteData/{id}")
+
+
    public ResponseEntity<?> deleteByMeetingId(@PathVariable String id)
    {
        return this.progressTrackingService.deleteByMeetingId(Long.parseLong(id));
    }
-   @PostMapping(value="/addNotes/{empId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-   public ResponseEntity<?> addNotesAndRecording(@PathVariable Integer empId,@RequestParam("date") LocalDate date, @RequestParam("title") String title, @RequestParam("notes") MultipartFile notes,@RequestParam("recording") MultipartFile recording) throws IOException {
-       return this.progressTrackingService.addNotesAndRecording(empId,date,title,notes,recording);
+   @PostMapping(value="/addNotes/{empId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+   public ResponseEntity<?> addNotesAndRecording(@PathVariable Integer empId,
+                                                 @RequestParam("title") String title,@RequestParam("month") String month,
+                                                 @RequestParam("year") String year ,@RequestParam("notes") MultipartFile notes,
+                                                 @RequestParam("recording") MultipartFile recording) throws IOException {
+       return this.progressTrackingService.addNotesAndRecording(empId,title,month,year,notes,recording);
+   }
+   @GetMapping("/check/notes/uploaded/{managerId}")
+    public ResponseEntity<?> checkNotesUploaded(@PathVariable Long managerId)
+   {
+      boolean notesUploaded=progressTrackingService.areNotesUploadedForLastMonth(managerId);
+       return ResponseEntity.ok(notesUploaded);
    }
 }

@@ -45,7 +45,7 @@ public class JWTService {
                 .setSubject(userDetails.getUsername())
 //                .setPayload(""+userRepository.findByEmail(userDetails.getUsername()).get().getUserId())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 10000 * 60 * 24))
+                .setExpiration(new Date(System.currentTimeMillis() + 100000 * 60 * 24))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
