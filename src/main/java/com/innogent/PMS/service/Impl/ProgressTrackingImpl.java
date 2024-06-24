@@ -109,10 +109,12 @@ public class ProgressTrackingImpl implements ProgressTrackingService {
         }
         ProgressTracking tracking = trackingOpt.get();
 
-        tracking.setDate(progressTrackingDto.getDate());
+//        tracking.setDate(progressTrackingDto.getDate());
         tracking.setTitle(progressTrackingDto.getTitle());
         tracking.setNotes(progressTrackingDto.getNotes());
         tracking.setRecording(progressTrackingDto.getRecording());
+        tracking.setMonth(progressTrackingDto.getMonth());
+        tracking.setYear(progressTrackingDto.getYear());
         ProgressTracking savedTracking = progressTrackingRepository.save(tracking);
         ProgressTrackingDto savedTrackingDto = customMapper.progressEntityToProgressTrackingDto(savedTracking);
         return ResponseEntity.ok(savedTrackingDto);

@@ -1,9 +1,11 @@
 package com.innogent.PMS.service.Impl;
 
 import com.innogent.PMS.dto.GoalDto;
+import com.innogent.PMS.dto.StageTimeLineDto;
 import com.innogent.PMS.entities.Goal;
 import com.innogent.PMS.entities.User;
 import com.innogent.PMS.enums.GoalStatus;
+import com.innogent.PMS.enums.StageName;
 import com.innogent.PMS.exception.customException.NoSuchGoalExistsException;
 import com.innogent.PMS.exception.customException.NoSuchUserExistsException;
 import com.innogent.PMS.mapper.CustomMapper;
@@ -12,6 +14,7 @@ import com.innogent.PMS.repository.UserRepository;
 import com.innogent.PMS.service.EmailService;
 import com.innogent.PMS.service.GoalService;
 import com.innogent.PMS.service.StageService;
+import com.innogent.PMS.service.StageTimeLineService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +35,7 @@ public class GoalServiceImpl implements GoalService {
     private final CustomMapper customMapper;
     private final StageService stageService;
     private final EmailService emailService;
+    private final StageTimeLineService stageTimeLineService;
 
     @Override
     public GoalDto addPersonalGoal(GoalDto goalDto, Integer userId) throws NoSuchUserExistsException {
@@ -128,4 +132,54 @@ public class GoalServiceImpl implements GoalService {
         return mapped;
     }
 
+    @Override
+    public void updateGoalStatus(StageName timelineStage, GoalStatus status) {
+        log.info("Updating Goal Status");
+        LocalDateTime date = LocalDateTime.now();
+
+        List<StageTimeLineDto> timelines = stageTimeLineService.getActiveTimelines(date);
+        if (timelines == null || timelines.isEmpty()) {
+            log.warn("No active timelines found.");
+            return;
+        }
+        // Process each timeline
+        for (StageTimeLineDto timeline : timelines) {
+            if (timelineStage.name().equals(timeline.getStageName())) {
+                List<Goal> allGoals = goalRepository.findAll();
+                // updating the goal's status
+                for (Goal goal : allGoals) {
+                    if(goal.getGoalStatus().equals(GoalStatus.CREATED)) {
+                        goal.setGoalStatus(GoalStatus.APPROVED);
+                        goalRepository.save(goal); // Save updated goal back to repository
+                        log.info("Updated goal id {} to status {}", goal.getGoalId(), status);
+                    }
+                }
+            } else {
+                log.info("Timeline is not set in GOAL_APPROVAL stage, skipping.");
+            }
+        }
+    }
+
+    public void updateGoalStatusToInProgress(StageName timelineStage, GoalStatus status) {
+        LocalDateTime date = LocalDateTime.now();
+        List<StageTimeLineDto> timelines = stageTimeLineService.getActiveTimelines(date);
+        if (timelines == null || timelines.isEmpty()) {
+            log.warn("No active timelines found.");
+            return;
+        }
+        // Process each timeline
+        for (StageTimeLineDto timeline : timelines) {
+            if (timelineStage.name().equals(timeline.getStageName())) {
+                List<Goal> allGoals = goalRepository.findAll();
+                // updating the goal's status
+                for (Goal goal : allGoals) {
+                    if(goal.getGoalStatus().equals(GoalStatus.APPROVED)) {
+                        goal.setGoalStatus(GoalStatus.IN_PROGRESS);
+                        goalRepository.save(goal); // Save updated goal back to repository
+                        log.info("Updated goal id {} to status {}", goal.getGoalId(), status);
+                    }
+                }
+            }
+        }
+    }
 }
