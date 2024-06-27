@@ -110,7 +110,7 @@ public class ProgressTrackingImpl implements ProgressTrackingService {
         }
         ProgressTracking tracking = trackingOpt.get();
 
-        //tracking.setDate(progressTrackingDto.getDate());
+        tracking.setDate(progressTrackingDto.getDate());
         tracking.setTitle(progressTrackingDto.getTitle());
         tracking.setNotes(progressTrackingDto.getNotes());
         tracking.setRecording(progressTrackingDto.getRecording());

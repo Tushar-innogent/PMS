@@ -132,4 +132,17 @@ public class StageTimeLineServiceImpl implements StageTimeLineService {
             return dto;
         }).collect(Collectors.toList());
     }
+    public List<StageTimeLineDto> getActiveTimelines(LocalDateTime currentDate) {
+        List<Timeline> timelines = timelineRepository.findByStartDateBeforeAndEndDateAfter(currentDate, currentDate);
+        return timelines.stream().map(timeline -> {
+            StageTimeLineDto dto = new StageTimeLineDto();
+            dto.setStageId(timeline.getStages().getStageId());
+            dto.setStageName(timeline.getStages().getStageName().name());
+            dto.setDescription(timeline.getStages().getDescription());
+            dto.setStartDate(timeline.getStartDate());
+            dto.setEndDate(timeline.getEndDate());
+            dto.setIsActive(timeline.getStages().getIsActive());
+            return dto;
+        }).collect(Collectors.toList());
+    }
 }
