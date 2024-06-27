@@ -28,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.Year;
 import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Collections;
@@ -109,7 +110,7 @@ public class ProgressTrackingImpl implements ProgressTrackingService {
         }
         ProgressTracking tracking = trackingOpt.get();
 
-//        tracking.setDate(progressTrackingDto.getDate());
+        tracking.setDate(progressTrackingDto.getDate());
         tracking.setTitle(progressTrackingDto.getTitle());
         tracking.setNotes(progressTrackingDto.getNotes());
         tracking.setRecording(progressTrackingDto.getRecording());
@@ -187,6 +188,11 @@ public class ProgressTrackingImpl implements ProgressTrackingService {
 //        return ResponseEntity.ok(dto);
 //    }
     public ResponseEntity<?> addNotesAndRecording(Integer empId, String title, String month, String year, @RequestParam MultipartFile notes, @RequestParam MultipartFile recording) throws IOException {
+     Optional<ProgressTracking> existMonthAndYear=progressTrackingRepository.findByUser_UserIdAndMonthAndYear(empId,month,year);
+     if(existMonthAndYear.isPresent())
+     {
+         return ResponseEntity.ok(month+" "+year+" is present");
+     }
         String notesFile = notes.getOriginalFilename();
         String recordingFile = recording.getOriginalFilename();
 
