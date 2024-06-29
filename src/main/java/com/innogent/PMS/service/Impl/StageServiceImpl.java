@@ -21,5 +21,4 @@ public class StageServiceImpl implements StageService {
     public Stage setStage(Stage stage) {
          return stageRepository.save(stage);
     }
-
 }

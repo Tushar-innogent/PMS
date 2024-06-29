@@ -22,8 +22,16 @@ Timeline {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "stage_id")
-    @JsonManagedReference
-    private Stage stages;
+    private String description;
+    private Boolean isActive;
+
+    @PrePersist
+    protected void onCreate() {
+        if (isActive == null) {
+            isActive = true;
+        }
+    }
+
+@Column(name = "stage_id")
+private Long stageId;
 }
