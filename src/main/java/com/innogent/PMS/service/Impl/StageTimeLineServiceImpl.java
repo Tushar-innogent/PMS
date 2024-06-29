@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 public class StageTimeLineServiceImpl implements StageTimeLineService {
     private static final Logger logger = Logger.getLogger(StageTimeLineServiceImpl.class.getName());
 
-
     @Autowired
     private StageRepository stageRepository;
 
@@ -29,57 +28,46 @@ public class StageTimeLineServiceImpl implements StageTimeLineService {
 
     @Override
     public Stage createStage(StageTimeLineDto stageTimeLineDto) {
-        // Create and save the Stage entity first
-        Stage stage = new Stage();
-        stage.setStageName(StageName.valueOf(stageTimeLineDto.getStageName()));
-        stage.setDescription(stageTimeLineDto.getDescription());
-        stage.setIsActive(stageTimeLineDto.getIsActive());  // Correctly set isActive
+        Stage stage;
+        Optional<Stage> existingStage = stageRepository.findByStageName(StageName.valueOf(stageTimeLineDto.getStageName()));
 
-        stage = stageRepository.save(stage); // Save the stage first
+        if (existingStage.isPresent()) {
+            stage = existingStage.get();
+        } else {
+            stage = new Stage();
+            stage.setStageName(StageName.valueOf(stageTimeLineDto.getStageName()));
+            stage = stageRepository.save(stage);
+        }
 
-        // Set timeline with start and end dates
-        LocalDateTime startDate = stageTimeLineDto.getStartDate();// Get current date and time
-        LocalDateTime endDate = stageTimeLineDto.getEndDate();
 
         Timeline timeline = new Timeline();
-        timeline.setStartDate(startDate);
-        timeline.setEndDate(endDate);
-        timeline.setStages(stage);
-
-        // Save timeline
-        timeline = timelineRepository.save(timeline);
-
-        // Associate the saved timeline with the stage
-        stage.setTimeline(timeline);
-        stage = stageRepository.save(stage); // Save the stage again with the associated timeline
+        timeline.setStartDate(stageTimeLineDto.getStartDate());
+        timeline.setEndDate(stageTimeLineDto.getEndDate());
+        timeline.setStageId(stage.getStageId()); // Save stageId instead of stage reference
+        timeline.setDescription(stageTimeLineDto.getDescription());
+        timeline.setIsActive(stageTimeLineDto.getIsActive());
+        timelineRepository.save(timeline);
 
         return stage;
     }
 
     @Override
-    public Stage updateStage(StageTimeLineDto stageTimeLineDto) {
+    public Stage updateStage(Integer timelineId,StageTimeLineDto stageTimeLineDto) {
         logger.info("Updating Stage with StageTimeLineDto: " + stageTimeLineDto.toString());
 
-        Optional<Stage> optionalStage = stageRepository.findByStageName(StageName.valueOf(stageTimeLineDto.getStageName()));
-        if (optionalStage.isPresent()) {
-            Stage stage = optionalStage.get();
-            stage.setDescription(stageTimeLineDto.getDescription());
-            stage.setIsActive(stageTimeLineDto.getIsActive());
+        Timeline timeline = timelineRepository.findById(timelineId)
+                .orElseThrow(() -> new IllegalArgumentException("Timeline with id " + timelineId + " not found"));
 
-            Timeline timeline = stage.getTimeline();
-            if (timeline == null) {
-                timeline = new Timeline();
-                timeline.setStages(stage);
-            }
-            timeline.setStartDate(stageTimeLineDto.getStartDate());
-            timeline.setEndDate(stageTimeLineDto.getEndDate());
-            timelineRepository.save(timeline);
+        Stage stage = stageRepository.findById(timeline.getStageId())
+                .orElseThrow(() -> new IllegalArgumentException("Stage with id " + timeline.getStageId() + " not found"));
 
-            stage.setTimeline(timeline);
-            return stageRepository.save(stage);
-        } else {
-            throw new IllegalArgumentException("Stage with name " + stageTimeLineDto.getStageName() + " not found");
-        }
+        timeline.setStartDate(stageTimeLineDto.getStartDate());
+        timeline.setEndDate(stageTimeLineDto.getEndDate());
+        timeline.setDescription(stageTimeLineDto.getDescription());
+        timeline.setIsActive(stageTimeLineDto.getIsActive());
+        timelineRepository.save(timeline);
+
+        return stageRepository.save(stage);
     }
 
     @Override
@@ -92,56 +80,61 @@ public class StageTimeLineServiceImpl implements StageTimeLineService {
     public List<Stage> getAllStages() {
         return stageRepository.findAll();
     }
+@Override
+public List<StageTimeLineDto> getTimelinesByStageName(String stageName) {
+    Stage stage = stageRepository.findByStageName(StageName.valueOf(stageName.toUpperCase()))
+            .orElseThrow(() -> new RuntimeException("Stage not found"));
 
-    @Override
-    public StageTimeLineDto getStageWithTimelineByName(String stageName) {
-        Stage stage = stageRepository.findByStageName(StageName.valueOf(stageName))
-                .orElseThrow(() -> new IllegalArgumentException("Stage with name " + stageName + " not found"));
+    List<Timeline> timelines = timelineRepository.findByStageId(stage.getStageId());
 
-        StageTimeLineDto dto = new StageTimeLineDto();
-        dto.setStageId(stage.getStageId());
-        dto.setStageName(stage.getStageName().name());
-        dto.setDescription(stage.getDescription());
-        dto.setIsActive(stage.getIsActive());
-
-        Timeline timeline = stage.getTimeline();
-        if (timeline != null) {
-            dto.setStartDate(timeline.getStartDate());
-            dto.setEndDate(timeline.getEndDate());
-        }
-
-        return dto;
-    }
-
-    @Override
-    public List<StageTimeLineDto> getAllStagesWithTimeline() {
-        List<Stage> stages = stageRepository.findAll();
-        return stages.stream().map(stage -> {
-            StageTimeLineDto dto = new StageTimeLineDto();
-            dto.setStageId(stage.getStageId());
-            dto.setStageName(stage.getStageName().name());
-            dto.setDescription(stage.getDescription());
-            dto.setIsActive(stage.getIsActive());
-
-            Timeline timeline = stage.getTimeline();
-            if (timeline != null) {
+    return timelines.stream()
+            .map(timeline -> {
+                StageTimeLineDto dto = new StageTimeLineDto();
+                dto.setStageId(timeline.getStageId());
+                dto.setTimelineId(timeline.getTimelineId());
+                dto.setStageName(stage.getStageName().name());
+                dto.setDescription(timeline.getDescription());
                 dto.setStartDate(timeline.getStartDate());
                 dto.setEndDate(timeline.getEndDate());
-            }
+                dto.setIsActive(timeline.getIsActive());
+                return dto;
+            })
+            .collect(Collectors.toList());
+}
+@Override
+public List<StageTimeLineDto> getAllTimelinesWithStages() {
+    List<Timeline> timelines = timelineRepository.findAll();
+    return timelines.stream()
+            .map(timeline -> {
+                StageTimeLineDto dto = new StageTimeLineDto();
+                dto.setTimelineId(timeline.getTimelineId());
+                dto.setStartDate(timeline.getStartDate());
+                dto.setEndDate(timeline.getEndDate());
+                dto.setDescription(timeline.getDescription());
+                dto.setIsActive(timeline.getIsActive());
 
-            return dto;
-        }).collect(Collectors.toList());
-    }
+                // Fetch stage details from stageRepository
+                dto.setStageId(timeline.getStageId());
+                stageRepository.findById(timeline.getStageId())
+                        .ifPresent(stage -> dto.setStageName(stage.getStageName().name()));
+
+                return dto;
+            })
+            .collect(Collectors.toList());
+}
+
+    @Override
     public List<StageTimeLineDto> getActiveTimelines(LocalDateTime currentDate) {
         List<Timeline> timelines = timelineRepository.findByStartDateBeforeAndEndDateAfter(currentDate, currentDate);
         return timelines.stream().map(timeline -> {
             StageTimeLineDto dto = new StageTimeLineDto();
-            dto.setStageId(timeline.getStages().getStageId());
-            dto.setStageName(timeline.getStages().getStageName().name());
-            dto.setDescription(timeline.getStages().getDescription());
+            dto.setStageId(timeline.getStageId());
+            dto.setStageName(stageRepository.findById(timeline.getStageId()).orElse(new Stage()).getStageName().name());
+            dto.setTimelineId(timeline.getTimelineId());
+            dto.setDescription(timeline.getDescription());
             dto.setStartDate(timeline.getStartDate());
             dto.setEndDate(timeline.getEndDate());
-            dto.setIsActive(timeline.getStages().getIsActive());
+            dto.setIsActive(timeline.getIsActive());
             return dto;
         }).collect(Collectors.toList());
     }

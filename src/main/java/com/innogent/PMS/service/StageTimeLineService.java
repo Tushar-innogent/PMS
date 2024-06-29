@@ -10,10 +10,10 @@ import java.util.List;
 @Service
 public interface StageTimeLineService {
     public Stage createStage(StageTimeLineDto stageTimeLineDto);
-    Stage updateStage(StageTimeLineDto stageTimeLineDto);
+    Stage updateStage(Integer timelineId,StageTimeLineDto stageTimeLineDto);
     Stage getStageByName(String stageName);
     List<Stage> getAllStages();
-    StageTimeLineDto getStageWithTimelineByName(String stageName);
-    List<StageTimeLineDto> getAllStagesWithTimeline();
+    public List<StageTimeLineDto> getTimelinesByStageName(String stageName);
+    List<StageTimeLineDto> getAllTimelinesWithStages();
     public List<StageTimeLineDto> getActiveTimelines(LocalDateTime currentDate);
 }
