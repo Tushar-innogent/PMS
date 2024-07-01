@@ -22,7 +22,7 @@ public interface ProgressTrackingService {
    public ResponseEntity<?> getProgressTracking(Integer employeeId);
 
 
-    public ResponseEntity<?> editProgressTracking(long meetingId, ProgressTrackingDto progressTrackingDto);
+    public ResponseEntity<?> editProgressTracking(long meetingId,String title,String month,String year,MultipartFile notes,MultipartFile Recording);
 
     public ResponseEntity<?> getAllData();
 
