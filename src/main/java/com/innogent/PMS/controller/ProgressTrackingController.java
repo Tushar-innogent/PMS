@@ -43,11 +43,17 @@ public class ProgressTrackingController {
        return this.progressTrackingService.getProgressTracking(employeeId);
    }
 
-   @PutMapping("/updateData/{meetingId}")
-   public ResponseEntity<?> updateProgressTracking(@PathVariable String meetingId,@RequestBody ProgressTrackingDto progressTrackingDto)
-   {
-       return  this.progressTrackingService.editProgressTracking(Long.parseLong(meetingId),progressTrackingDto);
-   }
+//   @PutMapping("/updateData/{meetingId}")
+//   public ResponseEntity<?> updateProgressTracking(@PathVariable String meetingId,@RequestBody ProgressTrackingDto progressTrackingDto,@RequestPart)
+//   {
+//       return  this.progressTrackingService.editProgressTracking(Long.parseLong(meetingId),progressTrackingDto);
+//   }
+  @PutMapping("/updateData/{meetingId}")
+    public ResponseEntity<?> updateProgressTracking(@PathVariable String meetingId,@RequestParam("title") String title,@RequestParam("month") String month,
+            @RequestParam("year") String year,@RequestParam("notes") MultipartFile notes,@RequestParam("recording") MultipartFile recording)
+    {
+        return this.progressTrackingService.editProgressTracking(Long.parseLong(meetingId),title,month,year,notes,recording);
+    }
 
    @GetMapping("/getAllTrackingData")
    public ResponseEntity<?> getAllData()
@@ -55,8 +61,6 @@ public class ProgressTrackingController {
        return this.progressTrackingService.getAllData();
    }
    @DeleteMapping("/deleteData/{id}")
-
-
    public ResponseEntity<?> deleteByMeetingId(@PathVariable String id)
    {
        return this.progressTrackingService.deleteByMeetingId(Long.parseLong(id));
