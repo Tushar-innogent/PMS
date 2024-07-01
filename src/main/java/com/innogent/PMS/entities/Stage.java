@@ -1,6 +1,5 @@
 package com.innogent.PMS.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.innogent.PMS.enums.StageName;
 import jakarta.persistence.*;
 import lombok.*;
@@ -19,17 +18,4 @@ public class Stage {
     @Enumerated(EnumType.STRING)
     @Column(length = 50,unique = true, nullable = false)
     private StageName stageName;
-    private String description;
-    private Boolean isActive;
-
-    @OneToOne(mappedBy = "stages", cascade = CascadeType.ALL)
-    @JsonBackReference
-    private Timeline timeline;
-
-    @PrePersist
-    protected void onCreate() {
-        if (isActive == null) {
-            isActive = true;
-        }
-    }
 }

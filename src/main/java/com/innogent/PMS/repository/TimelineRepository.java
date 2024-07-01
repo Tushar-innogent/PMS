@@ -7,6 +7,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface TimelineRepository extends JpaRepository<Timeline, Integer> {
-//    public boolean existsByTimelineType(TimelineType type);
       List<Timeline> findByStartDateBeforeAndEndDateAfter(LocalDateTime currentDate, LocalDateTime currentDate2);
+      List<Timeline> findByStageId(Long stageId);
 }
