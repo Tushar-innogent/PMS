@@ -25,9 +25,10 @@ public class StageTimeLineController {
         return new ResponseEntity<>(stage, HttpStatus.CREATED);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<Stage> updateStage(@RequestBody StageTimeLineDto stageTimeLineDto) {
-        Stage updatedStage = stageTimeLineService.updateStage(stageTimeLineDto);
+    @PutMapping("/update/{timelineId}")
+    public ResponseEntity<Stage> updateStage(@PathVariable Integer timelineId,@RequestBody StageTimeLineDto stageTimeLineDto) {
+        Stage updatedStage = stageTimeLineService.updateStage(timelineId,stageTimeLineDto);
+
         return new ResponseEntity<>(updatedStage, HttpStatus.OK);
     }
 
@@ -43,16 +44,14 @@ public class StageTimeLineController {
         return new ResponseEntity<>(stages, HttpStatus.OK);
     }
 
-    @GetMapping("/timeline/{stageName}")
-    public ResponseEntity<StageTimeLineDto> getStageWithTimelineByName(@PathVariable String stageName) {
-        StageTimeLineDto dto = stageTimeLineService.getStageWithTimelineByName(stageName);
-        return new ResponseEntity<>(dto, HttpStatus.OK);
-    }
+@GetMapping("/timelines/{stageName}")
+public List<StageTimeLineDto> getTimelinesByStageName(@PathVariable String stageName) {
+    return stageTimeLineService.getTimelinesByStageName(stageName);
+}
 
     @GetMapping("/timeline/all")
-    public ResponseEntity<List<StageTimeLineDto>> getAllStagesWithTimeline() {
-        List<StageTimeLineDto> dtos = stageTimeLineService.getAllStagesWithTimeline();
-        return new ResponseEntity<>(dtos, HttpStatus.OK);
+    public List<StageTimeLineDto> getAllTimelinesWithStages() {
+        return stageTimeLineService.getAllTimelinesWithStages();
     }
 
     @GetMapping("/byDate")
