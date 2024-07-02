@@ -12,5 +12,6 @@ public class StageTimeLineDto {
     private String description;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
+    private Integer timelineCycleId;
     private Boolean isActive;
 }

@@ -2,6 +2,7 @@ package com.innogent.PMS.controller;
 
 import com.innogent.PMS.dto.StageTimeLineDto;
 import com.innogent.PMS.entities.Stage;
+import com.innogent.PMS.entities.Timeline;
 import com.innogent.PMS.service.StageTimeLineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -63,5 +64,11 @@ public List<StageTimeLineDto> getTimelinesByStageName(@PathVariable String stage
             throw new RuntimeException("Time finish for all stages");
         }
         return activeTimelines;
+    }
+
+    @GetMapping("/timelineCycle/{timelineCycleId}")
+    public ResponseEntity<List<StageTimeLineDto>> getTimelinesByTimelineCycleId(@PathVariable Integer timelineCycleId) {
+        List<StageTimeLineDto> timelines = stageTimeLineService.getTimelinesByTimelineCycleId(timelineCycleId);
+        return new ResponseEntity<>(timelines, HttpStatus.OK);
     }
 }
