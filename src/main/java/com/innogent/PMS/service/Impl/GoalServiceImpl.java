@@ -81,7 +81,8 @@ public class GoalServiceImpl implements GoalService {
         List<User> hrList = userRepository.findAllByJob("HR");
         for(User hr : hrList) {
             emailService.sendEmail(hr.getEmail(), "Employee Goals Updated\n",
-                    "Manager has updated "+goal.getUser().getEmail()+" \ngoal data!"+"Goal : "+result);
+                    "Manager has updated "+goal.getUser().getEmail()+" goal data!"+"\n\nPrevious data : "+optional.get()
+            +"\n\nUpdated Data : "+result);
         }
         return result;
     }
