@@ -204,3 +204,32 @@
 2024-07-03T14:37:37.052+05:30  INFO 16348 --- [PMS] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2024-07-03T14:37:37.130+05:30  INFO 16348 --- [PMS] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2024-07-03T14:37:37.195+05:30  INFO 16348 --- [PMS] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-07-03T14:37:44.513+05:30  INFO 22544 --- [PMS] [restartedMain] com.innogent.PMS.PmsApplication          : Starting PmsApplication using Java 19.0.2 with PID 22544 (D:\Codespace\Innogent_workspace\PMS\target\classes started by Tushar Patidar in D:\Codespace\Innogent_workspace\PMS)
+2024-07-03T14:37:44.513+05:30  INFO 22544 --- [PMS] [restartedMain] com.innogent.PMS.PmsApplication          : No active profile set, falling back to 1 default profile: "default"
+2024-07-03T14:37:44.586+05:30  INFO 22544 --- [PMS] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-07-03T14:37:44.586+05:30  INFO 22544 --- [PMS] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-07-03T14:37:45.841+05:30  INFO 22544 --- [PMS] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-07-03T14:37:45.960+05:30  INFO 22544 --- [PMS] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 117 ms. Found 9 JPA repository interfaces.
+2024-07-03T14:37:46.986+05:30  INFO 22544 --- [PMS] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-07-03T14:37:47.011+05:30  INFO 22544 --- [PMS] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-07-03T14:37:47.011+05:30  INFO 22544 --- [PMS] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.20]
+2024-07-03T14:37:47.093+05:30  INFO 22544 --- [PMS] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-07-03T14:37:47.093+05:30  INFO 22544 --- [PMS] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2507 ms
+2024-07-03T14:37:47.328+05:30  INFO 22544 --- [PMS] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-07-03T14:37:47.407+05:30  INFO 22544 --- [PMS] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-07-03T14:37:47.452+05:30  INFO 22544 --- [PMS] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-07-03T14:37:47.780+05:30  INFO 22544 --- [PMS] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-07-03T14:37:47.811+05:30  INFO 22544 --- [PMS] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-07-03T14:37:48.265+05:30  INFO 22544 --- [PMS] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2106ef6c
+2024-07-03T14:37:48.268+05:30  INFO 22544 --- [PMS] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-07-03T14:37:49.655+05:30  INFO 22544 --- [PMS] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-07-03T14:37:49.825+05:30  INFO 22544 --- [PMS] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-07-03T14:37:50.235+05:30  INFO 22544 --- [PMS] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-07-03T14:37:52.135+05:30  INFO 22544 --- [PMS] [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@31d5d94e, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@31bce946, org.springframework.security.web.context.SecurityContextHolderFilter@56c066ae, org.springframework.security.web.header.HeaderWriterFilter@1995d8d, org.springframework.web.filter.CorsFilter@401941e2, org.springframework.security.web.authentication.logout.LogoutFilter@906b37c, com.innogent.PMS.filter.JwtAuthenticationFilter@4367451d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@f29f8e4, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3e305645, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@553a1c77, org.springframework.security.web.session.SessionManagementFilter@4d46a89a, org.springframework.security.web.access.ExceptionTranslationFilter@c86a61b, org.springframework.security.web.access.intercept.AuthorizationFilter@1552a77d]
+2024-07-03T14:37:52.443+05:30  INFO 22544 --- [PMS] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-07-03T14:37:52.480+05:30  INFO 22544 --- [PMS] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2024-07-03T14:37:52.500+05:30  INFO 22544 --- [PMS] [restartedMain] com.innogent.PMS.PmsApplication          : Started PmsApplication in 8.63 seconds (process running for 9.587)
+2024-07-03T14:37:52.504+05:30  INFO 22544 --- [PMS] [restartedMain] com.innogent.PMS.PmsApplication          : performance manager
+2024-07-03T14:37:55.353+05:30  INFO 22544 --- [PMS] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-07-03T14:37:55.353+05:30  INFO 22544 --- [PMS] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-07-03T14:37:55.353+05:30  INFO 22544 --- [PMS] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
