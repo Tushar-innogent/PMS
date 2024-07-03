@@ -44,6 +44,7 @@ public class CustomMapper {
         goalDto.setManagerComments((goal.getManagerComments()!=null)?goal.getManagerComments():null);
         goalDto.setSelfFeedbackDate((goal.getSelfFeedbackDate()!=null)?goal.getSelfFeedbackDate():null);
         goalDto.setManagerFeedbackDate((goal.getManagerFeedbackDate()!=null)?goal.getManagerFeedbackDate():null);
+        goalDto.setPerformanceCycleId(goal.getPerformanceCycleId());
         return goalDto;
     }
     //to convert list of goals to list of goalDto

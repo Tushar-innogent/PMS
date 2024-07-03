@@ -5,11 +5,14 @@ import com.innogent.PMS.entities.Stage;
 import com.innogent.PMS.entities.Timeline;
 import com.innogent.PMS.entities.TimelineCycle;
 import com.innogent.PMS.enums.StageName;
+import com.innogent.PMS.exception.GenericException;
 import com.innogent.PMS.repository.StageRepository;
 import com.innogent.PMS.repository.TimelineCycleRepository;
 import com.innogent.PMS.repository.TimelineRepository;
 import com.innogent.PMS.service.StageTimeLineService;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -22,6 +25,7 @@ import java.util.stream.Collectors;
 @Service
 public class StageTimeLineServiceImpl implements StageTimeLineService {
     private static final Logger logger = Logger.getLogger(StageTimeLineServiceImpl.class.getName());
+    private static final org.slf4j.Logger log = LoggerFactory.getLogger(StageTimeLineServiceImpl.class);
 
     @Autowired
     private StageRepository stageRepository;
@@ -168,6 +172,23 @@ public class StageTimeLineServiceImpl implements StageTimeLineService {
     public List<StageTimeLineDto> getTimelinesByTimelineCycleId(Integer timelineCycleId) {
         List<Timeline> timelines = timelineRepository.findByTimelineCycle_TimelineCycleId(timelineCycleId);
         return timelines.stream().map(this::mapToStageTimeLineDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public Integer getCurrentCycleId() throws GenericException {
+        log.info("Current Cycle Id :");
+        LocalDateTime currentDate = LocalDateTime.now();
+        List<StageTimeLineDto> list = getActiveTimelines(currentDate);
+        if(!list.isEmpty()){
+            StageTimeLineDto dto = list.stream().filter(item-> item.getStageName().equalsIgnoreCase(StageName.PERFORMANCE_CYCLE.name())).findFirst().orElseThrow(()-> new GenericException("Requires Performance Cycle Timeline is missing", HttpStatus.NOT_FOUND));
+            return dto.getTimelineCycleId();
+        }
+        return -1;
+    }
+
+    @Override
+    public List<TimelineCycle> getAllTimelineCycleData() {
+        return timelineCycleRepository.findAll();
     }
 
     private StageTimeLineDto mapToStageTimeLineDto(Timeline timeline) {
