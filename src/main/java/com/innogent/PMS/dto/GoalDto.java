@@ -24,4 +24,5 @@ public class GoalDto {
     private Integer managerRating;
     private String managerComments;
     private LocalDateTime managerFeedbackDate;
+    private Integer performanceCycleId;
 }

@@ -2,6 +2,8 @@ package com.innogent.PMS.controller;
 
 import com.innogent.PMS.dto.StageTimeLineDto;
 import com.innogent.PMS.entities.Stage;
+import com.innogent.PMS.entities.TimelineCycle;
+import com.innogent.PMS.exception.GenericException;
 import com.innogent.PMS.service.StageTimeLineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -59,9 +61,31 @@ public List<StageTimeLineDto> getTimelinesByStageName(@PathVariable String stage
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
         LocalDateTime currentDate = LocalDateTime.parse(currentDateTime, formatter);
         List<StageTimeLineDto> activeTimelines = stageTimeLineService.getActiveTimelines(currentDate);
-        if (activeTimelines.isEmpty()) {
+        if(activeTimelines.isEmpty()) {
             throw new RuntimeException("Time finish for all stages");
         }
         return activeTimelines;
+    }
+
+    @GetMapping("/timelineCycle/{timelineCycleId}")
+    public ResponseEntity<List<StageTimeLineDto>> getTimelinesByTimelineCycleId(@PathVariable Integer timelineCycleId) {
+        List<StageTimeLineDto> timelines = stageTimeLineService.getTimelinesByTimelineCycleId(timelineCycleId);
+        return new ResponseEntity<>(timelines, HttpStatus.OK);
+    }
+
+    // To get current cycle id
+    @GetMapping("/timelineCycle/fetchId")
+    public ResponseEntity<?> fetchCurrentTimelineCycleId() throws GenericException {
+        Integer id = stageTimeLineService.getCurrentCycleId();
+        if(id == -1){
+            return new ResponseEntity<>("TimeLineCycle is not set for current year", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(id,HttpStatus.OK);
+    }
+
+    @GetMapping("/timelineCycle/all")
+    public ResponseEntity<List<TimelineCycle>> getAllTimelineCycle() {
+        List<TimelineCycle> cycle = stageTimeLineService.getAllTimelineCycleData();
+        return new ResponseEntity<>(cycle, HttpStatus.OK);
     }
 }

@@ -4,6 +4,7 @@ import com.innogent.PMS.enums.GoalStatus;
 import com.innogent.PMS.enums.GoalType;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -23,10 +24,10 @@ public class Goal {
     @Column(length = 100)
     private String goalName;
     @Enumerated(EnumType.STRING)
+    @NonNull
     @Column(length = 50)
     private GoalType goalType;
     @Column(columnDefinition = "TEXT")
-
     private String description;
     @CreationTimestamp
     private LocalDateTime setDate;
@@ -51,6 +52,8 @@ public class Goal {
     private String managerComments;
     @Column
     private LocalDateTime managerFeedbackDate;
+    @Column
+    private Integer performanceCycleId;
 
     @PrePersist
     protected void onCreate() {

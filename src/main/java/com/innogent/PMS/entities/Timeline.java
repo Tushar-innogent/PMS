@@ -1,6 +1,5 @@
 package com.innogent.PMS.entities;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,9 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class
-
-Timeline {
+public class Timeline {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer timelineId;
@@ -32,6 +29,10 @@ Timeline {
         }
     }
 
-@Column(name = "stage_id")
-private Long stageId;
+    @Column(name = "stage_id")
+    private Long stageId;
+
+    @ManyToOne(cascade= CascadeType.MERGE)
+    @JoinColumn(name = "timeline_cycle_id", referencedColumnName = "timelineCycleId")
+    private TimelineCycle timelineCycle;
 }

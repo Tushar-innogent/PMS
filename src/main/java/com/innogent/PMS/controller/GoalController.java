@@ -1,6 +1,7 @@
 package com.innogent.PMS.controller;
 
 import com.innogent.PMS.dto.GoalDto;
+import com.innogent.PMS.exception.GenericException;
 import com.innogent.PMS.exception.customException.NoSuchGoalExistsException;
 import com.innogent.PMS.exception.customException.NoSuchUserExistsException;
 import com.innogent.PMS.service.GoalService;
@@ -38,14 +39,14 @@ public class GoalController  {
      */
     //add personal goal
     @PostMapping("/addPersonal/{userId}")
-    public ResponseEntity<?> addPersonalGoal(@RequestBody GoalDto goalDto, @PathVariable Integer userId) throws NoSuchUserExistsException {
-        log.info("Adding personal goals!");
+    public ResponseEntity<?> addPersonalGoal(@RequestBody GoalDto goalDto, @PathVariable Integer userId) throws GenericException {
+        log.info("Adding personal goal!");
         return ResponseEntity.status(HttpStatus.OK).body(goalService.addPersonalGoal(goalDto, userId));
     }
     //add Organisational goal
     @PostMapping("/addOrganisational/{managerId}")
     public ResponseEntity<?> addOrgGoal(@RequestBody GoalDto goalDto, @PathVariable Integer managerId) throws NoSuchUserExistsException {
-        log.info("Adding Organisational goals!");
+        log.info("Adding Organisational goal!");
         return ResponseEntity.status(HttpStatus.OK).body(goalService.addOrganisationalGoal(goalDto, managerId));
     }
     //get goal by goal id
@@ -70,18 +71,11 @@ public class GoalController  {
         if(result == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Data Not Present");
         return  ResponseEntity.status(HttpStatus.OK).body(result);
     }
-//    //delete a goal
-//    @DeleteMapping("/delete/{goalId}")
-//    public ResponseEntity<?> deleteGoal(@PathVariable Long goalId) throws NoSuchGoalExistsException {
-//        return ResponseEntity.status(HttpStatus.OK).body(goalService.deleteGoal(goalId));
-//    }
-
     //softDelete
     @DeleteMapping("delete/{goalId}")
     public ResponseEntity<?> deleteUser(@PathVariable Long goalId) throws NoSuchGoalExistsException {
         return goalService.deleteGoal(goalId);
     }
-
     //to add self feedback on individual goal
     @PutMapping("/selfFeedback/{goalId}")
     public ResponseEntity<?> addSelfFeedback(@PathVariable String goalId, @RequestBody GoalDto goalDto) throws NoSuchGoalExistsException {
@@ -89,7 +83,6 @@ public class GoalController  {
         GoalDto result = goalService.addSelfFeedback(Long.parseLong(goalId), goalDto);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
-
     //to add self feedback on individual goal
     @PutMapping("/managerFeedback/{goalId}")
     public ResponseEntity<?> addManagerFeedback(@PathVariable String goalId, @RequestBody GoalDto goalDto) throws NoSuchGoalExistsException {
