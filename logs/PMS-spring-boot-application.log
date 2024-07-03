@@ -1,0 +1,46 @@
+2024-07-03T11:07:29.310+05:30  INFO 7792 --- [PMS] [restartedMain] com.innogent.PMS.PmsApplication          : Starting PmsApplication using Java 19.0.2 with PID 7792 (D:\Codespace\Innogent_workspace\PMS\target\classes started by Tushar Patidar in D:\Codespace\Innogent_workspace\PMS)
+2024-07-03T11:07:29.310+05:30  INFO 7792 --- [PMS] [restartedMain] com.innogent.PMS.PmsApplication          : No active profile set, falling back to 1 default profile: "default"
+2024-07-03T11:07:29.369+05:30  INFO 7792 --- [PMS] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-07-03T11:07:29.369+05:30  INFO 7792 --- [PMS] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-07-03T11:07:30.364+05:30  INFO 7792 --- [PMS] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-07-03T11:07:30.489+05:30  INFO 7792 --- [PMS] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 108 ms. Found 8 JPA repository interfaces.
+2024-07-03T11:07:31.333+05:30  INFO 7792 --- [PMS] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-07-03T11:07:31.349+05:30  INFO 7792 --- [PMS] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-07-03T11:07:31.349+05:30  INFO 7792 --- [PMS] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.20]
+2024-07-03T11:07:31.411+05:30  INFO 7792 --- [PMS] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-07-03T11:07:31.411+05:30  INFO 7792 --- [PMS] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2042 ms
+2024-07-03T11:07:31.583+05:30  INFO 7792 --- [PMS] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-07-03T11:07:31.677+05:30  INFO 7792 --- [PMS] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-07-03T11:07:31.739+05:30  INFO 7792 --- [PMS] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-07-03T11:07:32.020+05:30  INFO 7792 --- [PMS] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-07-03T11:07:32.052+05:30  INFO 7792 --- [PMS] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-07-03T11:07:32.442+05:30  INFO 7792 --- [PMS] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@14851691
+2024-07-03T11:07:32.442+05:30  INFO 7792 --- [PMS] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-07-03T11:07:33.602+05:30  INFO 7792 --- [PMS] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-07-03T11:07:33.758+05:30  INFO 7792 --- [PMS] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-07-03T11:07:34.070+05:30  INFO 7792 --- [PMS] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-07-03T11:07:35.632+05:30  INFO 7792 --- [PMS] [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@62974e99, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@73ea44c0, org.springframework.security.web.context.SecurityContextHolderFilter@428e4744, org.springframework.security.web.header.HeaderWriterFilter@68d85a7f, org.springframework.web.filter.CorsFilter@29f356cd, org.springframework.security.web.authentication.logout.LogoutFilter@2458b120, com.innogent.PMS.filter.JwtAuthenticationFilter@32c9cef, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@57f64b91, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@280aeb8, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@193bb24b, org.springframework.security.web.session.SessionManagementFilter@53c879bb, org.springframework.security.web.access.ExceptionTranslationFilter@5c1f3307, org.springframework.security.web.access.intercept.AuthorizationFilter@4efbe2e1]
+2024-07-03T11:07:35.882+05:30  INFO 7792 --- [PMS] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-07-03T11:07:35.929+05:30  INFO 7792 --- [PMS] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2024-07-03T11:07:35.945+05:30  INFO 7792 --- [PMS] [restartedMain] com.innogent.PMS.PmsApplication          : Started PmsApplication in 7.11 seconds (process running for 7.975)
+2024-07-03T11:07:35.945+05:30  INFO 7792 --- [PMS] [restartedMain] com.innogent.PMS.PmsApplication          : performance manager
+2024-07-03T11:11:48.261+05:30  INFO 7792 --- [PMS] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-07-03T11:11:48.269+05:30  INFO 7792 --- [PMS] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-07-03T11:11:48.270+05:30  INFO 7792 --- [PMS] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-07-03T11:11:48.694+05:30 ERROR 7792 --- [PMS] [http-nio-8080-exec-2] c.i.P.exception.GlobalExceptionHandler   : Incorrect username or password
+2024-07-03T11:11:48.727+05:30  WARN 7792 --- [PMS] [http-nio-8080-exec-2] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [GenericException(httpStatus=401 UNAUTHORIZED)]
+2024-07-03T11:12:43.044+05:30 ERROR 7792 --- [PMS] [http-nio-8080-exec-6] c.i.P.exception.GlobalExceptionHandler   : Cannot invoke "java.util.List.isEmpty()" because "feedbackList" is null
+2024-07-03T11:12:43.044+05:30 ERROR 7792 --- [PMS] [http-nio-8080-exec-6] c.i.P.exception.GlobalExceptionHandler   : Cannot invoke "java.util.List.isEmpty()" because "feedbackList" is null
+2024-07-03T11:12:43.044+05:30  WARN 7792 --- [PMS] [http-nio-8080-exec-6] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [java.lang.NullPointerException: Cannot invoke "java.util.List.isEmpty()" because "feedbackList" is null]
+2024-07-03T11:12:54.793+05:30 ERROR 7792 --- [PMS] [http-nio-8080-exec-5] c.i.P.exception.GlobalExceptionHandler   : Cannot invoke "java.util.List.isEmpty()" because "feedbackList" is null
+2024-07-03T11:12:54.793+05:30 ERROR 7792 --- [PMS] [http-nio-8080-exec-5] c.i.P.exception.GlobalExceptionHandler   : Cannot invoke "java.util.List.isEmpty()" because "feedbackList" is null
+2024-07-03T11:12:54.793+05:30  WARN 7792 --- [PMS] [http-nio-8080-exec-5] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [java.lang.NullPointerException: Cannot invoke "java.util.List.isEmpty()" because "feedbackList" is null]
+2024-07-03T11:13:34.752+05:30 ERROR 7792 --- [PMS] [http-nio-8080-exec-3] c.i.P.exception.GlobalExceptionHandler   : Cannot invoke "java.util.List.isEmpty()" because "feedbackList" is null
+2024-07-03T11:13:34.753+05:30 ERROR 7792 --- [PMS] [http-nio-8080-exec-3] c.i.P.exception.GlobalExceptionHandler   : Cannot invoke "java.util.List.isEmpty()" because "feedbackList" is null
+2024-07-03T11:13:34.754+05:30  WARN 7792 --- [PMS] [http-nio-8080-exec-3] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [java.lang.NullPointerException: Cannot invoke "java.util.List.isEmpty()" because "feedbackList" is null]
+2024-07-03T11:13:46.954+05:30 ERROR 7792 --- [PMS] [http-nio-8080-exec-2] c.i.P.exception.GlobalExceptionHandler   : Cannot invoke "java.util.List.isEmpty()" because "feedbackList" is null
+2024-07-03T11:13:46.954+05:30 ERROR 7792 --- [PMS] [http-nio-8080-exec-2] c.i.P.exception.GlobalExceptionHandler   : Cannot invoke "java.util.List.isEmpty()" because "feedbackList" is null
+2024-07-03T11:13:46.955+05:30  WARN 7792 --- [PMS] [http-nio-8080-exec-2] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [java.lang.NullPointerException: Cannot invoke "java.util.List.isEmpty()" because "feedbackList" is null]
+2024-07-03T11:15:09.384+05:30  INFO 7792 --- [PMS] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-07-03T11:15:09.400+05:30  INFO 7792 --- [PMS] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-07-03T11:15:09.415+05:30  INFO 7792 --- [PMS] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
