@@ -83,6 +83,14 @@ public class StageTimeLineServiceImpl implements StageTimeLineService {
         timeline.setEndDate(stageTimeLineDto.getEndDate());
         timeline.setDescription(stageTimeLineDto.getDescription());
         timeline.setIsActive(stageTimeLineDto.getIsActive());
+        if (StageName.PERFORMANCE_CYCLE.name().equals(stageTimeLineDto.getStageName())) {
+            TimelineCycle timelineCycle = timeline.getTimelineCycle();
+            if (timelineCycle != null) {
+                timelineCycle.setStartDate(stageTimeLineDto.getStartDate().toLocalDate());
+                timelineCycle.setEndDate(stageTimeLineDto.getEndDate().toLocalDate());
+                timelineCycleRepository.save(timelineCycle);
+            }
+        }
         timelineRepository.save(timeline);
         return stageRepository.save(stage);
     }
