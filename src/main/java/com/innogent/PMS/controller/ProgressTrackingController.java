@@ -31,11 +31,6 @@ public class ProgressTrackingController {
         return this.progressTrackingService.getById(Long.parseLong(id));
     }
 
-    @PostMapping("/add/{empId}")
-    public ResponseEntity<?> addProgressTracking(@PathVariable Integer empId,@RequestBody ProgressTrackingDto trackingDto)  {
-        //System.out.println("added progrees");
-        return this.progressTrackingService.addProgressTracking(empId,trackingDto);
-    }
 
     //get data by employee id
     @GetMapping("/get/user/{employeeId}")
@@ -50,7 +45,7 @@ public class ProgressTrackingController {
 //   }
   @PutMapping("/updateData/{meetingId}")
     public ResponseEntity<?> updateProgressTracking(@PathVariable String meetingId,@RequestParam("title") String title,@RequestParam("month") String month,
-            @RequestParam("year") String year,@RequestParam("notes") MultipartFile notes,@RequestParam("recording") MultipartFile recording)
+            @RequestParam("year") String year,@RequestParam(value="notes",required = false) MultipartFile notes,@RequestParam(value="recording",required = false) MultipartFile recording)
     {
         return this.progressTrackingService.editProgressTracking(Long.parseLong(meetingId),title,month,year,notes,recording);
     }
@@ -68,8 +63,8 @@ public class ProgressTrackingController {
    @PostMapping(value="/addNotes/{empId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
    public ResponseEntity<?> addNotesAndRecording(@PathVariable Integer empId,
                                                  @RequestParam("title") String title,@RequestParam("month") String month,
-                                                 @RequestParam("year") String year ,@RequestParam("notes") MultipartFile notes,
-                                                 @RequestParam("recording") MultipartFile recording) throws IOException {
+                                                 @RequestParam("year") String year ,@RequestParam(value="notes") MultipartFile notes,
+                                                 @RequestParam(value="recording") MultipartFile recording) throws IOException, NoSuchUserExistsException {
        return this.progressTrackingService.addNotesAndRecording(empId,title,month,year,notes,recording);
    }
    @GetMapping("/check/notes/uploaded/{managerId}")

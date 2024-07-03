@@ -11,5 +11,6 @@ import java.util.Optional;
 public interface ProgressTrackingRepository extends JpaRepository<ProgressTracking,Long> {
     public List<ProgressTracking> findAllByUser(User user);
     Optional<ProgressTracking> findByUserAndDateBetween(User user, LocalDate startDate, LocalDate endDate);
-    Optional<ProgressTracking> findByUser_UserIdAndMonthAndYear(Integer userId,String month,String year);
+    //Optional<ProgressTracking> findByUser_UserIdAndMonthAndYear(Integer userId,String month,String year);
+    Optional<ProgressTracking> findByUserAndMonthAndYear(User user, String month, String year);
 }
