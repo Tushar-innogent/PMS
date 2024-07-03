@@ -6,6 +6,7 @@ import com.innogent.PMS.entities.Goal;
 import com.innogent.PMS.entities.User;
 import com.innogent.PMS.enums.GoalStatus;
 import com.innogent.PMS.enums.StageName;
+import com.innogent.PMS.exception.GenericException;
 import com.innogent.PMS.exception.customException.NoSuchGoalExistsException;
 import com.innogent.PMS.exception.customException.NoSuchUserExistsException;
 import com.innogent.PMS.mapper.CustomMapper;
@@ -38,12 +39,13 @@ public class GoalServiceImpl implements GoalService {
     private final StageTimeLineService stageTimeLineService;
 
     @Override
-    public GoalDto addPersonalGoal(GoalDto goalDto, Integer userId) throws NoSuchUserExistsException {
+    public GoalDto addPersonalGoal(GoalDto goalDto, Integer userId) throws GenericException {
         log.info("Performing personal goal addition!");
         User user = userRepository.findById(goalDto.getUserId()).orElseThrow(()->new NoSuchUserExistsException("No User Present With Id : "+goalDto.getUserId(), HttpStatus.NOT_FOUND));
         Goal goal = customMapper.goalDtoToEntity(goalDto);
         goal.setUser(user);
         goal.setGoalStatus(GoalStatus.CREATED);
+        goal.setPerformanceCycleId(stageTimeLineService.getCurrentCycleId());
         if(goal.getGoalId() == null) {
             Goal result = goalRepository.save(goal);
             return customMapper.goalEntityToGoalDto(result);

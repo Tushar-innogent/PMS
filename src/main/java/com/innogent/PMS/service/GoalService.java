@@ -3,6 +3,7 @@ package com.innogent.PMS.service;
 import com.innogent.PMS.dto.GoalDto;
 import com.innogent.PMS.enums.GoalStatus;
 import com.innogent.PMS.enums.StageName;
+import com.innogent.PMS.exception.GenericException;
 import com.innogent.PMS.exception.customException.NoSuchGoalExistsException;
 import com.innogent.PMS.exception.customException.NoSuchUserExistsException;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,7 @@ import java.util.List;
 @Service
 public interface GoalService {
     // To create a new personal goal
-    public GoalDto addPersonalGoal(GoalDto goal, Integer userId) throws NoSuchUserExistsException;
+    public GoalDto addPersonalGoal(GoalDto goal, Integer userId) throws GenericException;
     // To create a new organisational goal
     public GoalDto addOrganisationalGoal(GoalDto goal, Integer managerId) throws NoSuchUserExistsException;
     // Retrieve goal by goal id

@@ -70,3 +70,137 @@
 2024-07-03T11:30:25.053+05:30  INFO 11536 --- [PMS] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
 2024-07-03T11:30:25.069+05:30  INFO 11536 --- [PMS] [restartedMain] com.innogent.PMS.PmsApplication          : Started PmsApplication in 8.196 seconds (process running for 9.024)
 2024-07-03T11:30:25.084+05:30  INFO 11536 --- [PMS] [restartedMain] com.innogent.PMS.PmsApplication          : performance manager
+2024-07-03T12:35:11.334+05:30  INFO 11536 --- [PMS] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-07-03T12:35:11.459+05:30  INFO 11536 --- [PMS] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-07-03T12:35:11.475+05:30  INFO 11536 --- [PMS] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-07-03T12:35:19.238+05:30  INFO 9736 --- [PMS] [restartedMain] com.innogent.PMS.PmsApplication          : Starting PmsApplication using Java 19.0.2 with PID 9736 (D:\Codespace\Innogent_workspace\PMS\target\classes started by Tushar Patidar in D:\Codespace\Innogent_workspace\PMS)
+2024-07-03T12:35:19.238+05:30  INFO 9736 --- [PMS] [restartedMain] com.innogent.PMS.PmsApplication          : No active profile set, falling back to 1 default profile: "default"
+2024-07-03T12:35:19.294+05:30  INFO 9736 --- [PMS] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-07-03T12:35:19.294+05:30  INFO 9736 --- [PMS] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-07-03T12:35:20.318+05:30  INFO 9736 --- [PMS] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-07-03T12:35:20.427+05:30  INFO 9736 --- [PMS] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 102 ms. Found 9 JPA repository interfaces.
+2024-07-03T12:35:21.499+05:30  INFO 9736 --- [PMS] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-07-03T12:35:21.530+05:30  INFO 9736 --- [PMS] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-07-03T12:35:21.530+05:30  INFO 9736 --- [PMS] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.20]
+2024-07-03T12:35:21.593+05:30  INFO 9736 --- [PMS] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-07-03T12:35:21.593+05:30  INFO 9736 --- [PMS] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2299 ms
+2024-07-03T12:35:21.800+05:30  INFO 9736 --- [PMS] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-07-03T12:35:21.878+05:30  INFO 9736 --- [PMS] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-07-03T12:35:21.925+05:30  INFO 9736 --- [PMS] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-07-03T12:35:22.190+05:30  INFO 9736 --- [PMS] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-07-03T12:35:22.222+05:30  INFO 9736 --- [PMS] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-07-03T12:35:22.628+05:30  INFO 9736 --- [PMS] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2106ef6c
+2024-07-03T12:35:22.628+05:30  INFO 9736 --- [PMS] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-07-03T12:35:24.135+05:30  INFO 9736 --- [PMS] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-07-03T12:35:24.338+05:30  INFO 9736 --- [PMS] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-07-03T12:35:24.620+05:30  INFO 9736 --- [PMS] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-07-03T12:35:26.400+05:30  INFO 9736 --- [PMS] [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@31dcd0a3, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6e6efe56, org.springframework.security.web.context.SecurityContextHolderFilter@14175d04, org.springframework.security.web.header.HeaderWriterFilter@5ee3189b, org.springframework.web.filter.CorsFilter@76672c35, org.springframework.security.web.authentication.logout.LogoutFilter@2ad718c0, com.innogent.PMS.filter.JwtAuthenticationFilter@298a313d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2845a12b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@41323a71, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@906b37c, org.springframework.security.web.session.SessionManagementFilter@7e912143, org.springframework.security.web.access.ExceptionTranslationFilter@7dfe590d, org.springframework.security.web.access.intercept.AuthorizationFilter@77850d1b]
+2024-07-03T12:35:26.697+05:30  INFO 9736 --- [PMS] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-07-03T12:35:26.728+05:30  INFO 9736 --- [PMS] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2024-07-03T12:35:26.744+05:30  INFO 9736 --- [PMS] [restartedMain] com.innogent.PMS.PmsApplication          : Started PmsApplication in 8.026 seconds (process running for 8.798)
+2024-07-03T12:35:26.760+05:30  INFO 9736 --- [PMS] [restartedMain] com.innogent.PMS.PmsApplication          : performance manager
+2024-07-03T12:36:21.153+05:30  INFO 9736 --- [PMS] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-07-03T12:36:21.156+05:30  INFO 9736 --- [PMS] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-07-03T12:36:21.160+05:30  INFO 9736 --- [PMS] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2024-07-03T13:24:49.687+05:30  INFO 9736 --- [PMS] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-07-03T13:24:49.749+05:30  INFO 9736 --- [PMS] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-07-03T13:24:49.765+05:30  INFO 9736 --- [PMS] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-07-03T13:25:39.281+05:30  INFO 10708 --- [PMS] [restartedMain] com.innogent.PMS.PmsApplication          : Starting PmsApplication using Java 19.0.2 with PID 10708 (D:\Codespace\Innogent_workspace\PMS\target\classes started by Tushar Patidar in D:\Codespace\Innogent_workspace\PMS)
+2024-07-03T13:25:39.281+05:30  INFO 10708 --- [PMS] [restartedMain] com.innogent.PMS.PmsApplication          : No active profile set, falling back to 1 default profile: "default"
+2024-07-03T13:25:39.339+05:30  INFO 10708 --- [PMS] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-07-03T13:25:39.339+05:30  INFO 10708 --- [PMS] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-07-03T13:25:40.328+05:30  INFO 10708 --- [PMS] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-07-03T13:25:40.453+05:30  INFO 10708 --- [PMS] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 124 ms. Found 9 JPA repository interfaces.
+2024-07-03T13:25:41.422+05:30  INFO 10708 --- [PMS] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-07-03T13:25:41.438+05:30  INFO 10708 --- [PMS] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-07-03T13:25:41.438+05:30  INFO 10708 --- [PMS] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.20]
+2024-07-03T13:25:41.500+05:30  INFO 10708 --- [PMS] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-07-03T13:25:41.500+05:30  INFO 10708 --- [PMS] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2161 ms
+2024-07-03T13:25:41.688+05:30  INFO 10708 --- [PMS] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-07-03T13:25:41.769+05:30  INFO 10708 --- [PMS] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-07-03T13:25:41.816+05:30  INFO 10708 --- [PMS] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-07-03T13:25:42.207+05:30  INFO 10708 --- [PMS] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-07-03T13:25:42.254+05:30  INFO 10708 --- [PMS] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-07-03T13:25:42.676+05:30  INFO 10708 --- [PMS] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2106ef6c
+2024-07-03T13:25:42.676+05:30  INFO 10708 --- [PMS] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-07-03T13:25:43.950+05:30  INFO 10708 --- [PMS] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-07-03T13:25:44.231+05:30  INFO 10708 --- [PMS] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-07-03T13:25:44.528+05:30  INFO 10708 --- [PMS] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-07-03T13:25:46.192+05:30  INFO 10708 --- [PMS] [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@553a1c77, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4a3aa037, org.springframework.security.web.context.SecurityContextHolderFilter@3e305645, org.springframework.security.web.header.HeaderWriterFilter@637bfdfc, org.springframework.web.filter.CorsFilter@1c9a86ef, org.springframework.security.web.authentication.logout.LogoutFilter@84470be, com.innogent.PMS.filter.JwtAuthenticationFilter@6cab7aa8, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@15e0076b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@55ce33eb, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1606c2cf, org.springframework.security.web.session.SessionManagementFilter@56c066ae, org.springframework.security.web.access.ExceptionTranslationFilter@2d1880c2, org.springframework.security.web.access.intercept.AuthorizationFilter@31d5d94e]
+2024-07-03T13:25:46.427+05:30  INFO 10708 --- [PMS] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-07-03T13:25:46.458+05:30  INFO 10708 --- [PMS] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2024-07-03T13:25:46.473+05:30  INFO 10708 --- [PMS] [restartedMain] com.innogent.PMS.PmsApplication          : Started PmsApplication in 7.732 seconds (process running for 8.437)
+2024-07-03T13:25:46.489+05:30  INFO 10708 --- [PMS] [restartedMain] com.innogent.PMS.PmsApplication          : performance manager
+2024-07-03T13:27:12.730+05:30  INFO 10708 --- [PMS] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-07-03T13:27:12.731+05:30  INFO 10708 --- [PMS] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-07-03T13:27:12.733+05:30  INFO 10708 --- [PMS] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2024-07-03T13:27:44.463+05:30  INFO 10708 --- [PMS] [http-nio-8080-exec-3] c.i.PMS.controller.GoalController        : Adding personal goal!
+2024-07-03T13:27:44.464+05:30  INFO 10708 --- [PMS] [http-nio-8080-exec-3] c.i.PMS.service.Impl.GoalServiceImpl     : Performing personal goal addition!
+2024-07-03T13:27:44.507+05:30  INFO 10708 --- [PMS] [http-nio-8080-exec-3] c.i.P.s.Impl.StageTimeLineServiceImpl    : Current Cycle Id :
+2024-07-03T13:28:50.513+05:30 ERROR 10708 --- [PMS] [http-nio-8080-exec-10] c.i.P.exception.GlobalExceptionHandler   : Stage not found
+2024-07-03T13:28:50.514+05:30 ERROR 10708 --- [PMS] [http-nio-8080-exec-10] c.i.P.exception.GlobalExceptionHandler   : Stage not found
+2024-07-03T13:28:50.526+05:30  WARN 10708 --- [PMS] [http-nio-8080-exec-10] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [java.lang.RuntimeException: Stage not found]
+2024-07-03T13:31:01.778+05:30 ERROR 10708 --- [PMS] [http-nio-8080-exec-10] c.i.P.exception.GlobalExceptionHandler   : Stage not found
+2024-07-03T13:31:01.778+05:30 ERROR 10708 --- [PMS] [http-nio-8080-exec-10] c.i.P.exception.GlobalExceptionHandler   : Stage not found
+2024-07-03T13:31:01.793+05:30  WARN 10708 --- [PMS] [http-nio-8080-exec-10] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [java.lang.RuntimeException: Stage not found]
+2024-07-03T13:31:19.452+05:30 ERROR 10708 --- [PMS] [http-nio-8080-exec-5] c.i.P.exception.GlobalExceptionHandler   : Stage not found
+2024-07-03T13:31:19.458+05:30 ERROR 10708 --- [PMS] [http-nio-8080-exec-5] c.i.P.exception.GlobalExceptionHandler   : Stage not found
+2024-07-03T13:31:19.459+05:30  WARN 10708 --- [PMS] [http-nio-8080-exec-5] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [java.lang.RuntimeException: Stage not found]
+2024-07-03T13:31:40.308+05:30 ERROR 10708 --- [PMS] [http-nio-8080-exec-2] c.i.P.exception.GlobalExceptionHandler   : Stage not found
+2024-07-03T13:31:40.308+05:30 ERROR 10708 --- [PMS] [http-nio-8080-exec-2] c.i.P.exception.GlobalExceptionHandler   : Stage not found
+2024-07-03T13:31:40.308+05:30  WARN 10708 --- [PMS] [http-nio-8080-exec-2] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [java.lang.RuntimeException: Stage not found]
+2024-07-03T13:32:08.839+05:30 ERROR 10708 --- [PMS] [http-nio-8080-exec-6] c.i.P.exception.GlobalExceptionHandler   : Stage not found
+2024-07-03T13:32:08.839+05:30 ERROR 10708 --- [PMS] [http-nio-8080-exec-6] c.i.P.exception.GlobalExceptionHandler   : Stage not found
+2024-07-03T13:32:08.839+05:30  WARN 10708 --- [PMS] [http-nio-8080-exec-6] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [java.lang.RuntimeException: Stage not found]
+2024-07-03T13:32:28.662+05:30 ERROR 10708 --- [PMS] [http-nio-8080-exec-3] c.i.P.exception.GlobalExceptionHandler   : Stage not found
+2024-07-03T13:32:28.662+05:30 ERROR 10708 --- [PMS] [http-nio-8080-exec-3] c.i.P.exception.GlobalExceptionHandler   : Stage not found
+2024-07-03T13:32:28.662+05:30  WARN 10708 --- [PMS] [http-nio-8080-exec-3] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [java.lang.RuntimeException: Stage not found]
+2024-07-03T13:35:03.697+05:30  INFO 10708 --- [PMS] [http-nio-8080-exec-7] c.i.PMS.controller.GoalController        : Adding personal goal!
+2024-07-03T13:35:03.697+05:30  INFO 10708 --- [PMS] [http-nio-8080-exec-7] c.i.PMS.service.Impl.GoalServiceImpl     : Performing personal goal addition!
+2024-07-03T13:35:03.713+05:30  INFO 10708 --- [PMS] [http-nio-8080-exec-7] c.i.P.s.Impl.StageTimeLineServiceImpl    : Current Cycle Id :
+2024-07-03T13:35:33.727+05:30  INFO 10708 --- [PMS] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-07-03T13:35:33.743+05:30  INFO 10708 --- [PMS] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-07-03T13:35:33.743+05:30  INFO 10708 --- [PMS] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-07-03T14:09:57.005+05:30  INFO 16348 --- [PMS] [restartedMain] com.innogent.PMS.PmsApplication          : Starting PmsApplication using Java 19.0.2 with PID 16348 (D:\Codespace\Innogent_workspace\PMS\target\classes started by Tushar Patidar in D:\Codespace\Innogent_workspace\PMS)
+2024-07-03T14:09:57.005+05:30  INFO 16348 --- [PMS] [restartedMain] com.innogent.PMS.PmsApplication          : No active profile set, falling back to 1 default profile: "default"
+2024-07-03T14:09:57.066+05:30  INFO 16348 --- [PMS] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-07-03T14:09:57.066+05:30  INFO 16348 --- [PMS] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-07-03T14:09:58.057+05:30  INFO 16348 --- [PMS] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-07-03T14:09:58.166+05:30  INFO 16348 --- [PMS] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 106 ms. Found 9 JPA repository interfaces.
+2024-07-03T14:09:59.104+05:30  INFO 16348 --- [PMS] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-07-03T14:09:59.120+05:30  INFO 16348 --- [PMS] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-07-03T14:09:59.120+05:30  INFO 16348 --- [PMS] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.20]
+2024-07-03T14:09:59.198+05:30  INFO 16348 --- [PMS] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-07-03T14:09:59.198+05:30  INFO 16348 --- [PMS] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2132 ms
+2024-07-03T14:09:59.386+05:30  INFO 16348 --- [PMS] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-07-03T14:09:59.464+05:30  INFO 16348 --- [PMS] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-07-03T14:09:59.510+05:30  INFO 16348 --- [PMS] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-07-03T14:09:59.807+05:30  INFO 16348 --- [PMS] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-07-03T14:09:59.839+05:30  INFO 16348 --- [PMS] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-07-03T14:10:00.260+05:30  INFO 16348 --- [PMS] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@d0d1b11
+2024-07-03T14:10:00.260+05:30  INFO 16348 --- [PMS] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-07-03T14:10:01.430+05:30  INFO 16348 --- [PMS] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-07-03T14:10:01.619+05:30  INFO 16348 --- [PMS] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-07-03T14:10:01.916+05:30  INFO 16348 --- [PMS] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-07-03T14:10:03.635+05:30  INFO 16348 --- [PMS] [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@401941e2, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@553a1c77, org.springframework.security.web.context.SecurityContextHolderFilter@f29f8e4, org.springframework.security.web.header.HeaderWriterFilter@14175d04, org.springframework.web.filter.CorsFilter@4a3aa037, org.springframework.security.web.authentication.logout.LogoutFilter@470dfaee, com.innogent.PMS.filter.JwtAuthenticationFilter@1c4e5384, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6b10b23b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@15e0076b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1c9a86ef, org.springframework.security.web.session.SessionManagementFilter@25d28f53, org.springframework.security.web.access.ExceptionTranslationFilter@1995d8d, org.springframework.security.web.access.intercept.AuthorizationFilter@5b69cbf5]
+2024-07-03T14:10:03.916+05:30  INFO 16348 --- [PMS] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-07-03T14:10:03.948+05:30  INFO 16348 --- [PMS] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2024-07-03T14:10:03.963+05:30  INFO 16348 --- [PMS] [restartedMain] com.innogent.PMS.PmsApplication          : Started PmsApplication in 7.464 seconds (process running for 8.378)
+2024-07-03T14:10:03.963+05:30  INFO 16348 --- [PMS] [restartedMain] com.innogent.PMS.PmsApplication          : performance manager
+2024-07-03T14:10:38.495+05:30  INFO 16348 --- [PMS] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-07-03T14:10:38.496+05:30  INFO 16348 --- [PMS] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-07-03T14:10:38.503+05:30  INFO 16348 --- [PMS] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 7 ms
+2024-07-03T14:10:38.911+05:30  INFO 16348 --- [PMS] [http-nio-8080-exec-1] c.i.P.s.Impl.StageTimeLineServiceImpl    : Current Cycle Id :
+2024-07-03T14:11:07.712+05:30  INFO 16348 --- [PMS] [http-nio-8080-exec-3] c.i.P.s.Impl.StageTimeLineServiceImpl    : Current Cycle Id :
+2024-07-03T14:11:10.196+05:30  INFO 16348 --- [PMS] [http-nio-8080-exec-4] c.i.P.s.Impl.StageTimeLineServiceImpl    : Current Cycle Id :
+2024-07-03T14:13:13.950+05:30  INFO 16348 --- [PMS] [http-nio-8080-exec-7] c.i.P.s.Impl.StageTimeLineServiceImpl    : Current Cycle Id :
+2024-07-03T14:13:29.377+05:30  INFO 16348 --- [PMS] [http-nio-8080-exec-8] c.i.P.s.Impl.StageTimeLineServiceImpl    : Current Cycle Id :
+2024-07-03T14:14:09.684+05:30  INFO 16348 --- [PMS] [http-nio-8080-exec-9] c.i.P.s.Impl.StageTimeLineServiceImpl    : Current Cycle Id :
+2024-07-03T14:14:09.707+05:30 ERROR 16348 --- [PMS] [http-nio-8080-exec-9] c.i.P.exception.GlobalExceptionHandler   : Requires Performance Cycle Timeline is missing
+2024-07-03T14:14:09.736+05:30  WARN 16348 --- [PMS] [http-nio-8080-exec-9] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [GenericException(httpStatus=404 NOT_FOUND)]
+2024-07-03T14:36:15.525+05:30 ERROR 16348 --- [PMS] [http-nio-8080-exec-1] c.i.P.exception.GlobalExceptionHandler   : Failed to convert value of type 'java.lang.String' to required type 'java.lang.Integer'; For input string: "all"
+2024-07-03T14:36:15.543+05:30 ERROR 16348 --- [PMS] [http-nio-8080-exec-1] c.i.P.exception.GlobalExceptionHandler   : Failed to convert value of type 'java.lang.String' to required type 'java.lang.Integer'; For input string: "all"
+2024-07-03T14:36:15.573+05:30  WARN 16348 --- [PMS] [http-nio-8080-exec-1] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Integer'; For input string: "all"]
+2024-07-03T14:37:37.052+05:30  INFO 16348 --- [PMS] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-07-03T14:37:37.130+05:30  INFO 16348 --- [PMS] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-07-03T14:37:37.195+05:30  INFO 16348 --- [PMS] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
