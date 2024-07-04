@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class GenericException extends Exception{
+public class GenericException extends RuntimeException{
     final HttpStatus httpStatus;
     public GenericException(String message,HttpStatus httpStatus){
         super (message);

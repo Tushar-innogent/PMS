@@ -27,4 +27,6 @@ public class FeedbackRequest {
     private User feedbackSeeker;
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private User feedbackProvider;
+    @Column
+    private Integer performanceCycleId;
 }

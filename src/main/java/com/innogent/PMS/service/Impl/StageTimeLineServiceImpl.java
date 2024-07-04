@@ -175,12 +175,14 @@ public class StageTimeLineServiceImpl implements StageTimeLineService {
     }
 
     @Override
-    public Integer getCurrentCycleId() throws GenericException {
+    public Integer getCurrentCycleId() {
         log.info("Current Cycle Id :");
         LocalDateTime currentDate = LocalDateTime.now();
         List<StageTimeLineDto> list = getActiveTimelines(currentDate);
         if(!list.isEmpty()){
-            StageTimeLineDto dto = list.stream().filter(item-> item.getStageName().equalsIgnoreCase(StageName.PERFORMANCE_CYCLE.name())).findFirst().orElseThrow(()-> new GenericException("Requires Performance Cycle Timeline is missing", HttpStatus.NOT_FOUND));
+            StageTimeLineDto dto = list.stream()
+                    .filter(item-> item.getStageName().equalsIgnoreCase(StageName.PERFORMANCE_CYCLE.name()))
+                    .findFirst().orElseThrow(()-> new GenericException("Required Performance Cycle Timeline is missing", HttpStatus.NOT_FOUND));
             return dto.getTimelineCycleId();
         }
         return -1;

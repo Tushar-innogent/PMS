@@ -15,7 +15,7 @@ public interface GoalService {
     // To create a new personal goal
     public GoalDto addPersonalGoal(GoalDto goal, Integer userId) throws GenericException;
     // To create a new organisational goal
-    public GoalDto addOrganisationalGoal(GoalDto goal, Integer managerId) throws NoSuchUserExistsException;
+    public GoalDto addOrganisationalGoal(GoalDto goal, Integer managerId) throws GenericException;
     // Retrieve goal by goal id
     public GoalDto findGoalByGoalId(Long goalId);
     // To Update goal  by goal id

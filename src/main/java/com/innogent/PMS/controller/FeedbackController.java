@@ -13,10 +13,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * All Feedback module related api's
+ */
 @RestController
 @RequestMapping("/api/feedback")
 @CrossOrigin
-public class    FeedbackController {
+public class  FeedbackController {
     @Autowired
     private FeedbackService feedbackService;
     /**
@@ -32,10 +35,10 @@ public class    FeedbackController {
     }
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<?> getFeedbackByUserId(@PathVariable Integer userId) throws NoSuchFeedbackExistsException, NoSuchUserExistsException {
+    public ResponseEntity<?> getFeedbackByUserId(@PathVariable Integer userId) throws NoSuchUserExistsException {
             List<FeedbackDto> feedbackList = feedbackService.getFeedbackByUserId(userId);
         if (feedbackList.isEmpty()) {
-            throw new NoSuchFeedbackExistsException("No Feedback present for requested user!", HttpStatus.NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new NoSuchFeedbackExistsException("No Feedback present for requested user!", HttpStatus.NOT_FOUND).getMessage());
         }
         return ResponseEntity.status(HttpStatus.OK).body(feedbackList);
     }

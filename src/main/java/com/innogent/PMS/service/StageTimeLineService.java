@@ -21,7 +21,7 @@ public interface StageTimeLineService {
     public List<StageTimeLineDto> getActiveTimelines(LocalDateTime currentDate);
     List<StageTimeLineDto> getTimelinesByTimelineCycleId(Integer timelineCycleId);
     //to get the id of the performance cycle timeline using current date
-    public Integer getCurrentCycleId() throws GenericException;
+    public Integer getCurrentCycleId();
     // all data of timeline cycle
     public List<TimelineCycle> getAllTimelineCycleData();
 }

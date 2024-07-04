@@ -31,7 +31,7 @@ public class GlobalExceptionHandler {
         log.error(exception.getMessage());
         return handleException(new GenericException(exception.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR),request,response);
     }
-    // tanish code
+    // progress tracking code
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<String> handleEntityNotFoundException(EntityNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());

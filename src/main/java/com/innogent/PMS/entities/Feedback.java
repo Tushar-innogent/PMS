@@ -24,6 +24,8 @@ public class Feedback {
     private LocalDateTime feedbackDate;
     @Column(columnDefinition = "TEXT")
     private String comments;
+    @Column
+    private Integer performanceCycleId;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_id")

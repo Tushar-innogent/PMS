@@ -20,4 +20,5 @@ public class FeedbackRequestDto {
     private String feedbackSeekerName;
     private String feedbackProviderName;
     private String feedbackProviderEmail;
+    private Integer performanceCycleId;
 }
