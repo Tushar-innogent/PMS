@@ -109,3 +109,70 @@
 2024-07-04T13:12:41.768+05:30  INFO 7320 --- [PMS] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2024-07-04T13:12:41.768+05:30  INFO 7320 --- [PMS] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2024-07-04T13:12:41.784+05:30  INFO 7320 --- [PMS] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-07-04T15:23:03.988+05:30  INFO 8080 --- [PMS] [restartedMain] com.innogent.PMS.PmsApplication          : Starting PmsApplication using Java 19.0.2 with PID 8080 (D:\Codespace\Innogent_workspace\PMS\target\classes started by Tushar Patidar in D:\Codespace\Innogent_workspace\PMS)
+2024-07-04T15:23:03.988+05:30  INFO 8080 --- [PMS] [restartedMain] com.innogent.PMS.PmsApplication          : No active profile set, falling back to 1 default profile: "default"
+2024-07-04T15:23:04.078+05:30  INFO 8080 --- [PMS] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-07-04T15:23:04.078+05:30  INFO 8080 --- [PMS] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-07-04T15:23:05.489+05:30  INFO 8080 --- [PMS] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-07-04T15:23:05.646+05:30  INFO 8080 --- [PMS] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 149 ms. Found 9 JPA repository interfaces.
+2024-07-04T15:23:06.973+05:30  INFO 8080 --- [PMS] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-07-04T15:23:06.989+05:30  INFO 8080 --- [PMS] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-07-04T15:23:06.989+05:30  INFO 8080 --- [PMS] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.20]
+2024-07-04T15:23:07.067+05:30  INFO 8080 --- [PMS] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-07-04T15:23:07.067+05:30  INFO 8080 --- [PMS] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2989 ms
+2024-07-04T15:23:07.412+05:30  INFO 8080 --- [PMS] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-07-04T15:23:07.500+05:30  INFO 8080 --- [PMS] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-07-04T15:23:07.546+05:30  INFO 8080 --- [PMS] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-07-04T15:23:07.922+05:30  INFO 8080 --- [PMS] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-07-04T15:23:07.968+05:30  INFO 8080 --- [PMS] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-07-04T15:23:08.563+05:30  INFO 8080 --- [PMS] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@625304
+2024-07-04T15:23:08.563+05:30  INFO 8080 --- [PMS] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-07-04T15:23:10.222+05:30  INFO 8080 --- [PMS] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-07-04T15:23:10.414+05:30  INFO 8080 --- [PMS] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-07-04T15:23:10.915+05:30  INFO 8080 --- [PMS] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-07-04T15:23:14.729+05:30  INFO 8080 --- [PMS] [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@30de0c26, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1c0b0be5, org.springframework.security.web.context.SecurityContextHolderFilter@3ebede43, org.springframework.security.web.header.HeaderWriterFilter@7fad073f, org.springframework.web.filter.CorsFilter@2e36b322, org.springframework.security.web.authentication.logout.LogoutFilter@3923ba5b, com.innogent.PMS.filter.JwtAuthenticationFilter@24fc05f9, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@47ce1cab, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7254e608, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1d999c93, org.springframework.security.web.session.SessionManagementFilter@22e3988c, org.springframework.security.web.access.ExceptionTranslationFilter@4a222c69, org.springframework.security.web.access.intercept.AuthorizationFilter@4fbc78a0]
+2024-07-04T15:23:15.240+05:30  INFO 8080 --- [PMS] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-07-04T15:23:15.318+05:30  INFO 8080 --- [PMS] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2024-07-04T15:23:15.365+05:30  INFO 8080 --- [PMS] [restartedMain] com.innogent.PMS.PmsApplication          : Started PmsApplication in 12.173 seconds (process running for 13.521)
+2024-07-04T15:23:15.381+05:30  INFO 8080 --- [PMS] [restartedMain] com.innogent.PMS.PmsApplication          : performance manager
+2024-07-04T15:23:21.678+05:30  INFO 8080 --- [PMS] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-07-04T15:23:21.678+05:30  INFO 8080 --- [PMS] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-07-04T15:23:21.678+05:30  INFO 8080 --- [PMS] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2024-07-04T15:23:22.821+05:30  INFO 8080 --- [PMS] [http-nio-8080-exec-2] c.i.PMS.controller.GoalController        : Adding personal goal!
+2024-07-04T15:23:28.619+05:30  INFO 8080 --- [PMS] [http-nio-8080-exec-2] c.i.PMS.service.Impl.GoalServiceImpl     : Performing personal goal addition!
+2024-07-04T15:23:42.751+05:30 ERROR 8080 --- [PMS] [http-nio-8080-exec-2] c.i.P.exception.GlobalExceptionHandler   : No User Present With Id: 100
+2024-07-04T15:23:42.876+05:30  WARN 8080 --- [PMS] [http-nio-8080-exec-2] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [GenericException(httpStatus=404 NOT_FOUND)]
+2024-07-04T15:25:41.169+05:30  INFO 8080 --- [PMS] [http-nio-8080-exec-5] c.i.PMS.controller.GoalController        : Adding Organisational goal!
+2024-07-04T15:25:41.169+05:30  INFO 8080 --- [PMS] [http-nio-8080-exec-5] c.i.PMS.service.Impl.GoalServiceImpl     : Performing Organisational goal addition!
+2024-07-04T15:25:41.177+05:30 ERROR 8080 --- [PMS] [http-nio-8080-exec-5] c.i.P.exception.GlobalExceptionHandler   : No User Present With Id : 100
+2024-07-04T15:25:41.177+05:30  WARN 8080 --- [PMS] [http-nio-8080-exec-5] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [GenericException(httpStatus=404 NOT_FOUND)]
+2024-07-04T15:26:37.643+05:30  INFO 8080 --- [PMS] [http-nio-8080-exec-6] c.i.PMS.controller.GoalController        : Adding Organisational goal!
+2024-07-04T15:26:37.643+05:30  INFO 8080 --- [PMS] [http-nio-8080-exec-6] c.i.PMS.service.Impl.GoalServiceImpl     : Performing Organisational goal addition!
+2024-07-04T15:26:37.659+05:30 ERROR 8080 --- [PMS] [http-nio-8080-exec-6] c.i.P.exception.GlobalExceptionHandler   : Cannot invoke "java.lang.Integer.equals(Object)" because the return value of "com.innogent.PMS.entities.User.getManagerId()" is null
+2024-07-04T15:26:37.659+05:30 ERROR 8080 --- [PMS] [http-nio-8080-exec-6] c.i.P.exception.GlobalExceptionHandler   : Cannot invoke "java.lang.Integer.equals(Object)" because the return value of "com.innogent.PMS.entities.User.getManagerId()" is null
+2024-07-04T15:26:37.659+05:30  WARN 8080 --- [PMS] [http-nio-8080-exec-6] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [java.lang.NullPointerException: Cannot invoke "java.lang.Integer.equals(Object)" because the return value of "com.innogent.PMS.entities.User.getManagerId()" is null]
+2024-07-04T15:27:11.570+05:30  INFO 8080 --- [PMS] [http-nio-8080-exec-8] c.i.PMS.controller.GoalController        : Adding Organisational goal!
+2024-07-04T15:27:11.578+05:30  INFO 8080 --- [PMS] [http-nio-8080-exec-8] c.i.PMS.service.Impl.GoalServiceImpl     : Performing Organisational goal addition!
+2024-07-04T15:27:11.588+05:30 ERROR 8080 --- [PMS] [http-nio-8080-exec-8] c.i.P.exception.GlobalExceptionHandler   : Only Manager Can Set Organisational Goal
+2024-07-04T15:27:11.594+05:30  WARN 8080 --- [PMS] [http-nio-8080-exec-8] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [GenericException(httpStatus=407 PROXY_AUTHENTICATION_REQUIRED)]
+2024-07-04T15:59:31.943+05:30  INFO 8080 --- [PMS] [http-nio-8080-exec-3] c.i.P.s.Impl.StageTimeLineServiceImpl    : Current Cycle Id :
+2024-07-04T16:11:30.236+05:30  INFO 8080 --- [PMS] [http-nio-8080-exec-3] c.i.PMS.controller.GoalController        : Adding Organisational goal!
+2024-07-04T16:11:30.244+05:30  INFO 8080 --- [PMS] [http-nio-8080-exec-3] c.i.PMS.service.Impl.GoalServiceImpl     : Performing Organisational goal addition!
+2024-07-04T16:11:30.260+05:30 ERROR 8080 --- [PMS] [http-nio-8080-exec-3] c.i.P.exception.GlobalExceptionHandler   : No User Present With Id : 100
+2024-07-04T16:11:30.268+05:30  WARN 8080 --- [PMS] [http-nio-8080-exec-3] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [GenericException(httpStatus=404 NOT_FOUND)]
+2024-07-04T16:30:24.812+05:30  WARN 8080 --- [PMS] [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3m13s922ms438µs900ns).
+2024-07-04T17:20:52.289+05:30  WARN 8080 --- [PMS] [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=7m26s739ms484µs400ns).
+2024-07-04T17:30:58.246+05:30  WARN 8080 --- [PMS] [http-nio-8080-exec-4] com.amazonaws.util.Base64                : JAXB is unavailable. Will fallback to SDK implementation which may be less performant.If you are using Java 9+, you will need to include javax.xml.bind:jaxb-api as a dependency.
+2024-07-04T17:31:16.962+05:30 ERROR 8080 --- [PMS] [http-nio-8080-exec-4] c.i.P.exception.GlobalExceptionHandler   : Cannot invoke "java.util.List.isEmpty()" because "feedbackList" is null
+2024-07-04T17:31:16.962+05:30 ERROR 8080 --- [PMS] [http-nio-8080-exec-4] c.i.P.exception.GlobalExceptionHandler   : Cannot invoke "java.util.List.isEmpty()" because "feedbackList" is null
+2024-07-04T17:31:16.970+05:30  WARN 8080 --- [PMS] [http-nio-8080-exec-4] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [java.lang.NullPointerException: Cannot invoke "java.util.List.isEmpty()" because "feedbackList" is null]
+2024-07-04T17:32:03.104+05:30 ERROR 8080 --- [PMS] [http-nio-8080-exec-10] c.i.P.exception.GlobalExceptionHandler   : Cannot invoke "java.util.List.isEmpty()" because "feedbackList" is null
+2024-07-04T17:32:03.104+05:30 ERROR 8080 --- [PMS] [http-nio-8080-exec-10] c.i.P.exception.GlobalExceptionHandler   : Cannot invoke "java.util.List.isEmpty()" because "feedbackList" is null
+2024-07-04T17:32:03.104+05:30  WARN 8080 --- [PMS] [http-nio-8080-exec-10] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [java.lang.NullPointerException: Cannot invoke "java.util.List.isEmpty()" because "feedbackList" is null]
+2024-07-04T17:32:34.939+05:30 ERROR 8080 --- [PMS] [http-nio-8080-exec-2] c.i.P.exception.GlobalExceptionHandler   : Cannot invoke "java.util.List.isEmpty()" because "feedbackList" is null
+2024-07-04T17:32:34.939+05:30 ERROR 8080 --- [PMS] [http-nio-8080-exec-2] c.i.P.exception.GlobalExceptionHandler   : Cannot invoke "java.util.List.isEmpty()" because "feedbackList" is null
+2024-07-04T17:32:34.945+05:30  WARN 8080 --- [PMS] [http-nio-8080-exec-2] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [java.lang.NullPointerException: Cannot invoke "java.util.List.isEmpty()" because "feedbackList" is null]
+2024-07-04T17:32:41.362+05:30 ERROR 8080 --- [PMS] [http-nio-8080-exec-1] c.i.P.exception.GlobalExceptionHandler   : Cannot invoke "java.util.List.isEmpty()" because "feedbackList" is null
+2024-07-04T17:32:41.363+05:30 ERROR 8080 --- [PMS] [http-nio-8080-exec-1] c.i.P.exception.GlobalExceptionHandler   : Cannot invoke "java.util.List.isEmpty()" because "feedbackList" is null
+2024-07-04T17:32:41.363+05:30  WARN 8080 --- [PMS] [http-nio-8080-exec-1] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [java.lang.NullPointerException: Cannot invoke "java.util.List.isEmpty()" because "feedbackList" is null]
+2024-07-04T17:43:00.461+05:30  INFO 8080 --- [PMS] [http-nio-8080-exec-9] c.i.P.s.Impl.StageTimeLineServiceImpl    : Current Cycle Id :
