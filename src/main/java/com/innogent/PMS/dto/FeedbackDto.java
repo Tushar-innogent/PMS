@@ -1,6 +1,7 @@
 package com.innogent.PMS.dto;
 
 import com.innogent.PMS.enums.EvaluationType;
+import jakarta.persistence.Column;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -15,4 +16,5 @@ public class    FeedbackDto {
     private Integer rating;
     private LocalDateTime feedbackDate;
     private String comments;
+    private Integer performanceCycleId;
 }

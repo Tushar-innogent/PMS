@@ -6,17 +6,12 @@ import com.innogent.PMS.exception.customException.NoSuchGoalExistsException;
 import com.innogent.PMS.exception.customException.NoSuchUserExistsException;
 import com.innogent.PMS.service.GoalService;
 import com.innogent.PMS.service.StageService;
-import lombok.extern.log4j.Log4j;
 import lombok.extern.log4j.Log4j2;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 
 /**
  * Controller to handle goal module api's
@@ -45,7 +40,7 @@ public class GoalController  {
     }
     //add Organisational goal
     @PostMapping("/addOrganisational/{managerId}")
-    public ResponseEntity<?> addOrgGoal(@RequestBody GoalDto goalDto, @PathVariable Integer managerId) throws NoSuchUserExistsException {
+    public ResponseEntity<?> addOrgGoal(@RequestBody GoalDto goalDto, @PathVariable Integer managerId) throws GenericException {
         log.info("Adding Organisational goal!");
         return ResponseEntity.status(HttpStatus.OK).body(goalService.addOrganisationalGoal(goalDto, managerId));
     }
@@ -58,14 +53,14 @@ public class GoalController  {
     }
     //get list of goals of user by user id
     @GetMapping("/user/{userId}")
-    public ResponseEntity<?> getAllGoalsOfUser(@PathVariable Integer userId) throws NoSuchUserExistsException {
+    public ResponseEntity<?> getAllGoalsOfUser(@PathVariable Integer userId) {
         List<GoalDto> goals = goalService.listAllGoalsOfEmployee(userId);
         if(goals == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Goals doesn't exist for required user!");
         return ResponseEntity.status(HttpStatus.OK).body(goals);
     }
     //update goal by goal id
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateGoalByGoalId(@PathVariable String id, @RequestBody GoalDto goalDto) throws NoSuchGoalExistsException {
+    public ResponseEntity<?> updateGoalByGoalId(@PathVariable String id, @RequestBody GoalDto goalDto) {
         log.info("updating records of id :"+id);
         GoalDto result = goalService.editGoal(Long.parseLong(id), goalDto);
         if(result == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Data Not Present");
@@ -78,14 +73,14 @@ public class GoalController  {
     }
     //to add self feedback on individual goal
     @PutMapping("/selfFeedback/{goalId}")
-    public ResponseEntity<?> addSelfFeedback(@PathVariable String goalId, @RequestBody GoalDto goalDto) throws NoSuchGoalExistsException {
+    public ResponseEntity<?> addSelfFeedback(@PathVariable String goalId, @RequestBody GoalDto goalDto) {
         log.info("setting goal feedback");
         GoalDto result = goalService.addSelfFeedback(Long.parseLong(goalId), goalDto);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
     //to add self feedback on individual goal
     @PutMapping("/managerFeedback/{goalId}")
-    public ResponseEntity<?> addManagerFeedback(@PathVariable String goalId, @RequestBody GoalDto goalDto) throws NoSuchGoalExistsException {
+    public ResponseEntity<?> addManagerFeedback(@PathVariable String goalId, @RequestBody GoalDto goalDto)  {
         log.info("setting goal feedback");
         GoalDto result = goalService.addManagerFeedback(Long.parseLong(goalId), goalDto);
         return ResponseEntity.status(HttpStatus.OK).body(result);

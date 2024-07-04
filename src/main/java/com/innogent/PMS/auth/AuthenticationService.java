@@ -41,18 +41,6 @@ public class AuthenticationService {
         user.setRole(roleRepository.findByName(userDto.getRole().getName()));
         return customMapper.userEntityToDto(repository.save(user));
     }
-//    public AuthenticationResponse authenticate(AuthenticationRequest request) throws NoSuchUserExistsException {
-//        authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(
-//                        request.getEmail(),
-//                        request.getPassword()
-//                )
-//        );
-//        var user = repository.findByEmail(request.getEmail()).orElseThrow(()->new NoSuchUserExistsException("User Not Exists With Email : "+request.getEmail(), HttpStatus.NOT_FOUND));
-//        var jwtToken = jwtService.generateToken(user);
-//        return AuthenticationResponse.builder().token(jwtToken).build();
-//    }
-
     public AuthenticationResponse signInUser(AuthenticationRequest request) throws GenericException {
         try {
             authenticationManager.authenticate(

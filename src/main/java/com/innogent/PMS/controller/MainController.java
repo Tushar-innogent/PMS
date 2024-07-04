@@ -18,6 +18,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * This Rest controller handles user module related api's
+ */
 @Log4j2
 @RestController
 @RequestMapping("/api/user")
